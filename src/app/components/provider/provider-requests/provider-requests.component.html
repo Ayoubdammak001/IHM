@@ -1,0 +1,56 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title mb-0">Service Requests</h2>
+    </div>
+    <div class="card-body">
+      <!-- État de chargement -->
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <!-- Liste des demandes -->
+      <div *ngIf="!loading && !error">
+        <div *ngIf="requests.length === 0" class="text-center py-3">
+          <p class="text-muted">No requests found</p>
+        </div>
+
+        <div class="list-group" *ngIf="requests.length > 0">
+          <div *ngFor="let request of requests" class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="mb-1">Service ID: {{ request.serviceId }}</h5>
+                <p class="mb-1">Client ID: {{ request.clientId }}</p>
+                <p class="mb-1">Date: {{ request.reservationDate | date:'medium' }}</p>
+                <span class="badge" [ngClass]="{
+                  'bg-warning': request.status === 'PENDING',
+                  'bg-success': request.status === 'ACCEPTED',
+                  'bg-danger': request.status === 'REJECTED',
+                  'bg-info': request.status === 'COMPLETED',
+                  'bg-secondary': request.status === 'CANCELLED'
+                }">
+                  {{ request.status }}
+                </span>
+              </div>
+              <div class="btn-group" *ngIf="request.status === 'PENDING'">
+                <button class="btn btn-sm btn-success" (click)="updateStatus(request.id, 'ACCEPTED')">
+                  Accept
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="updateStatus(request.id, 'REJECTED')">
+                  Reject
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

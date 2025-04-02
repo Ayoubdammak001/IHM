@@ -1,0 +1,97 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@example.com",
+      "address": "123 Main St",
+      "phoneNumber": "1234567890",
+      "active": true,
+      "password": "password123",
+      "role": "CLIENT",
+      "gender": "MALE"
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane@example.com",
+      "address": "456 Oak St",
+      "phoneNumber": "0987654321",
+      "active": true,
+      "password": "password123",
+      "role": "PROVIDER",
+      "gender": "FEMALE",
+      "skills": ["Plumbing", "Electrical"],
+      "services": [1, 2]
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Basic Plumbing",
+      "category": 1,
+      "description": "Basic plumbing services including repairs and installations",
+      "price": 75.00
+    },
+    {
+      "id": 2,
+      "name": "Electrical Repair",
+      "category": 2,
+      "description": "Electrical repair and installation services",
+      "price": 85.00
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Plumbing",
+      "subCategories": [
+        {
+          "id": 1,
+          "name": "Repairs"
+        },
+        {
+          "id": 2,
+          "name": "Installation"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Electrical",
+      "subCategories": [
+        {
+          "id": 3,
+          "name": "Repairs"
+        },
+        {
+          "id": 4,
+          "name": "Installation"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "rating": 5,
+      "comment": "Excellent service!",
+      "date": "2024-03-15T10:00:00Z",
+      "clientId": 1,
+      "providerId": 2,
+      "serviceId": 1
+    }
+  ],
+  "reservations": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "providerId": 2,
+      "serviceId": 1,
+      "reservationDate": "2024-03-20T14:00:00Z",
+      "status": "PENDING"
+    }
+  ]
+}

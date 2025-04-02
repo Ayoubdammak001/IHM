@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">My Reservations</h1>
+
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <div *ngIf="!loading && !error">
+        <div *ngIf="reservations.length === 0" class="text-center py-5">
+          <p class="text-muted">You don't have any reservations yet.</p>
+          <a routerLink="/services" class="btn btn-primary">Browse Services</a>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-4" *ngFor="let reservation of reservations">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Service #{{ reservation.serviceId }}</h5>
+                <p class="card-text">
+                  <strong>Date:</strong> {{ reservation.reservationDate | date:'medium' }}<br>
+                  <strong>Status:</strong> 
+                  <span class="badge" [ngClass]="{
+                    'bg-warning': reservation.status === 'PENDING',
+                    'bg-success': reservation.status === 'ACCEPTED',
+                    'bg-danger': reservation.status === 'REJECTED',
+                    'bg-info': reservation.status === 'COMPLETED',
+                    'bg-secondary': reservation.status === 'CANCELLED'
+                  }">
+                    {{ reservation.status }}
+                  </span>
+                </p>
+                <a [routerLink]="['/service', reservation.serviceId]" class="btn btn-outline-primary">View Service</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

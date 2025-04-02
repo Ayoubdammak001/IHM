@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title mb-0">My Profile</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" formControlName="firstName">
+              <div class="invalid-feedback" *ngIf="profileForm.get('firstName')?.errors?.['required'] && profileForm.get('firstName')?.touched">
+                First name is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" formControlName="lastName">
+              <div class="invalid-feedback" *ngIf="profileForm.get('lastName')?.errors?.['required'] && profileForm.get('lastName')?.touched">
+                Last name is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" formControlName="email">
+              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.errors?.['required'] && profileForm.get('email')?.touched">
+                Email is required
+              </div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.errors?.['email'] && profileForm.get('email')?.touched">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+              <div class="invalid-feedback" *ngIf="profileForm.get('phoneNumber')?.errors?.['required'] && profileForm.get('phoneNumber')?.touched">
+                Phone number is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <textarea class="form-control" id="address" rows="3" formControlName="address"></textarea>
+              <div class="invalid-feedback" *ngIf="profileForm.get('address')?.errors?.['required'] && profileForm.get('address')?.touched">
+                Address is required
+              </div>
+            </div>
+
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+
+            <div *ngIf="success" class="alert alert-success" role="alert">
+              Profile updated successfully!
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+              Update Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

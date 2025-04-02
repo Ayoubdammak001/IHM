@@ -1,0 +1,154 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">Admin Dashboard</h1>
+
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <!-- Statistiques -->
+      <div class="row mb-4">
+        <div class="col-md-2">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <h5 class="card-title">Total Users</h5>
+              <p class="card-text display-6">{{ totalUsers }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <h5 class="card-title">Providers</h5>
+              <p class="card-text display-6">{{ totalProviders }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <h5 class="card-title">Clients</h5>
+              <p class="card-text display-6">{{ totalClients }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card bg-warning text-white">
+            <div class="card-body">
+              <h5 class="card-title">Services</h5>
+              <p class="card-text display-6">{{ totalServices }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card bg-secondary text-white">
+            <div class="card-body">
+              <h5 class="card-title">Categories</h5>
+              <p class="card-text display-6">{{ totalCategories }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card bg-dark text-white">
+            <div class="card-body">
+              <h5 class="card-title">Reviews</h5>
+              <p class="card-text display-6">{{ totalReviews }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Liste des utilisateurs -->
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title mb-0">Users</h2>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users">
+                      <td>{{ user.username }} </td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.role }}</td>
+                      <td>
+                        <span class="badge" [ngClass]="user.status ? 'bg-success' : 'bg-danger'">
+                          {{ user.status ? 'status' : 'Instatus' }}
+                        </span>
+                      </td>
+                      <td>
+                        <button class="btn btn-sm"
+                                [ngClass]="user.status ? 'btn-danger' : 'btn-success'"
+                                (click)="toggleUserStatus(user.id, user.status)">
+                          {{ user.status ? 'Deactivate' : 'Activate' }}
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Liste des catégories -->
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h2 class="card-title mb-0">Categories</h2>
+              <button class="btn btn-primary btn-sm" routerLink="/admin/categories/new">
+                Add Category
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let category of categories">
+                      <td>{{ category.name }}</td>
+                      <td>{{ category.description }}</td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary me-2"
+                                [routerLink]="['/admin/categories', category.id, 'edit']">
+                          Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title mb-0">Messages</h2>
+        </div>
+        <div class="card-body">
+          <!-- Formulaire d'envoi de message -->
+          <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="mb-4">
+            <div class="mb-3">
+              <label for="recipientId" class="form-label">To</label>
+              <input type="number" class="form-control" id="recipientId" formControlName="recipientId">
+              <div class="invalid-feedback" *ngIf="messageForm.get('recipientId')?.errors?.['required'] && messageForm.get('recipientId')?.touched">
+                Recipient ID is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="content" class="form-label">Message</label>
+              <textarea class="form-control" id="content" rows="3" formControlName="content"></textarea>
+              <div class="invalid-feedback" *ngIf="messageForm.get('content')?.errors?.['required'] && messageForm.get('content')?.touched">
+                Message content is required
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="messageForm.invalid || sending">
+              <span *ngIf="sending" class="spinner-border spinner-border-sm me-1"></span>
+              Send Message
+            </button>
+          </form>
+
+          <!-- Liste des messages -->
+          <div *ngIf="loading" class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            {{ error }}
+          </div>
+
+          <div *ngIf="!loading && !error">
+            <div *ngIf="messages.length === 0" class="text-center py-3">
+              <p class="text-muted">No messages yet</p>
+            </div>
+
+            <div class="list-group">
+              <div *ngFor="let message of messages" class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-1">From: User #{{ message.senderId }}</h6>
+                    <p class="mb-1">{{ message.content }}</p>
+                    <small class="text-muted">{{ message.date | date:'medium' }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

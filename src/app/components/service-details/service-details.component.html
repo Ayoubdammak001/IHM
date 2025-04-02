@@ -1,0 +1,96 @@
+<div class="container mt-4">
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="service && !loading" class="card">
+    <div class="card-body">
+      <h2 class="card-title">{{ service.name }}</h2>
+      <p class="card-text">{{ service.description }}</p>
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Price:</strong> ${{ service.price }}</p>
+          <p><strong>Duration:</strong> {{ service.duration }} minutes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="service && !loading" class="row">
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h1 class="card-title">{{ service.name }}</h1>
+          <p class="card-text">{{ service.description }}</p>
+          <p class="card-text">
+            <strong>Category:</strong> {{ service.category?.name }}
+          </p>
+          <p class="card-text">
+            <strong>Price:</strong> ${{ service.price }}
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Reviews</h2>
+          <div *ngIf="reviews.length === 0" class="text-center py-3">
+            <p class="text-muted">No reviews yet</p>
+          </div>
+          <div *ngFor="let review of reviews" class="border-bottom pb-3 mb-3">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="stars">
+                  <span *ngFor="let star of [1,2,3,4,5]" class="star">
+                    <i class="fas" [ngClass]="star <= review.rating ? 'fa-star text-warning' : 'fa-star-o'"></i>
+                  </span>
+                </div>
+                <p class="mb-1">{{ review.comment }}</p>
+                <small class="text-muted">{{ review.date | date }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Make a Reservation</h3>
+          <form (ngSubmit)="makeReservation()">
+            <div class="mb-3">
+              <label for="reservationDate" class="form-label">Select Date and Time</label>
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="reservationDate"
+                [(ngModel)]="reservationDate"
+                name="reservationDate"
+                required
+              >
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="!reservationDate || !isClient"
+            >
+              Reserve Now
+            </button>
+
+            <div *ngIf="!isClient" class="alert alert-info mt-3">
+              Please <a routerLink="/login">login</a> as a client to make a reservation.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

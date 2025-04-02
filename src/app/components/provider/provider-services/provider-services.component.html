@@ -1,0 +1,131 @@
+<div class="container mt-4">
+  <div class="row">
+    <!-- Formulaire d'ajout/modification de service -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title mb-0">{{ editingServiceId ? 'Edit' : 'Add' }} Service</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name">
+              <div class="invalid-feedback" *ngIf="serviceForm.get('name')?.errors?.['required'] && serviceForm.get('name')?.touched">
+                Name is required
+              </div>
+              <div class="invalid-feedback" *ngIf="serviceForm.get('name')?.errors?.['minlength'] && serviceForm.get('name')?.touched">
+                Name must be at least 3 characters
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+              <div class="invalid-feedback" *ngIf="serviceForm.get('description')?.errors?.['required'] && serviceForm.get('description')?.touched">
+                Description is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price</label>
+              <input type="number" class="form-control" id="price" formControlName="price">
+              <div class="invalid-feedback" *ngIf="serviceForm.get('price')?.errors?.['required'] && serviceForm.get('price')?.touched">
+                Price is required
+              </div>
+              <div class="invalid-feedback" *ngIf="serviceForm.get('price')?.errors?.['min'] && serviceForm.get('price')?.touched">
+                Price must be greater than 0
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="categoryId" class="form-label">Category</label>
+              <select class="form-select" id="categoryId" formControlName="categoryId">
+                <option value="">Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+              <div class="invalid-feedback" *ngIf="serviceForm.get('categoryId')?.errors?.['required'] && serviceForm.get('categoryId')?.touched">
+                Category is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="duration" class="form-label">Duration (hours)</label>
+              <input type="number" class="form-control" id="duration" formControlName="duration">
+              <div class="invalid-feedback" *ngIf="serviceForm.get('duration')?.errors?.['required'] && serviceForm.get('duration')?.touched">
+                Duration is required
+              </div>
+              <div class="invalid-feedback" *ngIf="serviceForm.get('duration')?.errors?.['min'] && serviceForm.get('duration')?.touched">
+                Duration must be at least 1 hour
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid || submitting">
+                <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                {{ editingServiceId ? 'Update' : 'Add' }} Service
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="editingServiceId">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Liste des services -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title mb-0">My Services</h2>
+        </div>
+        <div class="card-body">
+          <!-- État de chargement -->
+          <div *ngIf="loading" class="text-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Message d'erreur -->
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            {{ error }}
+          </div>
+
+          <!-- Liste des services -->
+          <div *ngIf="!loading && !error">
+            <div *ngIf="services.length === 0" class="text-center py-3">
+              <p class="text-muted">No services found</p>
+            </div>
+
+            <div class="list-group" *ngIf="services.length > 0">
+              <div *ngFor="let service of services" class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h5 class="mb-1">{{ service.name }}</h5>
+                    <p class="mb-1">{{ service.description }}</p>
+                    <p class="mb-1">
+                      <strong>Price:</strong> ${{ service.price }} | 
+                      <strong>Category:</strong> {{ getCategoryName(service.categoryId) }}
+                    </p>
+                  </div>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-primary" (click)="editService(service)">
+                      Edit
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteService(service.id)">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

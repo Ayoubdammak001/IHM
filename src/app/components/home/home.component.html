@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <!-- Hero Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card bg-primary text-white">
+        <div class="card-body text-center py-5">
+          <h1 class="display-4">Welcome to ServiceHub</h1>
+          <p class="lead">Find and book the best services in your area</p>
+          <a routerLink="/services" class="btn btn-light btn-lg">Browse Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="mb-3">Categories</h2>
+      <div class="row">
+        <div class="col-md-3 mb-3" *ngFor="let category of categories">
+          <div class="card h-100">
+            <img [src]="category.imageUrl || 'assets/images/category-placeholder.jpg'" 
+                 class="card-img-top" 
+                 [alt]="category.name">
+            <div class="card-body">
+              <h5 class="card-title">{{ category.name }}</h5>
+              <p class="card-text">{{ category.description }}</p>
+              <a [routerLink]="['/services']" 
+                 [queryParams]="{category: category.id}" 
+                 class="btn btn-outline-primary">View Services</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Services Section -->
+  <div class="row">
+    <div class="col-12">
+      <h2 class="mb-3">Featured Services</h2>
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3" *ngFor="let service of services">
+          <div class="card h-100">
+            <img [src]="service.imageUrl || 'assets/images/service-placeholder.jpg'" 
+                 class="card-img-top" 
+                 [alt]="service.name">
+            <div class="card-body">
+              <h5 class="card-title">{{ service.name }}</h5>
+              <p class="card-text">{{ service.description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="h5 mb-0">${{ service.price }}</span>
+                <a [routerLink]="['/service', service.id]" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
