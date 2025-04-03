@@ -1,0 +1,54 @@
+<c-container>
+  <c-row>
+    <c-col xs="12">
+      <c-card>
+        <c-card-body>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>My Reservations</h2>
+          </div>
+
+          <table cTable hover responsive>
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Provider</th>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let reservation of reservations">
+              <td>{{ reservation.id }}</td>
+              <td>{{ reservation.providerId }}</td>
+              <td>{{ reservation.serviceId }}</td>
+              <td>{{ reservation.reservationDate | date: 'medium' }}</td>
+              <td>
+                <c-badge [color]="getBadgeColor(reservation.status)">
+                  {{ reservation.status }}
+                </c-badge>
+              </td>
+              <td>
+                <button
+                  cButton
+                  color="danger"
+                  size="sm"
+                  *ngIf="reservation.status === ReservationStatus.PENDING || reservation.status === ReservationStatus.COMPLETED"
+                  (click)="cancelReservation(reservation.id)"
+                >
+                  Cancel
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="reservations.length === 0">
+              <td colspan="6" class="text-center">No reservations found</td>
+            </tr>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

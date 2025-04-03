@@ -1,0 +1,150 @@
+<c-container>
+    <c-row>
+        <c-col xs="12">
+            <!-- Success and Error Alerts -->
+            <div *ngIf="success" class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                {{ success }}
+                <button type="button" class="btn-close" aria-label="Close" (click)="success = ''"></button>
+            </div>
+            
+            <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" aria-label="Close" (click)="error = ''"></button>
+            </div>
+
+            <!-- New Message Form -->
+            <c-card class="mb-4">
+                <c-card-body>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>New Message</h2>
+                    </div>
+
+                    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" cForm>
+                        <c-row>
+                            <c-col md="6">
+                                <div class="mb-3">
+                                    <label class="form-label">Recipient ID</label>
+                                    <input
+                                        formControlName="receiverId"
+                                        type="number"
+                                        cFormControl
+                                        [ngClass]="{'is-invalid': messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched}"
+                                    />
+                                    <div *ngIf="messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched" class="invalid-feedback">
+                                        Recipient ID is required
+                                    </div>
+                                </div>
+                            </c-col>
+                            <c-col md="6">
+                                <div class="mb-3">
+                                    <label class="form-label">Subject</label>
+                                    <input
+                                        formControlName="subject"
+                                        cFormControl
+                                        [ngClass]="{'is-invalid': messageForm.get('subject')?.invalid && messageForm.get('subject')?.touched}"
+                                    />
+                                    <div *ngIf="messageForm.get('subject')?.invalid && messageForm.get('subject')?.touched" class="invalid-feedback">
+                                        Subject is required
+                                    </div>
+                                </div>
+                            </c-col>
+                        </c-row>
+
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea
+                                formControlName="content"
+                                cFormControl
+                                rows="3"
+                                [ngClass]="{'is-invalid': messageForm.get('content')?.invalid && messageForm.get('content')?.touched}"
+                            ></textarea>
+                            <div *ngIf="messageForm.get('content')?.invalid && messageForm.get('content')?.touched" class="invalid-feedback">
+                                Message content is required
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <button cButton color="primary" type="submit" [disabled]="messageForm.invalid || loading">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </c-card-body>
+            </c-card>
+
+            <!-- Messages List -->
+            <c-card>
+                <c-card-body>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>My Messages</h2>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div *ngIf="loading && messages.length === 0" class="text-center my-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading messages...</p>
+                    </div>
+
+                    <table cTable hover *ngIf="!loading || messages.length > 0">
+                        <thead>
+                            <tr>
+                                <th>From/To</th>
+                                <th>Content</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let message of messages" [class.fw-bold]="!message.read && message.recipientId === currentClientId">
+                                <td>
+                                    <ng-container *ngIf="message.senderId === currentClientId">
+                                        To: {{ message.recipientId }}
+                                    </ng-container>
+                                    <ng-container *ngIf="message.recipientId === currentClientId">
+                                        From: {{ message.senderId }}
+                                    </ng-container>
+                                </td>
+                                <td>{{ message.content }}</td>
+                                <td>{{ message.date | date:'medium' }}</td>
+                                <td>
+                                    <c-badge [color]="message.read ? 'success' : 'warning'">
+                                        {{ message.read ? 'Read' : 'Unread' }}
+                                    </c-badge>
+                                </td>
+                                <td>
+                                    <button 
+                                        *ngIf="!message.read && message.recipientId === currentClientId"
+                                        cButton 
+                                        color="primary" 
+                                        size="sm"
+                                        class="me-2"
+                                        (click)="markAsRead(message.id)"
+                                        [disabled]="loading"
+                                    >
+                                        Mark as Read
+                                    </button>
+                                    <button 
+                                        cButton 
+                                        color="danger" 
+                                        size="sm" 
+                                        (click)="deleteMessage(message.id)"
+                                        [disabled]="loading"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="messages.length === 0 && !loading">
+                                <td colspan="5" class="text-center">No messages found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </c-card-body>
+            </c-card>
+        </c-col>
+    </c-row>
+</c-container> 
