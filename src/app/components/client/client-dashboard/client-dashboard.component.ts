@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';  // Importer CommonModule
+import { RouterModule } from '@angular/router';  // Importer RouterModule
 import { ReservationService } from '../../../services/reservation.service';
 import { ReviewService } from '../../../services/review.service';
 import { AuthService } from '../../../services/auth.service';
@@ -8,7 +10,9 @@ import { Review } from '../../../models/review.model';
 @Component({
   selector: 'app-client-dashboard',
   templateUrl: './client-dashboard.component.html',
-  styleUrls: ['./client-dashboard.component.scss']
+  styleUrls: ['./client-dashboard.component.scss'],
+  standalone: true,  // Ce composant est standalone
+  imports: [CommonModule, RouterModule]  // Importer les modules nécessaires
 })
 export class ClientDashboardComponent implements OnInit {
   reservations: Reservation[] = [];
@@ -53,4 +57,4 @@ export class ClientDashboardComponent implements OnInit {
       }
     });
   }
-} 
+}
