@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category.model';
 
 @Component({
   selector: 'app-admin-categories',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule], // Correct imports for standalone
   templateUrl: './admin-categories.component.html',
   styleUrls: ['./admin-categories.component.scss']
 })
@@ -106,4 +111,4 @@ export class AdminCategoriesComponent implements OnInit {
     this.editingCategoryId = null;
     this.submitting = false;
   }
-} 
+}

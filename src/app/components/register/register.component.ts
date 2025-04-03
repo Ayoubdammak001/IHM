@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { UserService } from '../../services/user.service';
 import { Role, Gender } from '../../models/enums';
 
 @Component({
   selector: 'app-register',
+  standalone: true, // ✅ composant autonome
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  imports: [
+    CommonModule,          // ✅ *ngIf, *ngFor, ngClass...
+    ReactiveFormsModule,   // ✅ [formGroup], [formControlName]...
+    RouterModule           // ✅ routerLink dans le template
+  ]
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -34,9 +42,7 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    if (this.registerForm.invalid) {
-      return;
-    }
+    if (this.registerForm.invalid) return;
 
     this.loading = true;
     this.error = '';
@@ -51,10 +57,10 @@ export class RegisterComponent {
         this.loading = false;
         this.router.navigate(['/login']);
       },
-      error: (error) => {
+      error: () => {
         this.loading = false;
         this.error = 'Error during registration. Please try again.';
       }
     });
   }
-} 
+}

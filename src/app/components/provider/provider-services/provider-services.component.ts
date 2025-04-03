@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ServiceService } from '../../../services/service.service';
 import { CategoryService } from '../../../services/category.service';
 import { AuthService } from '../../../services/auth.service';
 import { Service } from '../../../models/service.model';
 import { Category } from '../../../models/category.model';
 
+import { NgIf, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-provider-services',
+  standalone: true,
   templateUrl: './provider-services.component.html',
-  styleUrls: ['./provider-services.component.scss']
+  styleUrls: ['./provider-services.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    NgFor,
+    
+  ]
 })
 export class ProviderServicesComponent implements OnInit {
   services: Service[] = [];
@@ -68,6 +81,11 @@ export class ProviderServicesComponent implements OnInit {
         }
       });
     }
+  }
+
+  getCategoryName(categoryId: number): string {
+    const category = this.categories.find(c => c.id === categoryId);
+    return category ? category.name : 'Unknown';
   }
 
   onSubmit(): void {
@@ -144,4 +162,4 @@ export class ProviderServicesComponent implements OnInit {
     this.editingServiceId = null;
     this.submitting = false;
   }
-} 
+}

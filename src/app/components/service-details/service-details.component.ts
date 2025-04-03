@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ServiceService } from '../../services/service.service';
 import { ReviewService } from '../../services/review.service';
 import { ReservationService } from '../../services/reservation.service';
@@ -7,12 +7,21 @@ import { AuthService } from '../../services/auth.service';
 import { Service } from '../../models/service.model';
 import { Review } from '../../models/review.model';
 import { ReservationStatus, Role } from '../../models/enums';
-import { FormsModule } from '@angular/forms'; // ← important
+
+// 🛠️ Modules Angular nécessaires pour le template
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-service-details',
+  standalone: true, // ✅ active standalone
   templateUrl: './service-details.component.html',
   styleUrls: ['./service-details.component.scss'],
+  imports: [
+    CommonModule,   // ✅ *ngIf, *ngFor, ngClass, date pipe...
+    FormsModule,    // ✅ [(ngModel)]
+    RouterModule    // ✅ routerLink
+  ]
 })
 export class ServiceDetailsComponent implements OnInit {
   service: Service | null = null;
@@ -37,19 +46,19 @@ export class ServiceDetailsComponent implements OnInit {
     const serviceId = Number(this.route.snapshot.paramMap.get('id'));
     if (serviceId) {
       this.loadService(serviceId);
+      this.loadReviews(serviceId);
     }
-    this.loadReviews(serviceId);
   }
 
   private loadService(id: number): void {
     this.loading = true;
     this.error = '';
     this.serviceService.getById(id).subscribe({
-      next: (service) => {
+      next: (service: Service) => {  // Typage explicite pour service
         this.service = service;
         this.loading = false;
       },
-      error: (err) => {
+      error: (err: any) => {  // Typage explicite pour err
         this.error = 'Error loading service: ' + err.message;
         this.loading = false;
       }
@@ -58,19 +67,17 @@ export class ServiceDetailsComponent implements OnInit {
 
   private loadReviews(serviceId: number): void {
     this.reviewService.getByServiceId(serviceId).subscribe({
-      next: (reviews) => {
+      next: (reviews: Review[]) => {  // Typage explicite pour reviews
         this.reviews = reviews;
       },
-      error: (error) => {
+      error: (error: any) => {  // Typage explicite pour error
         console.error('Error loading reviews:', error);
       }
     });
   }
 
   makeReservation(): void {
-    if (!this.service || !this.reservationDate) {
-      return;
-    }
+    if (!this.service || !this.reservationDate) return;
 
     const currentUser = this.authService.currentUserValue;
     if (!currentUser) {
@@ -87,12 +94,8 @@ export class ServiceDetailsComponent implements OnInit {
     };
 
     this.reservationService.add(reservation).subscribe({
-      next: () => {
-        this.router.navigate(['/client/reservations']);
-      },
-      error: (error) => {
-        this.error = 'Error making reservation. Please try again.';
-      }
+      next: () => this.router.navigate(['/client/reservations']),
+      error: () => this.error = 'Error making reservation. Please try again.'
     });
   }
 }

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { ReviewService } from '../../../services/review.service';
 import { AuthService } from '../../../services/auth.service';
 import { Review } from '../../../models/review.model';
 
 @Component({
   selector: 'app-provider-reviews',
+  standalone: true,
+  imports: [CommonModule, NgIf, NgForOf, NgClass, DatePipe],
   templateUrl: './provider-reviews.component.html',
   styleUrls: ['./provider-reviews.component.scss']
 })
@@ -42,8 +45,8 @@ export class ProviderReviewsComponent implements OnInit {
   }
 
   getStarRating(rating: number): string[] {
-    return Array(5).fill('★').map((star, index) => 
+    return Array(5).fill('★').map((_, index) =>
       index < rating ? 'text-warning' : 'text-muted'
     );
   }
-} 
+}

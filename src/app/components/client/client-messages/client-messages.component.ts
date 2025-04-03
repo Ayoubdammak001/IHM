@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AuthService } from '../../../services/auth.service';
 import { MessageService } from '../../../services/message.service';
 import { Message } from '../../../models/message.model';
 
 @Component({
   selector: 'app-client-messages',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './client-messages.component.html',
   styleUrls: ['./client-messages.component.scss']
 })
@@ -40,7 +44,7 @@ export class ClientMessagesComponent implements OnInit {
         this.messages = messages;
         this.loading = false;
       },
-      error: (error) => {
+      error: () => {
         this.error = 'Error loading messages. Please try again later.';
         this.loading = false;
       }
@@ -48,9 +52,7 @@ export class ClientMessagesComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.messageForm.invalid) {
-      return;
-    }
+    if (this.messageForm.invalid) return;
 
     this.sending = true;
     this.error = '';
@@ -69,11 +71,11 @@ export class ClientMessagesComponent implements OnInit {
           this.messageForm.reset();
           this.loadMessages(currentUser.id);
         },
-        error: (error) => {
+        error: () => {
           this.sending = false;
           this.error = 'Error sending message. Please try again.';
         }
       });
     }
   }
-} 
+}

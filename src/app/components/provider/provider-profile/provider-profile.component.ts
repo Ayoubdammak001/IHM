@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-provider-profile',
+  standalone: true, // ✅ Composant standalone
+  imports: [CommonModule, ReactiveFormsModule], // ✅ Import requis pour *ngIf, [formGroup], etc.
   templateUrl: './provider-profile.component.html',
   styleUrls: ['./provider-profile.component.scss']
 })
@@ -53,9 +57,7 @@ export class ProviderProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.profileForm.invalid) {
-      return;
-    }
+    if (this.profileForm.invalid) return;
 
     this.submitting = true;
     this.error = '';
@@ -81,4 +83,4 @@ export class ProviderProfileComponent implements OnInit {
       });
     }
   }
-} 
+}

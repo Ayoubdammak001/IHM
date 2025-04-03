@@ -8,7 +8,7 @@ import { Service } from '../models/service.model';
   providedIn: 'root'
 })
 export class ServiceService {
-  private apiUrl = 'assets/db.json';
+  private apiUrl = 'assets/db.json';  // Remplace cette URL par l'URL réelle de ton API.
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +20,7 @@ export class ServiceService {
 
   getById(id: number): Observable<Service> {
     return this.http.get<any>(this.apiUrl).pipe(
-      map(data => data.services.find((service: Service) => service.id === id))
+      map(data => data.services.find((service: Service) => service.id === id))  // Recherche du service par ID
     );
   }
 
@@ -37,7 +37,6 @@ export class ServiceService {
   }
 
   add(service: Omit<Service, 'id'>): Observable<Service> {
-    // Dans un vrai backend, ceci serait une requête POST
     return this.http.get<any>(this.apiUrl).pipe(
       map(data => {
         const newService = {
@@ -51,7 +50,6 @@ export class ServiceService {
   }
 
   update(id: number, service: Partial<Service>): Observable<Service> {
-    // Dans un vrai backend, ceci serait une requête PUT
     return this.http.get<any>(this.apiUrl).pipe(
       map(data => {
         const index = data.services.findIndex((s: Service) => s.id === id);
@@ -65,7 +63,6 @@ export class ServiceService {
   }
 
   delete(id: number): Observable<void> {
-    // Dans un vrai backend, ceci serait une requête DELETE
     return this.http.get<any>(this.apiUrl).pipe(
       map(data => {
         const index = data.services.findIndex((s: Service) => s.id === id);
@@ -75,4 +72,4 @@ export class ServiceService {
       })
     );
   }
-} 
+}

@@ -8,18 +8,10 @@
         <div class="card-body">
           <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName" formControlName="firstName">
-              <div class="invalid-feedback" *ngIf="profileForm.get('firstName')?.errors?.['required'] && profileForm.get('firstName')?.touched">
-                First name is required
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastName" formControlName="lastName">
-              <div class="invalid-feedback" *ngIf="profileForm.get('lastName')?.errors?.['required'] && profileForm.get('lastName')?.touched">
-                Last name is required
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" formControlName="username">
+              <div class="invalid-feedback" *ngIf="profileForm.get('username')?.errors?.['required'] && profileForm.get('username')?.touched">
+                Username is required
               </div>
             </div>
 
@@ -35,10 +27,10 @@
             </div>
 
             <div class="mb-3">
-              <label for="phoneNumber" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
-              <div class="invalid-feedback" *ngIf="profileForm.get('phoneNumber')?.errors?.['required'] && profileForm.get('phoneNumber')?.touched">
-                Phone number is required
+              <label for="phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" id="phone" formControlName="phone">
+              <div class="invalid-feedback" *ngIf="profileForm.get('phone')?.errors?.['required'] && profileForm.get('phone')?.touched">
+                Phone is required
               </div>
             </div>
 
@@ -67,4 +59,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>

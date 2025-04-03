@@ -3,23 +3,31 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
+// Importer CommonModule ici pour qu'il soit accessible dans tous les composants
+import { CommonModule } from '@angular/common';  // Important pour *ngIf, *ngFor, etc.
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+// ✅ Public components (non-standalone)
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { ServiceDetailsComponent } from './components/service-details/service-details.component';
+
+// ✅ Client components
 import { ClientDashboardComponent } from './components/client/client-dashboard/client-dashboard.component';
 import { ClientProfileComponent } from './components/client/client-profile/client-profile.component';
 import { ClientReviewsComponent } from './components/client/client-reviews/client-reviews.component';
 import { ClientMessagesComponent } from './components/client/client-messages/client-messages.component';
+
+// ✅ Provider components (uniquement ceux qui NE sont PAS standalone)
 import { ProviderDashboardComponent } from './components/provider/provider-dashboard/provider-dashboard.component';
-import { ProviderProfileComponent } from './components/provider/provider-profile/provider-profile.component';
-import { ProviderRequestsComponent } from './components/provider/provider-requests/provider-requests.component';
-import { ProviderServicesComponent } from './components/provider/provider-services/provider-services.component';
-import { ProviderReviewsComponent } from './components/provider/provider-reviews/provider-reviews.component';
+
+// ⚠️ `ProviderProfileComponent` est standalone, donc il ne devrait pas être ici
+// ❌ Retire-le si tu l'as converti en standalone avec `standalone: true`
+// import { ProviderProfileComponent } from './components/provider/provider-profile/provider-profile.component';
+
+// ✅ Admin components
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { AdminCategoriesComponent } from './components/admin/admin-categories/admin-categories.component';
@@ -30,17 +38,17 @@ import { AdminReviewsComponent } from './components/admin/admin-reviews/admin-re
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
-    ServiceDetailsComponent,
+
+    // Client
     ClientDashboardComponent,
     ClientProfileComponent,
     ClientReviewsComponent,
     ClientMessagesComponent,
+
+    // Provider
     ProviderDashboardComponent,
-    ProviderProfileComponent,
-    ProviderRequestsComponent,
-    ProviderServicesComponent,
-    ProviderReviewsComponent,
+
+    // Admin
     AdminDashboardComponent,
     AdminUsersComponent,
     AdminCategoriesComponent,
@@ -53,9 +61,9 @@ import { AdminReviewsComponent } from './components/admin/admin-reviews/admin-re
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    CommonModule
+    CommonModule  // Ajout de CommonModule ici
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
