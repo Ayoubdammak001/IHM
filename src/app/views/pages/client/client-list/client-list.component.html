@@ -13,18 +13,16 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Company</th>
-                                <th>Position</th>
+                                <th>Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let client of clients">
-                                <td>{{ client.firstName }} {{ client.lastName }}</td>
+                                <td>{{ client.username }}</td>
                                 <td>{{ client.email }}</td>
                                 <td>{{ client.phone }}</td>
-                                <td>{{ client.company }}</td>
-                                <td>{{ client.position }}</td>
+                                <td>{{ client.address }}</td>
                                 <td>
                                     <button cButton color="primary" size="sm" [routerLink]="['/client/profile', client.id]">
                                         View Profile

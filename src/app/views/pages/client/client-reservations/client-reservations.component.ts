@@ -37,7 +37,7 @@ import {
 })
 export class ClientReservationsComponent implements OnInit {
   reservations: Reservation[] = [];
-  currentClientId = 2;
+  currentClientId = 1;
 
   protected readonly ReservationStatus = ReservationStatus;
 
@@ -48,7 +48,7 @@ export class ClientReservationsComponent implements OnInit {
   }
 
   loadReservations(): void {
-    this.reservationService.getReservationsByClientId(this.currentClientId)
+    this.reservationService.getByClientId(this.currentClientId)
       .subscribe((reservations: Reservation[]) => {
         this.reservations = reservations;
       });

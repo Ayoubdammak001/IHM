@@ -1,27 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Client, clients } from '../data/clients';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Client } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ClientService {
-    constructor() { }
+    private apiUrl = 'http://localhost:3000/users';
+
+    constructor(private http: HttpClient) { }
 
     getClientById(id: number): Observable<Client | null> {
-        const client = clients.find(c => c.id === id);
-        return of(client || null);
+        return this.http.get<Client>(`${this.apiUrl}/${id}`);
     }
 
     getAllClients(): Observable<Client[]> {
-        return of(clients);
+        return this.http.get<Client[]>(`${this.apiUrl}?role=CLIENT`);
     }
 
     updateClient(client: Client): Observable<Client> {
-        const index = clients.findIndex(c => c.id === client.id);
-        if (index !== -1) {
-            clients[index] = client;
-        }
-        return of(client);
+        return this.http.put<Client>(`${this.apiUrl}/${client.id}`, client);
+    }
+
+    addClient(client: Omit<Client, 'id'>): Observable<Client> {
+        const newClient = {
+            ...client,
+            role: 'CLIENT',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        };
+        return this.http.post<Client>(this.apiUrl, newClient);
+    }
+
+    deleteClient(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 } 

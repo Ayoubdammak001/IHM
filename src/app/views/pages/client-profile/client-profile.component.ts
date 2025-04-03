@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../../services/client.service';
-import { Client } from '../../../data/clients';
+import { Client } from '../../../models/user.model';
 import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
 
 @Component({
@@ -37,17 +37,11 @@ export class ClientProfileComponent implements OnInit {
         private clientService: ClientService
     ) {
         this.clientForm = this.fb.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+            username: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
-            phone: ['', Validators.required],
-            address: ['', Validators.required],
-            city: ['', Validators.required],
-            state: ['', Validators.required],
-            zipCode: ['', Validators.required],
-            company: ['', Validators.required],
-            position: ['', Validators.required],
-            notes: ['']
+            phone: [''],
+            address: [''],
+            description: ['']
         });
     }
 

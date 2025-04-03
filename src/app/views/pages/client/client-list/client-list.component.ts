@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ClientService } from '../../../../services/client.service';
-import { Client } from '../../../../data/clients';
+import { Client } from '../../../../models/user.model';
 import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, TableDirective, ButtonDirective } from '@coreui/angular';
 
 @Component({

@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "John",
       "lastName": "Doe",
       "email": "john@example.com",
@@ -10,10 +10,12 @@
       "active": true,
       "password": "password123",
       "role": "CLIENT",
-      "gender": "MALE"
+      "gender": "MALE",
+      "phone": "dsdsds",
+      "description": ""
     },
     {
-      "id": 2,
+      "id": "2",
       "firstName": "Jane",
       "lastName": "Smith",
       "email": "jane@example.com",
@@ -23,29 +25,35 @@
       "password": "password123",
       "role": "PROVIDER",
       "gender": "FEMALE",
-      "skills": ["Plumbing", "Electrical"],
-      "services": [1, 2]
+      "skills": [
+        "Plumbing",
+        "Electrical"
+      ],
+      "services": [
+        1,
+        2
+      ]
     }
   ],
   "services": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Basic Plumbing",
       "category": 1,
       "description": "Basic plumbing services including repairs and installations",
-      "price": 75.00
+      "price": 75
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Electrical Repair",
       "category": 2,
       "description": "Electrical repair and installation services",
-      "price": 85.00
+      "price": 85
     }
   ],
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Plumbing",
       "subCategories": [
         {
@@ -59,7 +67,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Electrical",
       "subCategories": [
         {
@@ -75,7 +83,7 @@
   ],
   "reviews": [
     {
-      "id": 1,
+      "id": "1",
       "rating": 5,
       "comment": "Excellent service!",
       "date": "2024-03-15T10:00:00Z",
@@ -86,12 +94,12 @@
   ],
   "reservations": [
     {
-      "id": 1,
+      "id": "1",
       "clientId": 1,
       "providerId": 2,
       "serviceId": 1,
       "reservationDate": "2024-03-20T14:00:00Z",
-      "status": "PENDING"
+      "status": "ACCEPTED"
     }
   ]
 }

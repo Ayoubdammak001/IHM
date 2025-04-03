@@ -8,77 +8,53 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'assets/db.json';
+  private apiUrl = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<User[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => data.users)
-    );
+    return this.http.get<User[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<User> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => data.users.find((user: User) => user.id === id))
-    );
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
 
   getClients(): Observable<Client[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => data.users.filter((user: User) => user.role === 'CLIENT'))
+    return this.http.get<User[]>(`${this.apiUrl}?role=CLIENT`).pipe(
+      map(users => users as Client[])
     );
   }
 
   getProviders(): Observable<Provider[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => data.users.filter((user: User) => user.role === 'PROVIDER'))
+    return this.http.get<User[]>(`${this.apiUrl}?role=PROVIDER`).pipe(
+      map(users => users as Provider[])
     );
   }
 
   getAdmins(): Observable<Admin[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => data.users.filter((user: User) => user.role === 'ADMIN'))
+    return this.http.get<User[]>(`${this.apiUrl}?role=ADMIN`).pipe(
+      map(users => users as Admin[])
     );
   }
 
   add(user: Omit<User, 'id'>): Observable<User> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => {
-        const newUser = {
-          ...user,
-          id: Math.max(...data.users.map((u: User) => u.id)) + 1,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        };
-        data.users.push(newUser);
-        return newUser;
-      })
-    );
+    return this.http.post<User>(this.apiUrl, {
+      ...user,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
   }
 
   update(id: number, user: Partial<User>): Observable<User> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => {
-        const index = data.users.findIndex((u: User) => u.id === id);
-        if (index !== -1) {
-          data.users[index] = { ...data.users[index], ...user, updatedAt: new Date() };
-          return data.users[index];
-        }
-        throw new Error('User not found');
-      })
-    );
+    return this.http.patch<User>(`${this.apiUrl}/${id}`, {
+      ...user,
+      updatedAt: new Date()
+    });
   }
 
   delete(id: number): Observable<void> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(data => {
-        const index = data.users.findIndex((u: User) => u.id === id);
-        if (index !== -1) {
-          data.users.splice(index, 1);
-        }
-      })
-    );
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   updateStatus(id: number, status: boolean): Observable<User> {

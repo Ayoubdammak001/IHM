@@ -71,55 +71,13 @@ export const routes: Routes = [
       // Provider routes
       {
         path: 'provider',
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Role.PROVIDER] },
-        children: [
-          {
-            path: 'dashboard',
-            loadComponent: () => import('./components/provider/provider-dashboard/provider-dashboard.component').then(m => m.ProviderDashboardComponent)
-          },
-          {
-            path: 'profile',
-            loadComponent: () => import('./components/provider/provider-profile/provider-profile.component').then(m => m.ProviderProfileComponent)
-          },
-          {
-            path: 'requests',
-            loadComponent: () => import('./components/provider/provider-requests/provider-requests.component').then(m => m.ProviderRequestsComponent)
-          },
-          {
-            path: 'services',
-            loadComponent: () => import('./components/provider/provider-services/provider-services.component').then(m => m.ProviderServicesComponent)
-          },
-          {
-            path: 'reviews',
-            loadComponent: () => import('./components/provider/provider-reviews/provider-reviews.component').then(m => m.ProviderReviewsComponent)
-          }
-        ]
+        loadChildren: () => import('./components/provider/routes').then(m => m.routes)
       },
 
       // Admin routes
       {
         path: 'admin',
-        canActivate: [AuthGuard, RoleGuard],
-        data: { roles: [Role.ADMIN] },
-        children: [
-          {
-            path: 'dashboard',
-            loadComponent: () => import('./components/admin/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
-          },
-          {
-            path: 'users',
-            loadComponent: () => import('./components/admin/admin-users/admin-users.component').then(m => m.AdminUsersComponent)
-          },
-          {
-            path: 'categories',
-            loadComponent: () => import('./components/admin/admin-categories/admin-categories.component').then(m => m.AdminCategoriesComponent)
-          },
-          {
-            path: 'reviews',
-            loadComponent: () => import('./components/admin/admin-reviews/admin-reviews.component').then(m => m.AdminReviewsComponent)
-          }
-        ]
+        loadChildren: () => import('./components/admin/routes').then(m => m.routes)
       }
     ]
   },

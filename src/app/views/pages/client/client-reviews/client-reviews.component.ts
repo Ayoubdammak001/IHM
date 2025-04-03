@@ -35,6 +35,7 @@ export class ClientReviewsComponent implements OnInit {
   reviews: Review[] = [];
   loading = true;
   error = '';
+  currentClientId = 1;
 
   constructor(
     private reviewService: ReviewService,
@@ -42,10 +43,9 @@ export class ClientReviewsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.currentUserValue;
-    if (currentUser) {
-      this.loadReviews(currentUser.id);
-    }
+ 
+      this.loadReviews(this.currentClientId);
+    
   }
 
   private loadReviews(clientId: number): void {
