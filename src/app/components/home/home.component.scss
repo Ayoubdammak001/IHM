@@ -1,0 +1,185 @@
+.hero-section {
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #4527a0, #7b1fa2);
+}
+
+.py-6 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.mb-6 {
+  margin-bottom: 4rem;
+}
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.service-img, .category-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.testimonial-item {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.delay-2 {
+  animation-delay: 0.4s;
+}
+
+.delay-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slideInRight {
+  animation-name: slideInRight;
+}
+
+// Hero banner
+.hero-banner {
+  min-height: 500px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4527a0, #7b1fa2);
+}
+
+.hero-image {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+// Card styling
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+.category-img, 
+.service-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+// Testimonials
+.testimonial-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+// Animations
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+.fade-in-delay {
+  animation: fadeIn 1s ease-in 0.2s;
+  animation-fill-mode: both;
+}
+
+.fade-in-delay-2 {
+  animation: fadeIn 1s ease-in 0.4s;
+  animation-fill-mode: both;
+}
+
+.fade-in-delay-3 {
+  animation: fadeIn 1s ease-in 0.6s;
+  animation-fill-mode: both;
+}
+
+.fade-in-right {
+  animation: fadeInRight 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .hero-banner {
+    min-height: 400px;
+    text-align: center;
+  }
+  
+  .testimonial-card {
+    padding: 15px;
+  }
+}
+
+// Social media links
+.social-links {
+  a {
+    font-size: 1.5rem;
+    transition: opacity 0.3s;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+} 

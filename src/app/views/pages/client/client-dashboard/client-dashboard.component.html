@@ -1,0 +1,140 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">Client Dashboard</h1>
+
+      <!-- Loading state -->
+      <div *ngIf="loading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading your dashboard...</p>
+      </div>
+
+      <!-- Error state -->
+      <div *ngIf="error" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+
+      <!-- Dashboard content -->
+      <div class="row" *ngIf="!loading && !error">
+        <!-- Stats summary -->
+        <div class="col-12 mb-4">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <div class="card bg-primary text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Total Reservations</h5>
+                  <p class="card-text display-5">{{ reservations.length }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="card bg-success text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Upcoming Appointments</h5>
+                  <p class="card-text display-5">{{ getAcceptedReservationsCount() }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="card bg-info text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Reviews Given</h5>
+                  <p class="card-text display-5">{{ reviews.length }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reservations -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h2 class="card-title mb-0">My Reservations</h2>
+              <a routerLink="/client/reservations" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+              <div *ngIf="reservations.length === 0" class="text-center py-4">
+                <p class="text-muted mb-3">No reservations yet</p>
+                <a routerLink="/" class="btn btn-primary">Browse Services</a>
+              </div>
+
+              <div class="list-group" *ngIf="reservations.length > 0">
+                <div *ngFor="let reservation of reservations.slice(0, 5)" class="list-group-item list-group-item-action">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h5 class="mb-1">{{ getServiceName(reservation.serviceId) }}</h5>
+                      <p class="mb-1">Provider: {{ getProviderName(reservation.providerId) }}</p>
+                      <p class="mb-1">
+                        <small class="text-muted">
+                          Date: {{ reservation.reservationDate | date:'medium' }}
+                        </small>
+                      </p>
+                      <span class="badge" [ngClass]="{
+                        'bg-warning': reservation.status === 'PENDING',
+                        'bg-success': reservation.status === 'ACCEPTED',
+                        'bg-danger': reservation.status === 'REJECTED',
+                        'bg-info': reservation.status === 'COMPLETED',
+                        'bg-secondary': reservation.status === 'CANCELLED'
+                      }">
+                        {{ reservation.status }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h2 class="card-title mb-0">My Reviews</h2>
+              <a routerLink="/client/reviews" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+              <div *ngIf="reviews.length === 0" class="text-center py-4">
+                <p class="text-muted">No reviews yet</p>
+                <p class="text-muted small">After using a service, you can leave a review to share your experience</p>
+              </div>
+
+              <div class="list-group" *ngIf="reviews.length > 0">
+                <div *ngFor="let review of reviews.slice(0, 5)" class="list-group-item">
+                  <div>
+                    <h5 class="mb-1">{{ getServiceName(review.serviceId) }}</h5>
+                    <div class="text-warning mb-2">
+                      <span *ngFor="let filled of getStarRating(review.rating); let i = index">
+                        <i class="fas" [ngClass]="filled ? 'fa-star' : 'fa-star-o'">★</i>
+                      </span>
+                    </div>
+                    <p class="mb-1">{{ review.comment }}</p>
+                    <small class="text-muted">{{ review.date | date }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommended Services -->
+        <div class="col-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title mb-0">Recommended Services</h2>
+            </div>
+            <div class="card-body">
+              <p class="text-center text-muted">Personalized recommendations coming soon!</p>
+              <div class="text-center">
+                <a routerLink="/" class="btn btn-primary">Browse All Services</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
