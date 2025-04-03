@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Service } from '../models/service.model';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class ServiceService {
 
   getById(id: number): Observable<Service> {
     return this.http.get<Service>(`${this.apiUrl}/${id}`);
+  }
+
+  getManyByIds(ids: number[]): Observable<Service[]> {
+    return this.http.get<Service[]>(`${this.apiUrl}?${ids.map(id => `id=${id}`).join('&')}`);
   }
 
   getByProviderId(providerId: number): Observable<Service[]> {

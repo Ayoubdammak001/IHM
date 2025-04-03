@@ -12,73 +12,27 @@
       "role": "CLIENT",
       "gender": "MALE",
       "phone": "dsdsds",
-      "description": ""
-    },
-    {
-      "id": "2",
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane@example.com",
-      "address": "456 Oak St",
-      "phoneNumber": "0987654321",
-      "active": true,
-      "password": "password123",
-      "role": "PROVIDER",
-      "gender": "FEMALE",
-      "skills": [
-        "Plumbing",
-        "Electrical"
-      ],
-      "services": [
-        1,
-        2
-      ]
+      "description": "",
+      "status": true,
+      "updatedAt": "2025-04-03T13:11:50.107Z"
     }
   ],
   "services": [
     {
-      "id": "1",
+      "id": "5248",
       "name": "Basic Plumbing",
-      "category": 1,
-      "description": "Basic plumbing services including repairs and installations",
-      "price": 75
-    },
-    {
-      "id": "2",
-      "name": "Electrical Repair",
-      "category": 2,
-      "description": "Electrical repair and installation services",
-      "price": 85
+      "description": "aeaz",
+      "price": 15,
+      "categoryId": "8bd9",
+      "duration": 13,
+      "providerId": 2
     }
   ],
   "categories": [
     {
-      "id": "1",
-      "name": "Plumbing",
-      "subCategories": [
-        {
-          "id": 1,
-          "name": "Repairs"
-        },
-        {
-          "id": 2,
-          "name": "Installation"
-        }
-      ]
-    },
-    {
-      "id": "2",
-      "name": "Electrical",
-      "subCategories": [
-        {
-          "id": 3,
-          "name": "Repairs"
-        },
-        {
-          "id": 4,
-          "name": "Installation"
-        }
-      ]
+      "id": "8bd9",
+      "name": "Basic Plumbing",
+      "description": "Basic"
     }
   ],
   "reviews": [
@@ -89,7 +43,7 @@
       "date": "2024-03-15T10:00:00Z",
       "clientId": 1,
       "providerId": 2,
-      "serviceId": 1
+      "serviceId": 5248
     }
   ],
   "reservations": [

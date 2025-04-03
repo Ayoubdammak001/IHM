@@ -32,7 +32,7 @@
                           class="star" 
                           [ngClass]="starClass">★</span>
                   </div>
-                  <small class="text-muted">Service ID: {{ review.serviceId }}</small>
+                  <small class="text-muted">Service: {{ getServiceName(review.serviceId) }}</small>
                 </div>
                 <p class="mb-1">{{ review.comment }}</p>
                 <small class="text-muted">
