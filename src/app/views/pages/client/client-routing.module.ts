@@ -52,6 +52,16 @@ const routes: Routes = [
         data: {
           title: 'Client Reservations'
         }
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./client-dashboard/client-dashboard.component').then(
+            (m) => m.ClientDashboardComponent
+          ),
+        data: {
+          title: 'Dashboard'
+        }
       }
     ]
   }

@@ -1,71 +1,239 @@
-<div class="container mt-4">
-  <!-- Hero Section -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="card bg-primary text-white">
-        <div class="card-body text-center py-5">
-          <h1 class="display-4">Welcome to ServiceHub</h1>
-          <p class="lead">Find and book the best services in your area</p>
-          <a routerLink="/services" class="btn btn-light btn-lg">Browse Services</a>
+<!-- Hero Section avec bannière d'accueil -->
+<div class="hero-banner position-relative bg-primary text-white">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0 fade-in">
+        <h1 class="display-4 fw-bold mb-3">Services à domicile de qualité</h1>
+        <p class="lead mb-4">
+          Des professionnels qualifiés pour tous vos besoins. Réservation simple, service garanti.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a routerLink="/services" class="btn btn-light btn-lg">
+            Découvrir nos services
+          </a>
+          <a routerLink="/register" class="btn btn-outline-light btn-lg">
+            S'inscrire
+          </a>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Categories Section -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <h2 class="mb-3">Categories</h2>
-      <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let category of categories">
-          <div class="card h-100">
-            <img [src]="category.imageUrl || 'assets/images/category/plumbing.jpg'"
-                 class="card-img-top"
-                 [alt]="category.name">
-            <div class="card-body">
-              <h5 class="card-title">{{ category.name }}</h5>
-              <p class="card-text">{{ category.description }}</p>
-              <a [routerLink]="['/services']"
-                 [queryParams]="{category: category.id}"
-                 class="btn btn-outline-primary">View Services</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Featured Services Section -->
-  <div class="row">
-    <div class="col-12">
-      <h2 class="mb-3">Featured Services</h2>
-      <div *ngIf="loading" class="text-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
-
-      <div *ngIf="error" class="alert alert-danger" role="alert">
-        {{ error }}
-      </div>
-
-      <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let service of services">
-          <div class="card h-100">
-            <img [src]="service.imageUrl || 'assets/images/category/electrical-repair.jpg'"
-                 class="card-img-top"
-                 [alt]="service.name">
-            <div class="card-body">
-              <h5 class="card-title">{{ service.name }}</h5>
-              <p class="card-text">{{ service.description }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="h5 mb-0">${{ service.price }}</span>
-                <a [routerLink]="['/service', service.id]" class="btn btn-primary">View Details</a>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="col-lg-6 text-center text-lg-end d-none d-lg-block fade-in-right">
+        <img src="assets/images/logo.png" alt="Services à domicile" class="img-fluid rounded hero-image">
       </div>
     </div>
   </div>
 </div>
+
+<!-- Main Content -->
+<div class="container py-5">
+  <!-- Category Section -->
+  <section class="mb-5 fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="mb-0">Nos catégories</h2>
+        <p class="text-muted">Trouvez le service idéal pour vos besoins</p>
+      </div>
+      <a routerLink="/services" class="btn btn-link">Voir tout →</a>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let category of categories.slice(0, 3)">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+          <img 
+            src="{{category.imageUrl || 'assets/images/category/plumbing.jpg'}}" 
+            class="card-img-top category-img" 
+            alt="{{category.name}}">
+          <div class="card-body">
+            <h5 class="card-title">{{category.name}}</h5>
+            <p class="card-text">{{category.description}}</p>
+            <a [routerLink]="['/services']" [queryParams]="{category: category.id}" class="btn btn-outline-primary w-100">
+              Voir les services
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="mb-5 fade-in-delay">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h2 class="mb-0">Services populaires</h2>
+        <p class="text-muted">Les services les plus demandés</p>
+      </div>
+      <a routerLink="/services" class="btn btn-link">Tous les services →</a>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+      <p class="mt-3 text-muted">Chargement des services...</p>
+    </div>
+
+    <!-- Error Alert -->
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+
+    <div class="row" *ngIf="!loading && !error">
+      <div class="col-md-4 mb-4" *ngFor="let service of services.slice(0, 6)">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+          <img 
+            src="{{service.imageUrl || 'assets/images/category/plumbing.jpg'}}" 
+            class="card-img-top service-img" 
+            alt="{{service.name}}">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="card-title mb-0">{{service.name}}</h5>
+              <span class="badge bg-info rounded-pill">{{service.price}} €</span>
+            </div>
+            <p class="card-text flex-grow-1">{{service.description}}</p>
+            <div class="d-flex gap-2 mt-auto">
+              <a [routerLink]="['/service', service.id]" class="btn btn-primary flex-grow-1">
+                Réserver
+              </a>
+              <a [routerLink]="['/service', service.id]" class="btn btn-light">
+                Détails
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="mb-5 py-5 bg-light rounded fade-in-delay-2">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="mb-0">Témoignages clients</h2>
+        <p class="text-muted">Ce que disent nos clients satisfaits</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <!-- Fallback testimonial when there are no reviews -->
+              <div class="carousel-item" [class.active]="testimonials.length === 0">
+                <div class="testimonial-card text-center p-4">
+                  <div class="stars mb-3">
+                    <i class="bi bi-star-fill text-warning" *ngFor="let i of [1,2,3,4,5]"></i>
+                  </div>
+                  <p class="testimonial-text mb-4 fs-5 fst-italic">
+                    "Un service exceptionnel ! Le prestataire est arrivé à l'heure et a effectué un travail remarquable. Je recommande vivement cette plateforme pour tous vos besoins."
+                  </p>
+                  <div class="testimonial-author">
+                    <h5 class="mb-1">Marie Dupont</h5>
+                    <p class="text-muted small">Cliente satisfaite</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Dynamic testimonials from API -->
+              <div class="carousel-item" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === 0">
+                <div class="testimonial-card text-center p-4">
+                  <div class="stars mb-3">
+                    <i *ngFor="let filled of getStarRating(testimonial.rating)" 
+                       class="bi" 
+                       [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+                  </div>
+                  <p class="testimonial-text mb-4 fs-5 fst-italic">
+                    "{{ testimonial.comment }}"
+                  </p>
+                  <div class="testimonial-author">
+                    <h5 class="mb-1">Client #{{ testimonial.clientId }}</h5>
+                    <p class="text-muted small">{{ testimonial.date | date }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Précédent</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Suivant</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="mb-5 py-5 bg-primary text-white text-center rounded fade-in-delay-3">
+    <div class="container py-3">
+      <h2 class="mb-3">Prêt à simplifier votre quotidien ?</h2>
+      <p class="lead mb-4">Rejoignez des milliers de clients satisfaits aujourd'hui</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a routerLink="/services" class="btn btn-light btn-lg">Explorer les services</a>
+        <a routerLink="/register" class="btn btn-outline-light btn-lg">S'inscrire maintenant</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Company Info -->
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <h5 class="mb-3">ServiceHub</h5>
+        <p>Votre plateforme de confiance pour tous vos besoins de services à domicile. Qualité et satisfaction garanties.</p>
+        <div class="social-links mt-3">
+          <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+        <h5 class="mb-3">Liens rapides</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a routerLink="/" class="text-light text-decoration-none">Accueil</a></li>
+          <li class="mb-2"><a routerLink="/services" class="text-light text-decoration-none">Services</a></li>
+          <li class="mb-2"><a routerLink="/about" class="text-light text-decoration-none">À propos</a></li>
+          <li class="mb-2"><a routerLink="/contact" class="text-light text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+      
+      <!-- Categories -->
+      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+        <h5 class="mb-3">Catégories</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2" *ngFor="let category of categories.slice(0, 4)">
+            <a [routerLink]="['/services']" [queryParams]="{category: category.id}" class="text-light text-decoration-none">
+              {{ category.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Legal -->
+      <div class="col-lg-4 col-md-4">
+        <h5 class="mb-3">Informations légales</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a routerLink="/terms" class="text-light text-decoration-none">Conditions d'utilisation</a></li>
+          <li class="mb-2"><a routerLink="/privacy" class="text-light text-decoration-none">Politique de confidentialité</a></li>
+          <li class="mb-2"><a routerLink="/legal" class="text-light text-decoration-none">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <hr class="my-4 bg-secondary">
+    
+    <div class="row">
+      <div class="col-12 text-center">
+        <p class="mb-0">&copy; {{ 2023 }} ServiceHub. Tous droits réservés.</p>
+      </div>
+    </div>
+  </div>
+</footer>

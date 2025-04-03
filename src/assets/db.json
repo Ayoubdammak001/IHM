@@ -15,6 +15,32 @@
       "description": "",
       "status": true,
       "updatedAt": "2025-04-03T13:11:50.107Z"
+    },
+    {
+      "id": "feb9",
+      "username": "ayoub",
+      "email": "ayoub.dammak@it.ens.tn",
+      "password": "Admin**123",
+      "role": "ADMIN",
+      "phone": "+21699720020",
+      "address": "sfax",
+      "description": "none",
+      "status": true,
+      "createdAt": "2025-04-03T17:02:46.830Z",
+      "updatedAt": "2025-04-03T17:02:46.830Z"
+    },
+    {
+      "id": "36ff",
+      "username": "heni",
+      "email": "heni@gmailcom",
+      "password": "Admin**123",
+      "role": "PROVIDER",
+      "phone": "+21699720020",
+      "address": "sfax",
+      "description": "none",
+      "status": true,
+      "createdAt": "2025-04-03T17:07:57.564Z",
+      "updatedAt": "2025-04-03T17:07:57.564Z"
     }
   ],
   "services": [
