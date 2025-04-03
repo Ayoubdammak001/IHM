@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 import { ReservationService } from '../../../services/reservation.service';
 import { ReviewService } from '../../../services/review.service';
 import { ServiceService } from '../../../services/service.service';
 import { AuthService } from '../../../services/auth.service';
+
 import { Reservation } from '../../../models/reservation.model';
 import { Review } from '../../../models/review.model';
 import { Service } from '../../../models/service.model';
-import { ReservationStatus } from '../../../models/enums';
+import { ReservationStatus } from '../../../models/enums';  // L'énumération importée
 
 @Component({
   selector: 'app-provider-dashboard',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './provider-dashboard.component.html',
   styleUrls: ['./provider-dashboard.component.scss']
 })
@@ -19,6 +25,7 @@ export class ProviderDashboardComponent implements OnInit {
   services: Service[] = [];
   loading = true;
   error = '';
+  ReservationStatus = ReservationStatus;  // Exposer l'énumération à la vue
 
   constructor(
     private reservationService: ReservationService,
@@ -42,7 +49,7 @@ export class ProviderDashboardComponent implements OnInit {
         this.reservations = reservations;
         this.loading = false;
       },
-      error: (error) => {
+      error: () => {
         this.error = 'Error loading reservations. Please try again later.';
         this.loading = false;
       }
@@ -74,15 +81,14 @@ export class ProviderDashboardComponent implements OnInit {
   updateReservationStatus(reservationId: number, status: ReservationStatus): void {
     this.reservationService.updateStatus(reservationId, status).subscribe({
       next: () => {
-        // Mettre à jour la liste des réservations
         const index = this.reservations.findIndex(r => r.id === reservationId);
         if (index !== -1) {
           this.reservations[index] = { ...this.reservations[index], status };
         }
       },
-      error: (error) => {
+      error: () => {
         this.error = 'Error updating reservation status. Please try again.';
       }
     });
   }
-} 
+}

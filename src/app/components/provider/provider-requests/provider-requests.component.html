@@ -30,20 +30,20 @@
                 <p class="mb-1">Client ID: {{ request.clientId }}</p>
                 <p class="mb-1">Date: {{ request.reservationDate | date:'medium' }}</p>
                 <span class="badge" [ngClass]="{
-                  'bg-warning': request.status === 'PENDING',
-                  'bg-success': request.status === 'ACCEPTED',
-                  'bg-danger': request.status === 'REJECTED',
-                  'bg-info': request.status === 'COMPLETED',
-                  'bg-secondary': request.status === 'CANCELLED'
+                  'bg-warning': request.status === ReservationStatus.PENDING,
+                  'bg-success': request.status === ReservationStatus.ACCEPTED,
+                  'bg-danger': request.status === ReservationStatus.REJECTED,
+                  'bg-info': request.status === ReservationStatus.COMPLETED,
+                  'bg-secondary': request.status === ReservationStatus.CANCELLED
                 }">
                   {{ request.status }}
                 </span>
               </div>
-              <div class="btn-group" *ngIf="request.status === 'PENDING'">
-                <button class="btn btn-sm btn-success" (click)="updateStatus(request.id, 'ACCEPTED')">
+              <div class="btn-group" *ngIf="request.status === ReservationStatus.PENDING">
+                <button class="btn btn-sm btn-success" (click)="updateStatus(request.id, ReservationStatus.ACCEPTED)">
                   Accept
                 </button>
-                <button class="btn btn-sm btn-danger" (click)="updateStatus(request.id, 'REJECTED')">
+                <button class="btn btn-sm btn-danger" (click)="updateStatus(request.id, ReservationStatus.REJECTED)">
                   Reject
                 </button>
               </div>
@@ -53,4 +53,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>

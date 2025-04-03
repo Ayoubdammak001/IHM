@@ -26,7 +26,7 @@
                 <h5 class="card-title">Service #{{ reservation.serviceId }}</h5>
                 <p class="card-text">
                   <strong>Date:</strong> {{ reservation.reservationDate | date:'medium' }}<br>
-                  <strong>Status:</strong> 
+                  <strong>Status:</strong>
                   <span class="badge" [ngClass]="{
                     'bg-warning': reservation.status === 'PENDING',
                     'bg-success': reservation.status === 'ACCEPTED',
@@ -45,4 +45,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>

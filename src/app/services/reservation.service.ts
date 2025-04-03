@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Reservation } from '../models/reservation.model';
+import { Reservation, reservations } from '../data/reservations';
 import { ReservationStatus } from '../models/enums';
 
 @Injectable({
@@ -74,4 +74,34 @@ export class ReservationService {
       })
     );
   }
-} 
+
+  getReservationsByClientId(clientId: number): Observable<Reservation[]> {
+    return of(reservations.filter(reservation => reservation.clientId === clientId));
+  }
+
+  createReservation(reservation: Omit<Reservation, 'id'>): Observable<Reservation> {
+    const newReservation: Reservation = {
+      ...reservation,
+      id: Math.max(...reservations.map(r => r.id)) + 1
+    };
+    reservations.push(newReservation);
+    return of(newReservation);
+  }
+
+  updateReservation(reservation: Reservation): Observable<Reservation> {
+    const index = reservations.findIndex(r => r.id === reservation.id);
+    if (index !== -1) {
+      reservations[index] = reservation;
+    }
+    return of(reservation);
+  }
+
+  cancelReservation(id: number): Observable<boolean> {
+    const reservation = reservations.find(r => r.id === id);
+    if (reservation) {
+      reservation.status = ReservationStatus.CANCELLED;
+      return of(true);
+    }
+    return of(false);
+  }
+}

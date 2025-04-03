@@ -5,34 +5,64 @@
         <c-card-group>
           <c-card class="p-4">
             <c-card-body>
-              <form cForm>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" cForm>
                 <h1>Login</h1>
                 <p class="text-body-secondary">Sign In to your account</p>
+                
+                <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+                  {{ errorMessage }}
+                </div>
+                
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input autoComplete="username" cFormControl placeholder="Username" />
+                  <input 
+                    formControlName="email"
+                    autoComplete="email" 
+                    cFormControl 
+                    placeholder="Email" 
+                    type="email"
+                    [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+                  />
+                  <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="invalid-feedback">
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</div>
+                  </div>
                 </c-input-group>
+                
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
                   <input
+                    formControlName="password"
                     autoComplete="current-password"
                     cFormControl
                     placeholder="Password"
                     type="password"
+                    [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
                   />
+                  <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="invalid-feedback">
+                    Password is required
+                  </div>
                 </c-input-group>
+                
                 <c-row>
                   <c-col xs="6">
-                    <button cButton class="px-4" color="primary">
+                    <button 
+                      cButton 
+                      class="px-4" 
+                      color="primary" 
+                      type="submit" 
+                      [disabled]="loginForm.invalid || loading"
+                    >
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                       Login
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">
-                    <button cButton class="px-0" color="link">
+                    <button cButton class="px-0" color="link" type="button">
                       Forgot password?
                     </button>
                   </c-col>

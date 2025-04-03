@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 import { ReviewService } from '../../../services/review.service';
 import { AuthService } from '../../../services/auth.service';
 import { Review } from '../../../models/review.model';
 
 @Component({
   selector: 'app-client-reviews',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './client-reviews.component.html',
   styleUrls: ['./client-reviews.component.scss']
 })
@@ -31,10 +36,10 @@ export class ClientReviewsComponent implements OnInit {
         this.reviews = reviews;
         this.loading = false;
       },
-      error: (error) => {
+      error: () => {
         this.error = 'Error loading reviews. Please try again later.';
         this.loading = false;
       }
     });
   }
-} 
+}

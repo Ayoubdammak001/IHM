@@ -11,13 +11,13 @@ import { Review } from '../../../models/review.model';
   selector: 'app-client-dashboard',
   templateUrl: './client-dashboard.component.html',
   styleUrls: ['./client-dashboard.component.scss'],
-  standalone: true,  // Ce composant est standalone
+  standalone: true,
   imports: [CommonModule, RouterModule]  // Importer les modules nécessaires
 })
 export class ClientDashboardComponent implements OnInit {
   reservations: Reservation[] = [];
   reviews: Review[] = [];
-  loading = true;
+  loading = false;
   error = '';
 
   constructor(

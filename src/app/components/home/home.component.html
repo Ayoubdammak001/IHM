@@ -19,14 +19,14 @@
       <div class="row">
         <div class="col-md-3 mb-3" *ngFor="let category of categories">
           <div class="card h-100">
-            <img [src]="category.imageUrl || 'assets/images/category-placeholder.jpg'" 
-                 class="card-img-top" 
+            <img [src]="category.imageUrl || 'assets/images/category/plumbing.jpg'"
+                 class="card-img-top"
                  [alt]="category.name">
             <div class="card-body">
               <h5 class="card-title">{{ category.name }}</h5>
               <p class="card-text">{{ category.description }}</p>
-              <a [routerLink]="['/services']" 
-                 [queryParams]="{category: category.id}" 
+              <a [routerLink]="['/services']"
+                 [queryParams]="{category: category.id}"
                  class="btn btn-outline-primary">View Services</a>
             </div>
           </div>
@@ -52,8 +52,8 @@
       <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let service of services">
           <div class="card h-100">
-            <img [src]="service.imageUrl || 'assets/images/service-placeholder.jpg'" 
-                 class="card-img-top" 
+            <img [src]="service.imageUrl || 'assets/images/category/electrical-repair.jpg'"
+                 class="card-img-top"
                  [alt]="service.name">
             <div class="card-body">
               <h5 class="card-title">{{ service.name }}</h5>
@@ -68,4 +68,4 @@
       </div>
     </div>
   </div>
-</div> 
+</div>

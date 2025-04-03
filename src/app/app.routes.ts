@@ -1,122 +1,130 @@
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { ServiceDetailsComponent } from './components/service-details/service-details.component';
-import { ClientDashboardComponent } from './components/client/client-dashboard/client-dashboard.component';
-import { ClientReservationsComponent } from './components/client/client-reservations/client-reservations.component';
-import { ProviderDashboardComponent } from './components/provider/provider-dashboard/provider-dashboard.component';
-import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { Role } from './models/enums';
-import { ClientProfileComponent } from './components/client/client-profile/client-profile.component';
-import { ClientReviewsComponent } from './components/client/client-reviews/client-reviews.component';
-import { ClientMessagesComponent } from './components/client/client-messages/client-messages.component';
-import { ProviderProfileComponent } from './components/provider/provider-profile/provider-profile.component';
-import { ProviderRequestsComponent } from './components/provider/provider-requests/provider-requests.component';
-import { ProviderServicesComponent } from './components/provider/provider-services/provider-services.component';
-import { ProviderReviewsComponent } from './components/provider/provider-reviews/provider-reviews.component';
-import { AdminCategoriesComponent } from './components/admin/admin-categories/admin-categories.component';
-import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 
 export const routes: Routes = [
-  // Redirection par défaut
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-  // Routes publiques
-  { path: 'home', component: HomeComponent },
-  { path: 'service/:id', component: ServiceDetailsComponent },
+  // Public pages
+  {
+    path: 'home',
+    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
+  },
+  {
+    path: 'service/:id',
+    loadComponent: () => import('./components/service-details/service-details.component').then(m => m.ServiceDetailsComponent)
+  },
 
-  // Routes avec layout par défaut
   {
     path: '',
     component: DefaultLayoutComponent,
-    data: {
-      title: 'Main'
-    },
+    data: { title: 'Main' },
     children: [
-      // Existant
+      // Lazy modules
       {
-        path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
+        path: 'home',
+        loadChildren: () => import('./components/home/routes').then(m => m.routes)
       },
       {
         path: 'theme',
-        loadChildren: () => import('./views/theme/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/theme/routes').then(m => m.routes)
+      },
+      {
+        path: 'client',
+        loadChildren: () => import('./views/pages/client/client-routing.module').then(m => m.ClientRoutingModule)
       },
       {
         path: 'base',
-        loadChildren: () => import('./views/base/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/base/routes').then(m => m.routes)
       },
       {
         path: 'buttons',
-        loadChildren: () => import('./views/buttons/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/buttons/routes').then(m => m.routes)
       },
       {
         path: 'forms',
-        loadChildren: () => import('./views/forms/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/forms/routes').then(m => m.routes)
       },
       {
         path: 'icons',
-        loadChildren: () => import('./views/icons/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/icons/routes').then(m => m.routes)
       },
       {
         path: 'notifications',
-        loadChildren: () => import('./views/notifications/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/notifications/routes').then(m => m.routes)
       },
       {
         path: 'widgets',
-        loadChildren: () => import('./views/widgets/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/widgets/routes').then(m => m.routes)
       },
       {
         path: 'charts',
-        loadChildren: () => import('./views/charts/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/charts/routes').then(m => m.routes)
       },
       {
         path: 'pages',
-        loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/pages/routes').then(m => m.routes)
       },
 
-      // Routes Client
-      {
-        path: 'client',
-        children: [
-          { path: 'dashboard', component: ClientDashboardComponent },
-          { path: 'profile', component: ClientProfileComponent },
-          { path: 'reservations', component: ClientReservationsComponent },
-          { path: 'reviews', component: ClientReviewsComponent },
-          { path: 'messages', component: ClientMessagesComponent }
-        ]
-      },
-
-      // Routes Provider
+      // Provider routes
       {
         path: 'provider',
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.PROVIDER] },
         children: [
-          { path: 'dashboard', component: ProviderDashboardComponent },
-          { path: 'profile', component: ProviderProfileComponent },
-          { path: 'requests', component: ProviderRequestsComponent },
-          { path: 'services', component: ProviderServicesComponent },
-          { path: 'reviews', component: ProviderReviewsComponent }
+          {
+            path: 'dashboard',
+            loadComponent: () => import('./components/provider/provider-dashboard/provider-dashboard.component').then(m => m.ProviderDashboardComponent)
+          },
+          {
+            path: 'profile',
+            loadComponent: () => import('./components/provider/provider-profile/provider-profile.component').then(m => m.ProviderProfileComponent)
+          },
+          {
+            path: 'requests',
+            loadComponent: () => import('./components/provider/provider-requests/provider-requests.component').then(m => m.ProviderRequestsComponent)
+          },
+          {
+            path: 'services',
+            loadComponent: () => import('./components/provider/provider-services/provider-services.component').then(m => m.ProviderServicesComponent)
+          },
+          {
+            path: 'reviews',
+            loadComponent: () => import('./components/provider/provider-reviews/provider-reviews.component').then(m => m.ProviderReviewsComponent)
+          }
         ]
       },
 
-      // Routes Admin
+      // Admin routes
       {
         path: 'admin',
+        canActivate: [AuthGuard, RoleGuard],
+        data: { roles: [Role.ADMIN] },
         children: [
-          { path: 'dashboard', component: AdminDashboardComponent },
-          { path: 'users', component: AdminUsersComponent },
-          { path: 'categories', component: AdminCategoriesComponent },
-          { path: 'reviews', component: AdminUsersComponent }
+          {
+            path: 'dashboard',
+            loadComponent: () => import('./components/admin/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
+          },
+          {
+            path: 'users',
+            loadComponent: () => import('./components/admin/admin-users/admin-users.component').then(m => m.AdminUsersComponent)
+          },
+          {
+            path: 'categories',
+            loadComponent: () => import('./components/admin/admin-categories/admin-categories.component').then(m => m.AdminCategoriesComponent)
+          },
+          {
+            path: 'reviews',
+            loadComponent: () => import('./components/admin/admin-reviews/admin-reviews.component').then(m => m.AdminReviewsComponent)
+          }
         ]
       }
     ]
   },
 
-  // Pages 404 et 500
+  // Error pages
   {
     path: '404',
     loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
@@ -128,7 +136,7 @@ export const routes: Routes = [
     data: { title: 'Page 500' }
   },
 
-  // Login et Register
+  // Auth pages
   {
     path: 'login',
     loadComponent: () => import('./views/pages/login/login.component').then(m => m.LoginComponent),
@@ -140,6 +148,5 @@ export const routes: Routes = [
     data: { title: 'Register Page' }
   },
 
-  // Route fallback
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: '404' }
 ];

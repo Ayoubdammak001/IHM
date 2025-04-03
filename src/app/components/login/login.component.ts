@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
+
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -37,7 +41,6 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: (user) => {
         this.loading = false;
-        // Rediriger vers le tableau de bord approprié selon le rôle
         switch (user.role) {
           case 'CLIENT':
             this.router.navigate(['/client/dashboard']);
@@ -52,10 +55,10 @@ export class LoginComponent {
             this.router.navigate(['/']);
         }
       },
-      error: (error) => {
+      error: () => {
         this.loading = false;
         this.error = 'Invalid email or password';
       }
     });
   }
-} 
+}
