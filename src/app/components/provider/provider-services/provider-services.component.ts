@@ -21,7 +21,6 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     NgIf,
     NgFor,
-    
   ]
 })
 export class ProviderServicesComponent implements OnInit {
@@ -32,6 +31,7 @@ export class ProviderServicesComponent implements OnInit {
   submitting = false;
   error = '';
   editingServiceId: number | null = null;
+  photoPreview: string | null = null;
 
   constructor(
     private serviceService: ServiceService,
@@ -44,7 +44,8 @@ export class ProviderServicesComponent implements OnInit {
       description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0)]],
       categoryId: ['', Validators.required],
-      duration: ['', [Validators.required, Validators.min(1)]]
+      duration: ['', [Validators.required, Validators.min(1)]],
+      imageUrl: ['', Validators.required]
     });
   }
 
@@ -68,7 +69,7 @@ export class ProviderServicesComponent implements OnInit {
     this.loading = true;
     this.error = '';
     const currentUser = this.authService.currentUserValue;
-    
+
     if (currentUser) {
       this.serviceService.getByProviderId(currentUser.id).subscribe({
         next: (services) => {
@@ -88,10 +89,23 @@ export class ProviderServicesComponent implements OnInit {
     return category ? category.name : 'Unknown';
   }
 
-  onSubmit(): void {
-    if (this.serviceForm.invalid) {
-      return;
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.photoPreview = reader.result as string;
+        this.serviceForm.patchValue({ imageUrl: this.photoPreview });
+      };
+
+      reader.readAsDataURL(file);
     }
+  }
+
+  onSubmit(): void {
+    if (this.serviceForm.invalid) return;
 
     this.submitting = true;
     const currentUser = this.authService.currentUserValue;
@@ -109,7 +123,7 @@ export class ProviderServicesComponent implements OnInit {
     if (this.editingServiceId) {
       this.serviceService.update(this.editingServiceId, serviceData).subscribe({
         next: (updatedService) => {
-          this.services = this.services.map(service => 
+          this.services = this.services.map(service =>
             service.id === this.editingServiceId ? updatedService : service
           );
           this.resetForm();
@@ -135,13 +149,18 @@ export class ProviderServicesComponent implements OnInit {
 
   editService(service: Service): void {
     this.editingServiceId = service.id;
+    this.photoPreview = service.imageUrl || null;
+
     this.serviceForm.patchValue({
       name: service.name,
       description: service.description,
       price: service.price,
       categoryId: service.categoryId,
-      duration: service.duration
+      duration: service.duration,
+      imageUrl: service.imageUrl
     });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // scroll vers le formulaire
   }
 
   deleteService(serviceId: number): void {
@@ -161,5 +180,6 @@ export class ProviderServicesComponent implements OnInit {
     this.serviceForm.reset();
     this.editingServiceId = null;
     this.submitting = false;
+    this.photoPreview = null;
   }
 }
