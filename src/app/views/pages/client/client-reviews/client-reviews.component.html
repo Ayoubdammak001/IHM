@@ -28,8 +28,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let review of reviews">
-                                <td>{{ review.comment }}</td>
+                            <tr *ngFor="let review of paginatedReviews">
+                                <td>{{ review.serviceId }}</td>
                                 <td>
                                     <span class="text-warning">{{ getRatingStars(review.rating) }}</span>
                                 </td>
@@ -51,6 +51,18 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <!-- Material Paginator -->
+                    <div class="mat-paginator-container mt-4" *ngIf="reviews.length > 0 && !loading">
+                        <mat-paginator
+                            [length]="totalItems"
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="pageSizeOptions"
+                            [pageIndex]="pageIndex"
+                            aria-label="Select page"
+                            (page)="handlePageEvent($event)">
+                        </mat-paginator>
+                    </div>
                 </c-card-body>
             </c-card>
         </c-col>

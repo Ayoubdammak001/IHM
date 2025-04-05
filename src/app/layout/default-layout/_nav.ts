@@ -1,9 +1,10 @@
 import { INavData } from '@coreui/angular';
 
-export const navItems: INavData[] = [
+// Navigation items for each role
+const clientNavItems: INavData[] = [
   {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: '/client/dashboard',
     iconComponent: { name: 'cil-speedometer' }
   },
   {
@@ -29,6 +30,14 @@ export const navItems: INavData[] = [
     name: 'Messages',
     url: '/client/messages',
     iconComponent: { name: 'cil-chat-bubble' }
+  }
+];
+
+const providerNavItems: INavData[] = [
+  {
+    name: 'Dashboard',
+    url: '/provider/dashboard',
+    iconComponent: { name: 'cil-speedometer' }
   },
   {
     title: true,
@@ -53,6 +62,14 @@ export const navItems: INavData[] = [
     name: 'Reviews',
     url: '/provider/reviews',
     iconComponent: { name: 'cil-star' }
+  }
+];
+
+const adminNavItems: INavData[] = [
+  {
+    name: 'Dashboard',
+    url: '/admin/dashboard',
+    iconComponent: { name: 'cil-speedometer' }
   },
   {
     title: true,
@@ -74,3 +91,32 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-star' }
   }
 ];
+
+// Function to get navigation items based on user role
+export function getNavItems(role?: string): INavData[] {
+  switch (role) {
+    case 'CLIENT':
+      return [...clientNavItems];
+    case 'PROVIDER':
+      return [...providerNavItems];
+    case 'ADMIN':
+      return [...adminNavItems];
+    default:
+      // Default navigation for not logged in or unknown roles
+      return [
+        {
+          name: 'Home',
+          url: '/',
+          iconComponent: { name: 'cil-home' }
+        },
+        {
+          name: 'Services',
+          url: '/services',
+          iconComponent: { name: 'cil-list' }
+        }
+      ];
+  }
+}
+
+// Export a default navigation for use before auth status is determined
+export const navItems: INavData[] = getNavItems();

@@ -10,6 +10,29 @@ import { Category } from '../../../models/category.model';
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+// Material Paginator
+import { MatPaginatorModule, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
+import { Subject } from 'rxjs';
+
+// Custom Paginator Intl Provider
+export class CustomPaginatorIntl implements MatPaginatorIntl {
+  changes = new Subject<void>();
+
+  firstPageLabel = 'First page';
+  itemsPerPageLabel = 'Items per page:';
+  lastPageLabel = 'Last page';
+  nextPageLabel = 'Next page';
+  previousPageLabel = 'Previous page';
+
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0) {
+      return 'Page 1 of 1';
+    }
+    const amountPages = Math.ceil(length / pageSize);
+    return `Page ${page + 1} of ${amountPages}`;
+  }
+}
+
 @Component({
   selector: 'app-provider-services',
   standalone: true,
@@ -21,10 +44,16 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     NgIf,
     NgFor,
+    MatPaginatorModule
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
   ]
 })
 export class ProviderServicesComponent implements OnInit {
   services: Service[] = [];
+  filteredServices: Service[] = [];
+  paginatedServices: Service[] = [];
   categories: Category[] = [];
   serviceForm: FormGroup;
   loading = false;
@@ -32,6 +61,12 @@ export class ProviderServicesComponent implements OnInit {
   error = '';
   editingServiceId: number | null = null;
   photoPreview: string | null = null;
+
+  // Pagination properties
+  totalItems = 0;
+  pageSize = 5;
+  pageSizeOptions = [ 5, 10,50];
+  pageIndex = 0;
 
   constructor(
     private serviceService: ServiceService,
@@ -74,6 +109,7 @@ export class ProviderServicesComponent implements OnInit {
       this.serviceService.getByProviderId(currentUser.id).subscribe({
         next: (services) => {
           this.services = services;
+          this.updatePagination();
           this.loading = false;
         },
         error: (err) => {
@@ -126,6 +162,7 @@ export class ProviderServicesComponent implements OnInit {
           this.services = this.services.map(service =>
             service.id === this.editingServiceId ? updatedService : service
           );
+          this.updatePagination();
           this.resetForm();
         },
         error: (err) => {
@@ -137,6 +174,7 @@ export class ProviderServicesComponent implements OnInit {
       this.serviceService.add(serviceData).subscribe({
         next: (newService) => {
           this.services.push(newService);
+          this.updatePagination();
           this.resetForm();
         },
         error: (err) => {
@@ -168,6 +206,7 @@ export class ProviderServicesComponent implements OnInit {
       this.serviceService.delete(serviceId).subscribe({
         next: () => {
           this.services = this.services.filter(service => service.id !== serviceId);
+          this.updatePagination();
         },
         error: (err) => {
           this.error = 'Error deleting service: ' + err.message;
@@ -181,5 +220,25 @@ export class ProviderServicesComponent implements OnInit {
     this.editingServiceId = null;
     this.submitting = false;
     this.photoPreview = null;
+  }
+
+  // Pagination methods
+  handlePageEvent(e: PageEvent) {
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.updatePaginatedResults();
+  }
+
+  updatePagination() {
+    this.filteredServices = [...this.services];
+    this.totalItems = this.filteredServices.length;
+    this.pageIndex = 0; // Reset to first page
+    this.updatePaginatedResults();
+  }
+
+  updatePaginatedResults() {
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedServices = this.filteredServices.slice(startIndex, endIndex);
   }
 }

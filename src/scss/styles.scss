@@ -21,3 +21,23 @@
 // We use those styles to show code examples, you should remove them in your application.
 @use "examples";
 
+// Import Angular Material Theme
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+// If you want to add something do it here
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Pour éviter des conflits entre CoreUI et Material Design */
+.mat-paginator {
+  background: transparent !important;
+}
+
+.mat-paginator-container {
+  justify-content: flex-end !important;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

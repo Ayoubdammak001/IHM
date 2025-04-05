@@ -7,6 +7,29 @@ import { Message } from '../../../../models/message.model';
 import { AuthService } from '../../../../services/auth.service';
 import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBodyComponent, TableDirective, ButtonDirective, BadgeComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective } from '@coreui/angular';
 
+// Material Paginator
+import { MatPaginatorModule, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
+import { Subject } from 'rxjs';
+
+// Custom Paginator Intl Provider
+export class CustomPaginatorIntl implements MatPaginatorIntl {
+  changes = new Subject<void>();
+
+  firstPageLabel = 'First page';
+  itemsPerPageLabel = 'Items per page:';
+  lastPageLabel = 'Last page';
+  nextPageLabel = 'Next page';
+  previousPageLabel = 'Previous page';
+
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0) {
+      return 'Page 1 of 1';
+    }
+    const amountPages = Math.ceil(length / pageSize);
+    return `Page ${page + 1} of ${amountPages}`;
+  }
+}
+
 @Component({
     selector: 'app-client-messages',
     templateUrl: './client-messages.component.html',
@@ -27,16 +50,27 @@ import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBody
         FormDirective,
         InputGroupComponent,
         InputGroupTextDirective,
-        FormControlDirective
+        FormControlDirective,
+        MatPaginatorModule
+    ],
+    providers: [
+        { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
     ]
 })
 export class ClientMessagesComponent implements OnInit {
     messages: Message[] = [];
+    paginatedMessages: Message[] = [];
     messageForm: FormGroup;
     currentClientId: number;
     loading = false;
     error = '';
     success = '';
+
+    // Pagination properties
+    totalItems = 0;
+    pageSize = 5;
+    pageSizeOptions = [5, 10, 25];
+    pageIndex = 0;
 
     constructor(
         private messageService: MessageService,
@@ -66,6 +100,7 @@ export class ClientMessagesComponent implements OnInit {
             .subscribe({
                 next: (messages) => {
                     this.messages = messages;
+                    this.updatePagination();
                     this.loading = false;
                 },
                 error: (err) => {
@@ -150,5 +185,24 @@ export class ClientMessagesComponent implements OnInit {
                     console.error('Error marking message as read:', err);
                 }
             });
+    }
+
+    // Pagination methods
+    handlePageEvent(e: PageEvent) {
+        this.pageIndex = e.pageIndex;
+        this.pageSize = e.pageSize;
+        this.updatePaginatedResults();
+    }
+
+    updatePagination() {
+        this.totalItems = this.messages.length;
+        this.pageIndex = 0; // Reset to first page
+        this.updatePaginatedResults();
+    }
+
+    updatePaginatedResults() {
+        const startIndex = this.pageIndex * this.pageSize;
+        const endIndex = startIndex + this.pageSize;
+        this.paginatedMessages = this.messages.slice(startIndex, endIndex);
     }
 }

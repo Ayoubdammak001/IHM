@@ -14,6 +14,29 @@ import {
   ButtonDirective
 } from '@coreui/angular';
 
+// Material Paginator
+import { MatPaginatorModule, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
+import { Subject } from 'rxjs';
+
+// Custom Paginator Intl Provider
+export class CustomPaginatorIntl implements MatPaginatorIntl {
+  changes = new Subject<void>();
+
+  firstPageLabel = 'First page';
+  itemsPerPageLabel = 'Items per page:';
+  lastPageLabel = 'Last page';
+  nextPageLabel = 'Next page';
+  previousPageLabel = 'Previous page';
+
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0) {
+      return 'Page 1 of 1';
+    }
+    const amountPages = Math.ceil(length / pageSize);
+    return `Page ${page + 1} of ${amountPages}`;
+  }
+}
+
 @Component({
   selector: 'app-client-reviews',
   standalone: true,
@@ -26,16 +49,27 @@ import {
     ContainerComponent,
     RowComponent,
     TableDirective,
-    ButtonDirective
+    ButtonDirective,
+    MatPaginatorModule
   ],
   templateUrl: './client-reviews.component.html',
-  styleUrls: ['./client-reviews.component.scss']
+  styleUrls: ['./client-reviews.component.scss'],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
+  ]
 })
 export class ClientReviewsComponent implements OnInit {
   reviews: Review[] = [];
+  paginatedReviews: Review[] = [];
   loading = true;
   error = '';
   currentClientId = 1;
+
+  // Pagination properties
+  totalItems = 0;
+  pageSize = 5;
+  pageSizeOptions = [5, 10, 25];
+  pageIndex = 0;
 
   constructor(
     private reviewService: ReviewService,
@@ -43,15 +77,14 @@ export class ClientReviewsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
- 
-      this.loadReviews(this.currentClientId);
-    
+    this.loadReviews(this.currentClientId);
   }
 
   private loadReviews(clientId: number): void {
     this.reviewService.getByClientId(clientId).subscribe({
       next: (reviews: Review[]) => {
         this.reviews = reviews;
+        this.updatePagination();
         this.loading = false;
       },
       error: () => {
@@ -71,6 +104,7 @@ export class ClientReviewsComponent implements OnInit {
         next: (success: boolean) => {
           if (success) {
             this.reviews = this.reviews.filter(review => review.id !== id);
+            this.updatePagination();
           } else {
             this.error = 'Error deleting review.';
           }
@@ -80,5 +114,24 @@ export class ClientReviewsComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Pagination methods
+  handlePageEvent(e: PageEvent) {
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.updatePaginatedResults();
+  }
+
+  updatePagination() {
+    this.totalItems = this.reviews.length;
+    this.pageIndex = 0; // Reset to first page
+    this.updatePaginatedResults();
+  }
+
+  updatePaginatedResults() {
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedReviews = this.reviews.slice(startIndex, endIndex);
   }
 }

@@ -3,14 +3,21 @@
     <div class="col-12">
       <h1 class="mb-4">My Reservations</h1>
 
+      <!-- Alert messages -->
+      <div *ngIf="success" class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        {{ success }}
+        <button type="button" class="btn-close" aria-label="Close" (click)="success = ''"></button>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        {{ error }}
+        <button type="button" class="btn-close" aria-label="Close" (click)="error = ''"></button>
+      </div>
+
       <div *ngIf="loading" class="text-center">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
-      </div>
-
-      <div *ngIf="error" class="alert alert-danger" role="alert">
-        {{ error }}
       </div>
 
       <div *ngIf="!loading && !error">
@@ -20,7 +27,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-6 mb-4" *ngFor="let reservation of reservations">
+          <div class="col-md-6 mb-4" *ngFor="let reservation of paginatedReservations">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Service #{{ reservation.serviceId }}</h5>
@@ -28,21 +35,98 @@
                   <strong>Date:</strong> {{ reservation.reservationDate | date:'medium' }}<br>
                   <strong>Status:</strong>
                   <span class="badge" [ngClass]="{
-                    'bg-warning': reservation.status === 'PENDING',
-                    'bg-success': reservation.status === 'ACCEPTED',
-                    'bg-danger': reservation.status === 'REJECTED',
-                    'bg-info': reservation.status === 'COMPLETED',
-                    'bg-secondary': reservation.status === 'CANCELLED'
+                    'bg-warning': reservation.status === ReservationStatus.PENDING,
+                    'bg-success': reservation.status === ReservationStatus.ACCEPTED,
+                    'bg-danger': reservation.status === ReservationStatus.REJECTED,
+                    'bg-info': reservation.status === ReservationStatus.COMPLETED,
+                    'bg-secondary': reservation.status === ReservationStatus.CANCELLED
                   }">
                     {{ reservation.status }}
                   </span>
                 </p>
-                <a [routerLink]="['/service', reservation.serviceId]" class="btn btn-outline-primary">View Service</a>
+                <div class="d-flex">
+                  <a [routerLink]="['/service', reservation.serviceId]" class="btn btn-outline-primary me-2">View Service</a>
+                  <button *ngIf="reservation.status === ReservationStatus.COMPLETED" 
+                          class="btn btn-outline-success"
+                          (click)="openReviewModal(reservation)">
+                    Leave a Review
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Material Paginator -->
+        <div class="mat-paginator-container mt-4" *ngIf="reservations.length > 0">
+          <mat-paginator
+            [length]="totalItems"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            [pageIndex]="pageIndex"
+            aria-label="Select page"
+            (page)="handlePageEvent($event)">
+          </mat-paginator>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Review Modal -->
+<div class="modal" [class.show]="selectedReservation" [style.display]="selectedReservation ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Leave a Review for Service #{{ selectedReservation?.serviceId }}</h5>
+        <button type="button" class="btn-close" (click)="closeReviewModal()" [disabled]="submittingReview"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+          <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <div class="rating-input">
+              <select class="form-select" id="rating" formControlName="rating">
+                <option value="5">★★★★★ (5/5)</option>
+                <option value="4">★★★★☆ (4/5)</option>
+                <option value="3">★★★☆☆ (3/5)</option>
+                <option value="2">★★☆☆☆ (2/5)</option>
+                <option value="1">★☆☆☆☆ (1/5)</option>
+              </select>
+              <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched" class="invalid-feedback">
+                Rating is required
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea
+              class="form-control"
+              id="comment"
+              rows="4"
+              formControlName="comment"
+              [class.is-invalid]="reviewForm.get('comment')?.invalid && reviewForm.get('comment')?.touched"
+            ></textarea>
+            <div *ngIf="reviewForm.get('comment')?.invalid && reviewForm.get('comment')?.touched" class="invalid-feedback">
+              <div *ngIf="reviewForm.get('comment')?.errors?.['required']">
+                Comment is required
+              </div>
+              <div *ngIf="reviewForm.get('comment')?.errors?.['minlength']">
+                Comment must be at least 10 characters
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeReviewModal()" [disabled]="submittingReview">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitReview()" [disabled]="reviewForm.invalid || submittingReview">
+          <span *ngIf="submittingReview" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+          Submit Review
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="selectedReservation"></div>
