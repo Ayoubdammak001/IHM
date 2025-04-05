@@ -8,6 +8,7 @@
         </div>
         <div class="card-body">
           <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+            <!-- Champ Name -->
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input type="text" class="form-control" id="name" formControlName="name">
@@ -19,6 +20,7 @@
               </div>
             </div>
 
+            <!-- Description -->
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
               <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
@@ -27,6 +29,7 @@
               </div>
             </div>
 
+            <!-- Price -->
             <div class="mb-3">
               <label for="price" class="form-label">Price</label>
               <input type="number" class="form-control" id="price" formControlName="price">
@@ -38,6 +41,7 @@
               </div>
             </div>
 
+            <!-- Category -->
             <div class="mb-3">
               <label for="categoryId" class="form-label">Category</label>
               <select class="form-select" id="categoryId" formControlName="categoryId">
@@ -51,6 +55,7 @@
               </div>
             </div>
 
+            <!-- Duration -->
             <div class="mb-3">
               <label for="duration" class="form-label">Duration (hours)</label>
               <input type="number" class="form-control" id="duration" formControlName="duration">
@@ -62,6 +67,20 @@
               </div>
             </div>
 
+            <!-- Upload Photo -->
+            <div class="mb-3">
+              <label for="photoFile" class="form-label">Photo</label>
+              <input type="file" class="form-control" id="photoFile" accept="image/*" (change)="onFileSelected($event)">
+              <div class="form-text">Upload an image (jpg, png...)</div>
+            </div>
+
+            <!-- Aperçu de l'image -->
+            <div class="mb-3" *ngIf="photoPreview">
+              <label class="form-label">Preview:</label><br>
+              <img [src]="photoPreview" alt="Preview" class="img-thumbnail" width="150">
+            </div>
+
+            <!-- Boutons -->
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid || submitting">
                 <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
@@ -108,9 +127,14 @@
                     <h5 class="mb-1">{{ service.name }}</h5>
                     <p class="mb-1">{{ service.description }}</p>
                     <p class="mb-1">
-                      <strong>Price:</strong> ${{ service.price }} | 
+                      <strong>Price:</strong> ${{ service.price }} |
                       <strong>Category:</strong> {{ getCategoryName(service.categoryId) }}
                     </p>
+
+                    <!-- Image affichée depuis imageUrl -->
+                    <div *ngIf="service.imageUrl" class="mt-2">
+                      <img [src]="service.imageUrl" alt="Service photo" class="img-thumbnail" width="120">
+                    </div>
                   </div>
                   <div class="btn-group">
                     <button class="btn btn-sm btn-outline-primary" (click)="editService(service)">
@@ -123,9 +147,10 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-</div> 
+</div>
