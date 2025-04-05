@@ -6,7 +6,7 @@
                 {{ success }}
                 <button type="button" class="btn-close" aria-label="Close" (click)="success = ''"></button>
             </div>
-            
+
             <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
                 {{ error }}
                 <button type="button" class="btn-close" aria-label="Close" (click)="error = ''"></button>
@@ -26,7 +26,6 @@
                                     <label class="form-label">Recipient ID</label>
                                     <input
                                         formControlName="receiverId"
-                                        type="number"
                                         cFormControl
                                         [ngClass]="{'is-invalid': messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched}"
                                     />
@@ -116,10 +115,10 @@
                                     </c-badge>
                                 </td>
                                 <td>
-                                    <button 
+                                    <button
                                         *ngIf="!message.read && message.recipientId === currentClientId"
-                                        cButton 
-                                        color="primary" 
+                                        cButton
+                                        color="primary"
                                         size="sm"
                                         class="me-2"
                                         (click)="markAsRead(message.id)"
@@ -127,10 +126,10 @@
                                     >
                                         Mark as Read
                                     </button>
-                                    <button 
-                                        cButton 
-                                        color="danger" 
-                                        size="sm" 
+                                    <button
+                                        cButton
+                                        color="danger"
+                                        size="sm"
                                         (click)="deleteMessage(message.id)"
                                         [disabled]="loading"
                                     >
@@ -147,4 +146,4 @@
             </c-card>
         </c-col>
     </c-row>
-</c-container> 
+</c-container>

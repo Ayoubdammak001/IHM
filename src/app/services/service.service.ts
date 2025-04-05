@@ -31,7 +31,7 @@ export class ServiceService {
     return this.http.get<Service[]>(`${this.apiUrl}?categoryId=${categoryId}`);
   }
 
-  add(service: Omit<Service, 'id'>): Observable<Service> {
+  add(service: Omit<Service, number>): Observable<Service> {
     return this.http.post<Service>(this.apiUrl, service);
   }
 

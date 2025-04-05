@@ -30,17 +30,17 @@
       "updatedAt": "2025-04-03T17:02:46.830Z"
     },
     {
-      "id": "36ff",
-      "username": "heni",
-      "email": "heni@gmailcom",
+      "id": "71ee",
+      "username": "Ayoub",
+      "email": "ayoub.dammak@gmail.com",
       "password": "Admin**123",
       "role": "PROVIDER",
-      "phone": "+21699720020",
-      "address": "sfax",
-      "description": "none",
+      "phone": "",
+      "address": "",
+      "description": "",
       "status": true,
-      "createdAt": "2025-04-03T17:07:57.564Z",
-      "updatedAt": "2025-04-03T17:07:57.564Z"
+      "createdAt": "2025-04-05T11:35:02.634Z",
+      "updatedAt": "2025-04-05T11:35:02.634Z"
     }
   ],
   "services": [
@@ -51,7 +51,25 @@
       "price": 15,
       "categoryId": "8bd9",
       "duration": 13,
-      "providerId": 2
+      "providerId": "71ee"
+    },
+    {
+      "id": "6740",
+      "name": "Test",
+      "description": "dqsqdsqds",
+      "price": 6,
+      "categoryId": "8bd9",
+      "duration": 12,
+      "providerId": "71ee"
+    },
+    {
+      "id": "5956",
+      "name": "azeaz",
+      "description": "qdsqds",
+      "price": 5,
+      "categoryId": "8bd9",
+      "duration": 2,
+      "providerId": "71ee"
     }
   ],
   "categories": [
@@ -68,7 +86,7 @@
       "comment": "Excellent service!",
       "date": "2024-03-15T10:00:00Z",
       "clientId": 1,
-      "providerId": 2,
+      "providerId": "71ee",
       "serviceId": 5248
     }
   ],
@@ -76,10 +94,46 @@
     {
       "id": "1",
       "clientId": 1,
-      "providerId": 2,
-      "serviceId": 1,
+      "providerId": "71ee",
+      "serviceId": 5248,
       "reservationDate": "2024-03-20T14:00:00Z",
-      "status": "ACCEPTED"
+      "status": "COMPLETED"
+    },
+    {
+      "id": "30f0",
+      "clientId": "1",
+      "providerId": "71ee",
+      "serviceId": "5248",
+      "serviceName": "Basic Plumbing",
+      "date": "2025-04-04T17:59:00.000Z",
+      "time": "10:00",
+      "status": "PENDING",
+      "notes": "",
+      "reservationDate": "2025-04-04T17:59:00.000Z"
+    },
+    {
+      "id": "0a0f",
+      "clientId": "1",
+      "providerId": "71ee",
+      "serviceId": "5248",
+      "serviceName": "Basic Plumbing",
+      "date": "2025-04-19T11:27:00.000Z",
+      "time": "10:00",
+      "status": "PENDING",
+      "notes": "",
+      "reservationDate": "2025-04-19T11:27:00.000Z"
+    },
+    {
+      "id": "87e4",
+      "clientId": "1",
+      "providerId": "71ee",
+      "serviceId": "5956",
+      "serviceName": "azeaz",
+      "date": "2025-04-10T11:57:00.000Z",
+      "time": "10:00",
+      "status": "PENDING",
+      "notes": "",
+      "reservationDate": "2025-04-10T11:57:00.000Z"
     }
   ]
 }
