@@ -25,8 +25,7 @@ import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBody
         ButtonDirective,
         BadgeComponent,
         FormDirective,
-        InputGroupComponent,
-        InputGroupTextDirective,
+       
         FormControlDirective
     ]
 })

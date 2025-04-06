@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <h2 class="text-center fw-bold mb-3">Nos catégories</h2>
+    <p class="text-center text-muted mb-5">Trouvez le service idéal pour vos besoins</p>
+  
+    <div class="category-grid">
+      <div class="category-card" *ngFor="let category of categories">
+        <img [src]="category.image" alt="Image catégorie" class="category-image" />
+        <div class="category-content">
+          <div class="category-title">
+            {{ category.emoji }} {{ category.title }}
+          </div>
+          <div class="category-description">
+            {{ category.description }}
+          </div>
+          <a
+            [routerLink]="['/services']"
+            [queryParams]="{ category: category.slug }"
+            class="btn"
+          >
+            Voir les services
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  

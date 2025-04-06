@@ -20,8 +20,7 @@ import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBody
         CardComponent,
         CardBodyComponent,
         FormDirective,
-        InputGroupComponent,
-        InputGroupTextDirective,
+        
         FormControlDirective,
         ButtonDirective
     ]

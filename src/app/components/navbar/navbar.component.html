@@ -1,52 +1,97 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" routerLink="/">ServiceHub</a>
-    <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="sidebar bg-dark text-white">
+  <ul class="nav flex-column">
 
-    <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/services" routerLinkActive="active">Services</a>
-        </li>
-      </ul>
+    <li class="nav-item">
+      <a routerLink="/dashboard" class="nav-link text-white">
+        <i class="cil-speedometer me-2"></i>
+        Dashboard
+      </a>
+    </li>
 
-      <ul class="navbar-nav">
-        <ng-container *ngIf="!isLoggedIn">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-          </li>
-        </ng-container>
+    <!-- Section CLIENT -->
+    <li class="nav-title mt-3" *ngIf="isClient">CLIENT</li>
 
-        <ng-container *ngIf="isLoggedIn">
-          <li class="nav-item" *ngIf="isClient">
-            <a class="nav-link" routerLink="/client/dashboard" routerLinkActive="active">Client Dashboard</a>
-          </li>
-          <li class="nav-item" *ngIf="isProvider">
-            <a class="nav-link" routerLink="/provider/dashboard" routerLinkActive="active">Provider Dashboard</a>
-          </li>
-          <li class="nav-item" *ngIf="isAdmin">
-            <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Admin Dashboard</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              {{ currentUser?.firstName }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
-            </ul>
-          </li>
-        </ng-container>
-      </ul>
-    </div>
-  </div>
-</nav> 
+    <li class="nav-item" *ngIf="isClient">
+      <a routerLink="/client/profile" class="nav-link text-white">
+        <i class="cil-user me-2"></i>
+        My Profile
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isClient">
+      <a routerLink="/client/reservations" class="nav-link text-white">
+        <i class="cil-calendar me-2"></i>
+        My Reservations
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isClient">
+      <a routerLink="/client/reviews" class="nav-link text-white">
+        <i class="cil-star me-2"></i>
+        My Reviews
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isClient">
+      <a routerLink="/messages" class="nav-link text-white">
+        <i class="cil-chat-bubble me-2"></i>
+        Messages
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isClient">
+      <a routerLink="/client/categories" class="nav-link text-white">
+        <i class="nav-icon cil-layers"></i> Catégories
+      </a>
+    </li>
+    
+    
+    
+        <!-- Section PROVIDER -->
+    <li class="nav-title mt-3" *ngIf="isProvider">PROVIDER</li>
+
+    <li class="nav-item" *ngIf="isProvider">
+      <a routerLink="/provider/profile" class="nav-link text-white">
+        <i class="cil-user me-2"></i>
+        Provider Profile
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isProvider">
+      <a routerLink="/provider/requests" class="nav-link text-white">
+        <i class="cil-list me-2"></i>
+        Service Requests
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isProvider">
+      <a routerLink="/provider/services" class="nav-link text-white">
+        <i class="cil-briefcase me-2"></i>
+        My Services
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isProvider">
+      <a routerLink="/provider/reviews" class="nav-link text-white">
+        <i class="cil-comment-square me-2"></i>
+        Reviews
+      </a>
+    </li>
+
+    <!-- Section ADMIN -->
+    <li class="nav-title mt-3" *ngIf="isAdmin">ADMIN</li>
+
+    <li class="nav-item" *ngIf="isAdmin">
+      <a routerLink="/admin/users" class="nav-link text-white">
+        <i class="cil-people me-2"></i>
+        Users
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="isAdmin">
+      <a routerLink="/admin/settings" class="nav-link text-white">
+        <i class="cil-settings me-2"></i>
+        Settings
+      </a>
+    </li>
+
+    <li class="nav-item mt-3">
+      <button (click)="logout()" class="btn btn-outline-light w-100">
+        <i class="cil-account-logout me-2"></i>
+        Logout
+      </button>
+    </li>
+  </ul>
+</nav>
