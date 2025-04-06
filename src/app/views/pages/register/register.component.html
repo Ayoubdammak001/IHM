@@ -1,36 +1,43 @@
-<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+<div class="register-page d-flex flex-row align-items-center min-vh-100">
   <c-container>
     <c-row class="justify-content-center">
       <c-col lg="7" md="9" xl="6">
-        <c-card class="mx-4">
+        <c-card class="mx-4 shadow-lg" style="background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(6px); border-radius: 1rem;">
           <c-card-body class="p-4">
             <form cForm>
               <h1>Register</h1>
               <p class="text-body-secondary">Create your account</p>
+
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
                 <input autoComplete="name" cFormControl placeholder="Username" />
               </c-input-group>
+
               <c-input-group class="mb-3">
                 <span cInputGroupText>&#64;</span>
                 <input autoComplete="email" cFormControl placeholder="Email" />
               </c-input-group>
+
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
                 <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
               </c-input-group>
+
               <c-input-group class="mb-4">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
                 <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
               </c-input-group>
+
               <div class="d-grid">
-                <button cButton color="success">Create Account</button>
+                <button cButton class="btn custom-btn">Create Account</button>
+
+
               </div>
             </form>
           </c-card-body>

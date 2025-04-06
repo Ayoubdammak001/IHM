@@ -1,239 +1,262 @@
-<!-- Hero Section avec bannière d'accueil -->
-<div class="hero-banner position-relative bg-primary text-white">
-  <div class="container py-5">
-    <div class="row align-items-center">
-      <div class="col-lg-6 mb-4 mb-lg-0 fade-in">
-        <h1 class="display-4 fw-bold mb-3">Services à domicile de qualité</h1>
-        <p class="lead mb-4">
-          Des professionnels qualifiés pour tous vos besoins. Réservation simple, service garanti.
-        </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a routerLink="/services" class="btn btn-light btn-lg">
-            Découvrir nos services
-          </a>
-          <a routerLink="/register" class="btn btn-outline-light btn-lg">
-            S'inscrire
-          </a>
-        </div>
-      </div>
-      <div class="col-lg-6 text-center text-lg-end d-none d-lg-block fade-in-right">
-        <img src="assets/images/logo.png" alt="Services à domicile" class="img-fluid rounded hero-image">
+<!-- hero-banner.component.html -->
+<section class="hero-banner-final fullwidth-force">
+  <div class="overlay">
+    <div class="content">
+      <h1>Services à domicile de qualité</h1>
+      <p>
+        Des professionnels qualifiés pour tous vos besoins.<br />
+        Réservation simple, service garanti.
+      </p>
+      <div class="buttons">
+        <a routerLink="/services" class="btn btn-light btn-lg">
+          Découvrir nos services
+        </a>
+        <a routerLink="/register" class="btn btn-dark custom-btn">S'inscrire.</a>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Main Content -->
-<div class="container py-5">
-  <!-- Category Section -->
-  <section class="mb-5 fade-in">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div>
-        <h2 class="mb-0">Nos catégories</h2>
-        <p class="text-muted">Trouvez le service idéal pour vos besoins</p>
+
+<!-- Nos catégories : 2 cartes côte à côte -->
+<section class="py-5 fade-in">
+  <!-- ✅ Titre centré avec marge haute -->
+  <div class="text-center mt-5 mb-5">
+    <h2 class="custom-text fw-bold">Nos catégories</h2>
+
+    <p class="text-muted">Trouvez le service idéal pour vos besoins</p>
+  </div>
+
+  <a routerLink="/client/categories" class="text-primary fw-bold">
+    Voir tout →
+  </a>
+
+
+
+  <div class="row">
+    <!-- ✅ Carte 1 : Basic Plumbing -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <img
+          src="assets/images/category/plumbing.jpg"
+          alt="Basic Plumbing"
+          class="card-img-top category-img"
+          style="height: 230px; object-fit: cover;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">🔩Plomberie & Dépannage</h5>
+          <p class="card-text">Installation & réparation de sanitaires, éviers, robinets et canalisations</p>
+          <a routerLink="/services" class="btn custom-service-btn w-100">Voir les services</a>
+        </div>
       </div>
-      <a routerLink="/services" class="btn btn-link">Voir tout →</a>
     </div>
-    
+
+    <!-- ✅ Carte 2 : Electrical Repair -->
+    <div class="col-md-6 mb-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <img
+          src="assets/images/category/electrical-repair.jpg"
+          alt="Electrical Repair"
+          class="card-img-top category-img"
+          style="height: 230px; object-fit: cover;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">👨‍🔧Réparation électrique</h5>
+          <p class="card-text">Installation & Maintenance Électrique</p>
+          <a routerLink="/services" class="btn custom-service-btn w-100">Voir les services</a>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Comment ça marche -->
+<section class="py-5 fade-in bg-light rounded">
+  <div class="container text-center">
+    <h2 class="mb-4">Comment ça marche ?</h2>
     <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let category of categories.slice(0, 3)">
-        <div class="card h-100 border-0 shadow-sm hover-card">
-          <img 
-            src="{{category.imageUrl || 'assets/images/category/plumbing.jpg'}}" 
-            class="card-img-top category-img" 
-            alt="{{category.name}}">
-          <div class="card-body">
-            <h5 class="card-title">{{category.name}}</h5>
-            <p class="card-text">{{category.description}}</p>
-            <a [routerLink]="['/services']" [queryParams]="{category: category.id}" class="btn btn-outline-primary w-100">
-              Voir les services
-            </a>
+      <div class="col-md-4 mb-4">
+        <div class="step-card">
+          <i class="bi bi-search fs-1 text-primary mb-3"></i>
+          <h5>1. Trouvez un service</h5>
+          <p class="text-muted">Recherchez facilement parmi des centaines de services près de chez vous.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="step-card">
+          <i class="bi bi-calendar-check fs-1 text-success mb-3"></i>
+          <h5>2. Réservez en ligne</h5>
+          <p class="text-muted">Choisissez le jour et l’heure qui vous conviennent, directement depuis l’app.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="step-card">
+          <i class="bi bi-hand-thumbs-up fs-1 text-info mb-3"></i>
+          <h5>3. Profitez du service</h5>
+          <p class="text-muted">Le prestataire arrive chez vous, à l’heure, pour un service de qualité.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Services populaires -->
+<section class="mb-5 fade-in">
+  <div class="text-center mb-5">
+    <section id="services-populaires" class="services-grid-section container py-5">
+      <!-- cartes de service -->
+    </section>
+
+    <h2 class="custom-text fw-bold">Nos services populaires</h2>
+
+    <p class="text-muted">Choisissez un service de confiance en quelques clics.</p>
+    <a routerLink="/services" class="btn btn-link">Tous les services →</a>
+  </div>
+
+  <div class="row">
+    <!-- ✅ Carte 1 : Nettoyage -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <img
+          src="assets/images/nettoyage.jpg"
+          alt="🧹Entretien & ménage"
+          class="card-img-top"
+          style="height: 230px; object-fit: cover;"
+        />
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex justify-content-between mb-2">
+            <h5 class="card-title mb-0">🧹Entretien & Ménage</h5>
+
+          </div>
+          <p class="card-text flex-grow-1">✨Un intérieur impeccable, sans effort. Profitez d’un service de ménage fiable, discret et efficace..</p>
+          <div class="d-flex gap-2 mt-auto">
+            <a routerLink="/service/1" class="btn custom-service-btn">Réserver</a>
+            <a routerLink="/service/1" class="btn btn-light">Détails</a>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Services Section -->
-  <section class="mb-5 fade-in-delay">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div>
-        <h2 class="mb-0">Services populaires</h2>
-        <p class="text-muted">Les services les plus demandés</p>
-      </div>
-      <a routerLink="/services" class="btn btn-link">Tous les services →</a>
-    </div>
+    <!-- ✅ Carte 2 : Jardinage -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <img
+          src="assets/images/jardinage.jpg"
+          alt="🌿Jardinage"
+          class="card-img-top"
+          style="height: 230px; object-fit: cover;"
+        />
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex justify-content-between mb-2">
+            <h5 class="card-title mb-0">🌿Jardinage</h5>
 
-    <!-- Loading Spinner -->
-    <div *ngIf="loading" class="text-center py-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Chargement...</span>
-      </div>
-      <p class="mt-3 text-muted">Chargement des services...</p>
-    </div>
+          </div>
+          <p class="card-text flex-grow-1">🌱Offrez une nouvelle vie à votre jardin. Nos experts transforment vos extérieurs avec soin et passion.</p>
+          <div class="d-flex gap-2 mt-auto">
+            <!-- Bouton Réserver -->
+            <a routerLink="/service/1" class="btn custom-service-btn">Réserver</a>
 
-    <!-- Error Alert -->
-    <div *ngIf="error" class="alert alert-danger" role="alert">
-      {{ error }}
-    </div>
-
-    <div class="row" *ngIf="!loading && !error">
-      <div class="col-md-4 mb-4" *ngFor="let service of services.slice(0, 6)">
-        <div class="card h-100 border-0 shadow-sm hover-card">
-          <img 
-            src="{{service.imageUrl || 'assets/images/category/plumbing.jpg'}}" 
-            class="card-img-top service-img" 
-            alt="{{service.name}}">
-          <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between mb-2">
-              <h5 class="card-title mb-0">{{service.name}}</h5>
-              <span class="badge bg-info rounded-pill">{{service.price}} €</span>
-            </div>
-            <p class="card-text flex-grow-1">{{service.description}}</p>
-            <div class="d-flex gap-2 mt-auto">
-              <a [routerLink]="['/service', service.id]" class="btn btn-primary flex-grow-1">
-                Réserver
-              </a>
-              <a [routerLink]="['/service', service.id]" class="btn btn-light">
-                Détails
-              </a>
-            </div>
+            <a routerLink="/service/2" class="btn btn-light">Détails</a>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Testimonials Section -->
-  <section class="mb-5 py-5 bg-light rounded fade-in-delay-2">
-    <div class="container">
-      <div class="text-center mb-4">
-        <h2 class="mb-0">Témoignages clients</h2>
-        <p class="text-muted">Ce que disent nos clients satisfaits</p>
+
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-0 shadow-sm hover-card">
+        <img
+          src="assets/images/assistante.jpg"
+          alt="Électricité"
+          class="card-img-top"
+          style="height: 230px; object-fit: cover;"
+        />
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex justify-content-between mb-2">
+            <h5 class="card-title mb-0">👶Babysitting à domicile</h5>
+
+          </div>
+          <p class="card-text flex-grow-1">Confiance, douceur et attention : vos enfants entre de bonnes mains avec nos assistantes à domicile.</p>
+          <div class="d-flex gap-2 mt-auto">
+            <a routerLink="/service/1" class="btn custom-service-btn">Réserver</a>
+            <a routerLink="/service/3" class="btn btn-light">Détails</a>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <!-- Fallback testimonial when there are no reviews -->
-              <div class="carousel-item" [class.active]="testimonials.length === 0">
-                <div class="testimonial-card text-center p-4">
-                  <div class="stars mb-3">
-                    <i class="bi bi-star-fill text-warning" *ngFor="let i of [1,2,3,4,5]"></i>
-                  </div>
-                  <p class="testimonial-text mb-4 fs-5 fst-italic">
-                    "Un service exceptionnel ! Le prestataire est arrivé à l'heure et a effectué un travail remarquable. Je recommande vivement cette plateforme pour tous vos besoins."
-                  </p>
-                  <div class="testimonial-author">
-                    <h5 class="mb-1">Marie Dupont</h5>
-                    <p class="text-muted small">Cliente satisfaite</p>
-                  </div>
-                </div>
+<!-- Témoignages -->
+<section class="mb-5 py-5 bg-light rounded fade-in-delay-2">
+  <div class="text-center mb-4">
+    <h2 class="mb-0">Témoignages clients</h2>
+    <p class="text-muted">Vos retours, notre meilleure récompense.</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item" [class.active]="testimonials.length === 0">
+            <div class="testimonial-card text-center p-4">
+              <div class="stars mb-3">
+                <i class="bi bi-star-fill text-warning" *ngFor="let i of [1,2,3,4,5]"></i>
               </div>
-              
-              <!-- Dynamic testimonials from API -->
-              <div class="carousel-item" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === 0">
-                <div class="testimonial-card text-center p-4">
-                  <div class="stars mb-3">
-                    <i *ngFor="let filled of getStarRating(testimonial.rating)" 
-                       class="bi" 
-                       [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
-                  </div>
-                  <p class="testimonial-text mb-4 fs-5 fst-italic">
-                    "{{ testimonial.comment }}"
-                  </p>
-                  <div class="testimonial-author">
-                    <h5 class="mb-1">Client #{{ testimonial.clientId }}</h5>
-                    <p class="text-muted small">{{ testimonial.date | date }}</p>
-                  </div>
-                </div>
+              <p class="testimonial-text mb-4 fs-5 fst-italic">
+                "Un service exceptionnel ! Le prestataire est arrivé à l'heure et a effectué un travail remarquable."
+              </p>
+              <div class="testimonial-author">
+                <h5 class="mb-1">Marie Dupont</h5>
+                <p class="text-muted small">Cliente satisfaite</p>
               </div>
             </div>
-            
-            <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Précédent</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Suivant</span>
-            </button>
+          </div>
+
+          <div class="carousel-item" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === 0">
+            <div class="testimonial-card text-center p-4">
+              <div class="stars mb-3">
+                <i *ngFor="let filled of getStarRating(testimonial.rating)" class="bi"
+                   [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+              </div>
+              <p class="testimonial-text mb-4 fs-5 fst-italic">
+                "{{ testimonial.comment }}"
+              </p>
+              <div class="testimonial-author">
+                <h5 class="mb-1">Client #{{ testimonial.clientId }}</h5>
+                <p class="text-muted small">{{ testimonial.date | date }}</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- CTA Section -->
-  <section class="mb-5 py-5 bg-primary text-white text-center rounded fade-in-delay-3">
-    <div class="container py-3">
-      <h2 class="mb-3">Prêt à simplifier votre quotidien ?</h2>
-      <p class="lead mb-4">Rejoignez des milliers de clients satisfaits aujourd'hui</p>
-      <div class="d-flex flex-wrap justify-content-center gap-3">
-        <a routerLink="/services" class="btn btn-light btn-lg">Explorer les services</a>
-        <a routerLink="/register" class="btn btn-outline-light btn-lg">S'inscrire maintenant</a>
-      </div>
-    </div>
-  </section>
-</div>
 
-<!-- Footer -->
-<footer class="bg-dark text-light py-5">
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Précédent</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Suivant</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5 py-5 hero-banner-custom text-dark text-center rounded fade-in-delay-3">
   <div class="container">
-    <div class="row">
-      <!-- Company Info -->
-      <div class="col-lg-4 mb-4 mb-lg-0">
-        <h5 class="mb-3">ServiceHub</h5>
-        <p>Votre plateforme de confiance pour tous vos besoins de services à domicile. Qualité et satisfaction garanties.</p>
-        <div class="social-links mt-3">
-          <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
-        </div>
-      </div>
-      
-      <!-- Quick Links -->
-      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-        <h5 class="mb-3">Liens rapides</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a routerLink="/" class="text-light text-decoration-none">Accueil</a></li>
-          <li class="mb-2"><a routerLink="/services" class="text-light text-decoration-none">Services</a></li>
-          <li class="mb-2"><a routerLink="/about" class="text-light text-decoration-none">À propos</a></li>
-          <li class="mb-2"><a routerLink="/contact" class="text-light text-decoration-none">Contact</a></li>
-        </ul>
-      </div>
-      
-      <!-- Categories -->
-      <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
-        <h5 class="mb-3">Catégories</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2" *ngFor="let category of categories.slice(0, 4)">
-            <a [routerLink]="['/services']" [queryParams]="{category: category.id}" class="text-light text-decoration-none">
-              {{ category.name }}
-            </a>
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Legal -->
-      <div class="col-lg-4 col-md-4">
-        <h5 class="mb-3">Informations légales</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a routerLink="/terms" class="text-light text-decoration-none">Conditions d'utilisation</a></li>
-          <li class="mb-2"><a routerLink="/privacy" class="text-light text-decoration-none">Politique de confidentialité</a></li>
-          <li class="mb-2"><a routerLink="/legal" class="text-light text-decoration-none">Mentions légales</a></li>
-        </ul>
-      </div>
-    </div>
-    
-    <hr class="my-4 bg-secondary">
-    
-    <div class="row">
-      <div class="col-12 text-center">
-        <p class="mb-0">&copy; {{ 2023 }} ServiceHub. Tous droits réservés.</p>
-      </div>
+    <h2 class="mb-3">Prêt à simplifier votre quotidien ?</h2>
+    <p class="lead mb-4">Rejoignez des milliers de clients satisfaits</p>
+    <div class="d-flex justify-content-center">
+      <a routerLink="/register" class="btn btn-dark btn-lg">S'inscrire maintenant</a>
     </div>
   </div>
-</footer>
+</section>
+

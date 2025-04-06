@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <h2 class="text-center fw-bold mb-3">Nos services</h2>
+  <p class="text-center text-muted mb-5">Choisissez un service selon la catégorie sélectionnée</p>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let service of filteredServices">
+      <div class="card shadow-sm h-100">
+        <img
+          [src]="service.image"
+          class="card-img-top"
+          alt="{{ service.title }}"
+          style="height: 230px; object-fit: cover;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ service.title }}</h5>
+          <p class="card-text">{{ service.description }}</p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <button class="btn-reserver">Réserver</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredServices.length === 0" class="text-center text-muted mt-5">
+    <p class="fs-5">Aucun service trouvé pour cette catégorie.</p>
+    <a routerLink="/client/categories" class="btn btn-outline-primary mt-2">Retour aux catégories</a>
+  </div>
+</div>
+

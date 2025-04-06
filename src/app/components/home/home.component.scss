@@ -1,122 +1,360 @@
-.hero-section {
-  min-height: 600px;
+.hero-banner-final {
+  background: url('/assets/images/finale.png') center center / cover no-repeat !important;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
   overflow: hidden;
+  border-radius: 0;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
 }
 
-.bg-gradient-primary {
-  background: linear-gradient(135deg, #4527a0, #7b1fa2);
+.fullwidth-force {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  max-width: 100vw;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-sizing: border-box;
 }
 
-.py-6 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
 }
 
-.mb-6 {
-  margin-bottom: 4rem;
+.content {
+  max-width: 600px;
+  color: #fff;
 }
 
-.hover-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.content h1 {
+  font-size: 3rem;
+  font-weight: bold;
 }
 
-.hover-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+.content p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
-.service-img, .category-img {
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+.btn-light {
+  background-color: #fff;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem; /* bien arrondi */
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+  background-color: #f0f0f0;
+}
+
+
+.custom-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 30px;
+  font-weight: 500;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.custom-btn:hover {
+  background-color: #003366;
+  color: white;
+}
+
+/* ➕ À ajouter pour retirer les marges blanches imposées par CoreUI/container */
+.fullwidth-force {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+
+
+/* Overlay sombre flou */
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  width: 100%;
+  height: 100%;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1;
+}
+
+/* Contenu textuel */
+.hero-content {
+  max-width: 600px;
+  color: white;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Boutons */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.custom-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* Boutons light & dark */
+.btn-dark {
+  background-color: #0f1e40 !important;
+  color: white !important;
+}
+
+.btn-dark:hover {
+  background-color: #1e305a !important;
+}
+
+.btn-light {
+  background-color: white !important;
+  color: #2c2c2c !important;
+}
+
+.btn-light:hover {
+  background-color: #f0f0f0 !important;
+}
+
+
+
+/* Overlay (effet sombre sur la bannière) */
+.overlay {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  width: 100%;
+  height: 100%;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+}
+
+/* Contenu du Hero Banner */
+.content {
+  max-width: 600px;
+  color: white;
+}
+
+.content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.content p {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* ========================
+   Boutons (Section Hero)
+   ======================== */
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.custom-btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 30px;
+  font-weight: 500;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.custom-btn:hover {
+  background-color: #003366; /* Teinte plus claire au survol */
+  color: white; /* Texte en blanc */
+}
+
+/* Personnalisation du bouton spécifique (custom-service-btn) */
+.custom-service-btn {
+  background-color: #1e3a5f !important; /* Bleu foncé */
+  color: white !important;
+  border: none !important;
+  padding: 12px 28px !important; /* Ajuster le padding */
+  font-size: 16px !important;
+  border-radius: 30px !important;
+  text-align: center !important;
+  transition: background-color 0.3s ease !important;
+  width: 100% !important; /* Rendre le bouton aussi large que le parent (ex. la carte) */
+  max-width: 350px; /* Limiter la largeur du bouton si nécessaire */
+
+  /* Centrer le texte dans le bouton */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* S'assurer que le bouton est centré dans sa carte */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrer verticalement */
+  align-items: center; /* Centrer horizontalement */
+  height: 100%; /* S'assurer que la carte prend toute la hauteur disponible */
+  padding: 20px 0; /* Réduire l'espace blanc autour */
+}
+
+.card-body h5 {
+  margin-bottom: 0.5rem;
+}
+
+.card-body p {
+  font-size: 0.95rem;
+}
+
+.custom-service-btn:hover {
+  background-color: #1a2f4d !important; /* Teinte plus foncée au survol */
+  color: white !important;
+}
+
+/* ===============================
+   Section Catégories
+   =============================== */
+.categories-section {
+  padding: 3rem 1rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.btn-link {
+  color: #031676;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* ========================
+   Grille des Catégories
+   ======================== */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.category-img {
   height: 200px;
   object-fit: cover;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
-.testimonial-item {
-  max-width: 800px;
-  margin: 0 auto;
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: #fff;
 }
 
-.animated {
-  animation-duration: 1s;
-  animation-fill-mode: both;
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* S'assurer que le contenu est centré */
+  align-items: center; /* Centrer le texte du bouton */
 }
 
-.delay-1 {
-  animation-delay: 0.2s;
+.card-body h5 {
+  margin-bottom: 0.5rem;
 }
 
-.delay-2 {
-  animation-delay: 0.4s;
+.card-body p {
+  font-size: 0.95rem;
 }
 
-.delay-3 {
-  animation-delay: 0.6s;
+/* ========================
+   Step Cards (Comment ça marche)
+   ======================== */
+.step-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
 }
 
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================
+   Animation douce
+   ======================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.fadeIn {
-  animation-name: fadeIn;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slideInRight {
-  animation-name: slideInRight;
-}
-
-// Hero banner
-.hero-banner {
-  min-height: 500px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #4527a0, #7b1fa2);
-}
-
-.hero-image {
-  max-height: 400px;
-  object-fit: cover;
-}
-
-// Card styling
-.hover-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
-  }
-}
-
-.category-img, 
-.service-img {
-  height: 200px;
-  object-fit: cover;
-}
-
-// Testimonials
-.testimonial-card {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-// Animations
 .fade-in {
   animation: fadeIn 1s ease-in;
 }
@@ -126,60 +364,98 @@
   animation-fill-mode: both;
 }
 
-.fade-in-delay-2 {
-  animation: fadeIn 1s ease-in 0.4s;
-  animation-fill-mode: both;
+/* ========================
+   Boutons : Light et Dark
+   ======================== */
+.btn-light {
+  background-color: #ffffff;
+  color: #2c2c2c;
 }
 
-.fade-in-delay-3 {
-  animation: fadeIn 1s ease-in 0.6s;
-  animation-fill-mode: both;
+.btn-dark {
+  background-color: #0f1e40;
+  color: #fff;
 }
 
-.fade-in-right {
-  animation: fadeInRight 1s ease-in;
+.btn-light:hover {
+  background-color: #f0f0f0;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.btn-dark:hover {
+  background-color: #1e305a;
 }
 
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+/* ========================
+   Utilitaires
+   ======================== */
+.text-white {
+  color: white !important;
+}
+/* ===============================
+ Hero Banner Section (juste fond bleu)
+ =============================== */
+/* ===============================
+/* ===============================
+   Hero Banner Section (juste fond bleu)
+   =============================== */
+/* ===============================
+/* ===============================
+ /* ===============================
+   Hero Banner Section avec flou flottant sur l'image de fond
+   =============================== */
+.hero-banner-custom {
+  background: url("/assets/images/finale.png") center center / cover no-repeat; /* Remplacer par le chemin de votre image */
+  padding-top: 4rem; /* Espacement en haut */
+  padding-bottom: 4rem; /* Espacement en bas */
+  border-radius: 20px; /* Bords arrondis */
+  position: relative; /* Pour gérer le contenu par-dessus */
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
-  .hero-banner {
-    min-height: 400px;
-    text-align: center;
-  }
-  
-  .testimonial-card {
-    padding: 15px;
-  }
+.hero-banner-custom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour mieux voir le texte */
+  backdrop-filter: blur(10px); /* Flou flottant sur l'image de fond */
+  border-radius: 20px; /* Bord arrondi du flou */
+  z-index: 1; /* S'assurer que le flou est sous le contenu */
 }
 
-// Social media links
-.social-links {
-  a {
-    font-size: 1.5rem;
-    transition: opacity 0.3s;
-    
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-} 
+.hero-banner-custom .container {
+  position: relative;
+  text-align: center;
+  z-index: 2; /* Assurer que le texte et le bouton soient au-dessus du flou */
+}
+
+.hero-banner-custom h2 {
+  font-size: 2.5rem; /* Taille du texte plus grande */
+  font-weight: 600;
+  color: white; /* Texte en blanc */
+  margin-bottom: 20px;
+}
+
+.hero-banner-custom p.lead {
+  font-size: 1.1rem;
+  color: white; /* Texte en blanc */
+  margin-bottom: 30px;
+}
+
+/* Bouton "S'inscrire maintenant" */
+.hero-banner-custom .btn-dark {
+  background-color: #003366; /* Bleu foncé */
+  color: white;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s ease-in-out; /* Animation sur le bouton */
+}
+
+.hero-banner-custom .btn-dark:hover {
+  background-color: #003366; /* Pas de changement au survol */
+  transform: translateY(-3px); /* Effet de mouvement sur le bouton au survol */
+  color: white;
+}
