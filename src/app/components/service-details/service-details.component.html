@@ -1,94 +1,116 @@
-<div class="container mt-4">
-  <div *ngIf="loading" class="text-center">
-    <div class="spinner-border" role="status">
+<div class="container py-4">
+  <!-- Spinner de chargement -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 
-  <div *ngIf="error" class="alert alert-danger">
-    {{ error }}
-  </div>
+  <!-- Erreur -->
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
-  <div *ngIf="service && !loading" class="card">
-    <div class="card-body">
-      <h2 class="card-title">{{ service.name }}</h2>
-      <p class="card-text">{{ service.description }}</p>
-      <div class="row">
-        <div class="col-md-6">
-          <p><strong>Price:</strong> ${{ service.price }}</p>
-          <p><strong>Duration:</strong> {{ service.duration }} minutes</p>
-        </div>
+  <!-- Détail du service -->
+  <div *ngIf="service && !loading">
+    
+    <!-- Image principale -->
+    <div class="position-relative rounded-4 overflow-hidden mb-4 shadow-sm">
+      <img [src]="service.imageUrl || 'assets/images/default-service.jpg'"
+           class="w-100"
+           style="height: 280px; object-fit: cover;"
+           alt="{{ service.name }}">
+      <div class="position-absolute bottom-0 start-0 w-100 p-3"
+           style="background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);">
+        <h2 class="text-white fw-bold m-0">{{ service.name }}</h2>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="service && !loading" class="row">
-    <div class="col-md-8">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h1 class="card-title">{{ service.name }}</h1>
-          <p class="card-text">{{ service.description }}</p>
-          <p class="card-text">
-            <strong>Category:</strong> {{ service.category?.name }}
-          </p>
-          <p class="card-text">
-            <strong>Price:</strong> ${{ service.price }}
-          </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title">Reviews</h2>
-          <div *ngIf="reviews.length === 0" class="text-center py-3">
-            <p class="text-muted">No reviews yet</p>
+    <div class="row g-4">
+      <!-- Colonne gauche -->
+      <div class="col-lg-8">
+        <!-- Informations -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
+          <p class="text-muted mb-2">{{ service.description }}</p>
+          <div class="d-flex flex-wrap gap-3 align-items-center">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-tag me-2 text-secondary"></i>
+              <span class="badge bg-light border text-dark">
+                {{ service.category?.name || 'Uncategorized' }}
+              </span>
+            </div>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-dollar-sign me-2 text-success"></i>
+              <span class="fw-bold">${{ service.price }}</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-clock me-2 text-primary"></i>
+              <span class="text-muted">{{ service.duration }} min</span>
+            </div>
           </div>
-          <div *ngFor="let review of reviews" class="border-bottom pb-3 mb-3">
-            <div class="d-flex justify-content-between">
-              <div>
-                <div class="stars">
-                  <span *ngFor="let star of [1,2,3,4,5]" class="star">
-                    <i class="fas" [ngClass]="star <= review.rating ? 'fa-star text-warning' : 'fa-star-o'"></i>
-                  </span>
+        </div>
+
+        <!-- Avis -->
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body">
+            <h5 class="fw-bold mb-3">Reviews</h5>
+            <div *ngIf="reviews.length === 0" class="text-center text-muted py-4">
+              <i class="fas fa-comments fa-2x mb-2"></i>
+              <p class="mb-0">No reviews yet</p>
+            </div>
+            <div *ngFor="let review of reviews" class="border-bottom pb-3 mb-3">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <div class="mb-1">
+                    <ng-container *ngFor="let star of [1,2,3,4,5]">
+                      <i class="fas"
+                         [ngClass]="star <= review.rating ? 'fa-star text-warning' : 'fa-star text-secondary opacity-25'"></i>
+                    </ng-container>
+                  </div>
+                  <p class="mb-1">{{ review.comment }}</p>
+                  <small class="text-muted">{{ review.date | date }}</small>
                 </div>
-                <p class="mb-1">{{ review.comment }}</p>
-                <small class="text-muted">{{ review.date | date }}</small>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h3 class="card-title">Make a Reservation</h3>
-          <form (ngSubmit)="makeReservation()">
+      <!-- Colonne droite : Réservation -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 80px;">
+          <div class="card-body">
+            <h5 class="fw-bold mb-3">Make a Reservation</h5>
+
+            <!-- Sélection de la date -->
             <div class="mb-3">
               <label for="reservationDate" class="form-label">Select Date and Time</label>
-              <input
-                type="datetime-local"
-                class="form-control"
-                id="reservationDate"
-                [(ngModel)]="reservationDate"
-                name="reservationDate"
-                required
-              >
+              <div class="input-group">
+                <span class="input-group-text bg-light">
+                  <i class="fas fa-calendar-alt text-muted"></i>
+                </span>
+                <input
+                  type="datetime-local"
+                  class="form-control form-control-sm"
+                  id="reservationDate"
+                  [(ngModel)]="reservationDate"
+                  name="reservationDate"
+                  required
+                />
+              </div>
             </div>
 
+            <!-- Bouton réserver -->
             <button
-              type="submit"
-              class="btn btn-primary w-100"
-              [disabled]="!reservationDate || !isClient"
+              class="btn btn-primary w-100 rounded-pill"
+              (click)="reserveNow()"
             >
               Reserve Now
             </button>
 
-            <div *ngIf="!isClient" class="alert alert-info mt-3">
-              Please <a routerLink="/login">login</a> as a client to make a reservation.
+            <!-- Message erreur -->
+            <div *ngIf="error" class="alert alert-danger mt-3 small">
+              {{ error }}
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

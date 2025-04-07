@@ -40,6 +40,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/pages/client/client-routing.module').then(m => m.ClientRoutingModule)
       },
       {
+        path: 'client',
+        loadChildren: () => import('./components/services/routes').then(m => m.routes)
+      },
+      {
         path: 'base',
         loadChildren: () => import('./views/base/routes').then(m => m.routes)
       },

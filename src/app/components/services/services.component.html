@@ -1,30 +1,95 @@
-<div class="container mt-5">
-  <h2 class="text-center fw-bold mb-3">Nos services</h2>
-  <p class="text-center text-muted mb-5">Choisissez un service selon la catégorie sélectionnée</p>
+<div class="container-fluid py-5 bg-gradient" style="background: linear-gradient(135deg, #f8f9fa, #e0f7fa);">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold display-4 text-dark mb-2" style="font-family: 'Poppins', sans-serif;">Explore Our Expert Services</h1>
+    <p class="fs-5 text-secondary">Find exactly what you need — quality, trust, and convenience in every service.</p>
+    <div class="d-flex justify-content-center">
+      <span class="border border-primary rounded-pill px-3 py-1 text-primary small fw-medium bg-white shadow-sm">
+        Tailored for your comfort
+      </span>
+    </div>
+  </div>
 
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let service of filteredServices">
-      <div class="card shadow-sm h-100">
-        <img
-          [src]="service.image"
-          class="card-img-top"
-          alt="{{ service.title }}"
-          style="height: 230px; object-fit: cover;"
-        />
-        <div class="card-body">
-          <h5 class="card-title">{{ service.title }}</h5>
-          <p class="card-text">{{ service.description }}</p>
+  <!-- Filter Bar -->
+  <div class="card shadow-sm p-3 border-0 rounded-4 bg-white mb-4">
+    <h5 class="fw-bold mb-3 text-center" style="color: #003366;">Refine Your Search</h5>
+    <div class="row g-2 align-items-end">
+      <div class="col-lg-3 col-md-6">
+        <label class="form-label small text-dark">Search</label>
+        <input type="text" class="form-control form-control-sm rounded-pill border" placeholder="Search a service..."
+          [(ngModel)]="searchText" (ngModelChange)="applyFilters()" />
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <label class="form-label small text-dark">Category</label>
+        <select class="form-select form-select-sm rounded-pill border" [(ngModel)]="selectedCategory"
+          (change)="applyFilters()">
+          <option value="">All Categories</option>
+          <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-8">
+        <label class="form-label small text-dark">Max Price (€)</label>
+        <div class="d-flex align-items-center gap-2">
+          <input type="range" class="form-range flex-grow-1" min="0" max="1000"
+            [(ngModel)]="maxPrice" (ngModelChange)="applyFilters()" />
+          <span class="small text-dark">€{{ maxPrice }}</span>
         </div>
-        <div class="card-footer bg-white border-0 text-center">
-          <button class="btn-reserver">Réserver</button>
+      </div>
+      <div class="col-lg-2 col-md-4 d-grid">
+        <button class="btn btn-sm rounded-pill" style="background-color: #003366; color: #fff;" (click)="resetFilters()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Count -->
+  <div class="mb-2 text-end text-muted small">
+    Showing {{ displayedServices.length }} service(s)
+    <span *ngIf="searchText">matching "{{ searchText }}"</span>
+    <span *ngIf="selectedCategory">in {{ selectedCategory }}</span>
+    <span *ngIf="maxPrice < 1000">under €{{ maxPrice }}</span>
+  </div>
+
+  <!-- Services Cards -->
+  <div class="row g-3">
+    <div class="col-12 col-sm-6 col-lg-4" *ngFor="let service of paginatedServices">
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100" style="min-height: 320px;">
+        <img [src]="service.imageUrl || 'assets/images/default-service.jpg'" class="card-img-top"
+          style="height: 150px; object-fit: cover;" alt="{{ service.name }}" />
+        <div class="card-body p-3">
+          <h6 class="fw-bold text-dark mb-1" style="font-size: 1rem;">{{ service.name }}</h6>
+          <p class="text-muted small mb-2">{{ service.description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">⏱ {{ service.duration }} min</small>
+            <span class="fw-bold text-dark">€ {{ service.price }}</span>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent text-center border-0 pb-3">
+          <a [routerLink]="['/service', service.id]" class="btn btn-sm w-75 rounded-pill"
+            style="background-color:#003366; color: #fff;">Book Now</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="filteredServices.length === 0" class="text-center text-muted mt-5">
-    <p class="fs-5">Aucun service trouvé pour cette catégorie.</p>
-    <a routerLink="/client/categories" class="btn btn-outline-primary mt-2">Retour aux catégories</a>
+  <!-- No Results -->
+  <div *ngIf="displayedServices.length === 0" class="text-center text-muted mt-4">
+    <p class="fs-5">No services match your filters.</p>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="pageCount > 1" class="mt-4 text-center">
+    <button class="btn btn-sm me-1 rounded-pill"
+      [ngStyle]="{ backgroundColor: '#003366', color: 'white', opacity: currentPage === 1 ? 0.5 : 1 }"
+      (click)="goToPage(currentPage - 1)">Previous</button>
+
+    <button *ngFor="let page of getPaginationButtons()" class="btn btn-sm me-1 rounded-pill"
+      [ngStyle]="{ backgroundColor: currentPage === page ? '#0066cc' : '#003366', color: 'white' }"
+      (click)="goToPage(page)">{{ page }}</button>
+
+    <button class="btn btn-sm rounded-pill"
+      [ngStyle]="{ backgroundColor: '#003366', color: 'white', opacity: currentPage === pageCount ? 0.5 : 1 }"
+      (click)="goToPage(currentPage + 1)">Next</button>
   </div>
 </div>
-

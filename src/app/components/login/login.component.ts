@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -12,19 +12,28 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   error = '';
+  returnUrl: string = '/';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    // ⤵️ Récupère le returnUrl depuis les query params
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'] || '/';
     });
   }
 
@@ -41,6 +50,14 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: (user) => {
         this.loading = false;
+
+        // ✅ Si returnUrl existe (ex: /client/service/1007), on le suit
+        if (this.returnUrl && this.returnUrl !== '/') {
+          this.router.navigateByUrl(this.returnUrl);
+          return;
+        }
+
+        // Sinon, redirige selon le rôle
         switch (user.role) {
           case 'CLIENT':
             this.router.navigate(['/client/dashboard']);
