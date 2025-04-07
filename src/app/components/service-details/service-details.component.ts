@@ -1,27 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 import { ServiceService } from '../../services/service.service';
 import { ReviewService } from '../../services/review.service';
 import { ReservationService } from '../../services/reservation.service';
 import { AuthService } from '../../services/auth.service';
+
 import { Service } from '../../models/service.model';
 import { Review } from '../../models/review.model';
 import { ReservationStatus, Role } from '../../models/enums';
 
-// 🛠️ Modules Angular nécessaires pour le template
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-service-details',
-  standalone: true, // ✅ active standalone
+  standalone: true,
   templateUrl: './service-details.component.html',
   styleUrls: ['./service-details.component.scss'],
-  imports: [
-    CommonModule,   // ✅ *ngIf, *ngFor, ngClass, date pipe...
-    FormsModule,    // ✅ [(ngModel)]
-    RouterModule    // ✅ routerLink
-  ]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class ServiceDetailsComponent implements OnInit {
   service: Service | null = null;
@@ -29,7 +25,6 @@ export class ServiceDetailsComponent implements OnInit {
   loading = false;
   error = '';
   reservationDate = '';
-  isClient = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,9 +33,7 @@ export class ServiceDetailsComponent implements OnInit {
     private reviewService: ReviewService,
     private reservationService: ReservationService,
     private authService: AuthService
-  ) {
-    this.isClient = this.authService.hasRole(Role.CLIENT);
-  }
+  ) {}
 
   ngOnInit(): void {
     const serviceId = Number(this.route.snapshot.paramMap.get('id'));
@@ -52,13 +45,12 @@ export class ServiceDetailsComponent implements OnInit {
 
   private loadService(id: number): void {
     this.loading = true;
-    this.error = '';
     this.serviceService.getById(id).subscribe({
-      next: (service: Service) => {  // Typage explicite pour service
+      next: (service: Service) => {
         this.service = service;
         this.loading = false;
       },
-      error: (err: any) => {  // Typage explicite pour err
+      error: (err) => {
         this.error = 'Error loading service: ' + err.message;
         this.loading = false;
       }
@@ -67,40 +59,57 @@ export class ServiceDetailsComponent implements OnInit {
 
   private loadReviews(serviceId: number): void {
     this.reviewService.getByServiceId(serviceId).subscribe({
-      next: (reviews: Review[]) => {  // Typage explicite pour reviews
+      next: (reviews: Review[]) => {
         this.reviews = reviews;
       },
-      error: (error: any) => {  // Typage explicite pour error
+      error: (error) => {
         console.error('Error loading reviews:', error);
       }
     });
   }
 
-  makeReservation(): void {
-    if (!this.service || !this.reservationDate) return;
-
+  reserveNow(): void {
     const currentUser = this.authService.currentUserValue;
+    const currentUrl = this.router.url;
+
     if (!currentUser) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], { queryParams: { returnUrl: currentUrl } });
+      return;
+    }
+
+    if (currentUser.role !== Role.CLIENT) {
+      this.error = 'Only clients can make reservations.';
+      return;
+    }
+
+    if (!this.reservationDate || !this.service) {
+      this.error = 'Please select a valid reservation date.';
       return;
     }
 
     const dateObj = new Date(this.reservationDate);
+
     const reservation = {
       clientId: currentUser.id,
       providerId: this.service.providerId,
       serviceId: this.service.id,
       serviceName: this.service.name,
       date: dateObj,
-      time: '10:00', // Default time or you could add a time picker
+      time: '10:00',
       status: ReservationStatus.PENDING,
       notes: '',
       reservationDate: dateObj
     };
 
     this.reservationService.add(reservation).subscribe({
-      next: () => this.router.navigate(['/client/reservations']),
-      error: () => this.error = 'Error making reservation. Please try again.'
+      next: () => {
+        this.router.navigate(['/client/reservations'], {
+          queryParams: { success: 'Reservation added successfully!' }
+        });
+      },
+      error: () => {
+        this.error = 'Error while creating reservation. Please try again.';
+      }
     });
   }
 }

@@ -12,14 +12,15 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       },
+      
       {
-        path: 'dashboard',
+        path: 'profile',
         loadComponent: () =>
-          import('./client-dashboard/client-dashboard.component').then(
-            (m) => m.ClientDashboardComponent
+          import('./client-profile/client-profile.component').then(
+            (m) => m.ClientProfileComponent
           ),
         data: {
-          title: 'Dashboard'
+          title: 'Profile'
         }
       },
       {

@@ -19,6 +19,11 @@ export const routes: Routes = [
           title: 'Colors'
         }
       },
+      
+  {
+    path: 'service/:id',
+    loadComponent: () => import('../service-details/service-details.component').then(m => m.ServiceDetailsComponent)
+  },
 
     ]
   }
