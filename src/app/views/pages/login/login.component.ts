@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -15,20 +16,21 @@ import { AuthService } from '../../../services/auth.service';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        ContainerComponent, 
-        RowComponent, 
-        ColComponent, 
-        CardGroupComponent, 
-        TextColorDirective, 
-        CardComponent, 
-        CardBodyComponent, 
-        FormDirective, 
-        InputGroupComponent, 
-        InputGroupTextDirective, 
-        IconDirective, 
-        FormControlDirective, 
-        ButtonDirective, 
-        NgStyle
+        ContainerComponent,
+        RowComponent,
+        ColComponent,
+        CardGroupComponent,
+        TextColorDirective,
+        CardComponent,
+        CardBodyComponent,
+        FormDirective,
+        InputGroupComponent,
+        InputGroupTextDirective,
+        IconDirective,
+        FormControlDirective,
+        ButtonDirective,
+        NgStyle,
+        RouterModule
     ]
 })
 export class LoginComponent {
@@ -54,9 +56,9 @@ export class LoginComponent {
 
         this.loading = true;
         this.errorMessage = '';
-        
+
         const { email, password } = this.loginForm.value;
-        
+
         this.authService.login(email, password).subscribe({
             next: (user) => {
                 this.loading = false;

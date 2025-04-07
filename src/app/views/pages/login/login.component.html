@@ -1,91 +1,72 @@
-<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
-  <c-container breakpoint="md">
-    <c-row class="justify-content-center">
-      <c-col lg="10" xl="8">
-        <c-card-group>
-          <c-card class="p-4">
-            <c-card-body>
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" cForm>
-                <h1>Login</h1>
-                <p class="text-body-secondary">Sign In to your account</p>
-                
-                <div *ngIf="errorMessage" class="alert alert-danger mb-3">
-                  {{ errorMessage }}
+<div class="login-page d-flex flex-row align-items-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(6px); border-radius: 1rem;">
+          <div class="card-body p-4">
+            <h2 class="card-title text-center mb-4">Login</h2>
+            <p class="text-body-secondary text-center">Sign in to your account</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+                  autocomplete="email"
+                  [ngClass]="{ 'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.errors }"
+                />
+                <div class="invalid-feedback" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors">
+                  <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                  <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</div>
                 </div>
-                
-                <c-input-group class="mb-3">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilUser"></svg>
-                  </span>
-                  <input 
-                    formControlName="email"
-                    autoComplete="email" 
-                    cFormControl 
-                    placeholder="Email" 
-                    type="email"
-                    [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
-                  />
-                  <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="invalid-feedback">
-                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
-                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</div>
-                  </div>
-                </c-input-group>
-                
-                <c-input-group class="mb-4">
-                  <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
-                  </span>
-                  <input
-                    formControlName="password"
-                    autoComplete="current-password"
-                    cFormControl
-                    placeholder="Password"
-                    type="password"
-                    [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
-                  />
-                  <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="invalid-feedback">
-                    Password is required
-                  </div>
-                </c-input-group>
-                
-                <c-row>
-                  <c-col xs="6">
-                    <button 
-                      cButton 
-                      class="px-4" 
-                      color="primary" 
-                      type="submit" 
-                      [disabled]="loginForm.invalid || loading"
-                    >
-                      <span *ngIf="loading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                      Login
-                    </button>
-                  </c-col>
-                  <c-col class="text-right" xs="6">
-                    <button cButton class="px-0" color="link" type="button">
-                      Forgot password?
-                    </button>
-                  </c-col>
-                </c-row>
-              </form>
-            </c-card-body>
-          </c-card>
-          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary py-5">
-            <c-card-body class="text-center">
-              <div>
-                <h2>Sign up</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
-                  Register Now!
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  [ngClass]="{ 'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.errors }"
+                />
+                <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+                  Password is required
+                </div>
+              </div>
+
+              <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+                {{ errorMessage }}
+              </div>
+
+              <div class="d-grid">
+                <button
+                  type="submit"
+                  class="btn custom-btn"
+                  [disabled]="loginForm.invalid || loading"
+                >
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                  Login
                 </button>
               </div>
-            </c-card-body>
-          </c-card>
-        </c-card-group>
-      </c-col>
-    </c-row>
-  </c-container>
+            </form>
+
+            <div class="text-center mt-3">
+              <a routerLink="/register" class="text-decoration-none">Don't have an account? Register here</a>
+            </div>
+
+            <div class="text-center mt-2">
+              <button class="btn btn-link p-0" type="button">
+                Forgot password?
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

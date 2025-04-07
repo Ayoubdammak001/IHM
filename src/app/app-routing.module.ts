@@ -6,7 +6,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 
 // Client components
-import { ClientDashboardComponent } from './components/client/client-dashboard/client-dashboard.component';
 import { ClientReservationsComponent } from './components/client/client-reservations/client-reservations.component';
 import { ClientProfileComponent } from './components/client/client-profile/client-profile.component';
 import { ClientReviewsComponent } from './components/client/client-reviews/client-reviews.component';
@@ -56,12 +55,7 @@ const routes: Routes = [
   {
     path: 'client',
     children: [
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./components/client/client-dashboard/client-dashboard.component')
-            .then(m => m.ClientDashboardComponent)
-      },
+
       {
         path: 'profile',
         loadComponent: () =>

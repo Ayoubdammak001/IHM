@@ -100,7 +100,7 @@
       "rating": 5,
       "comment": "Excellent service!",
       "date": "2024-03-15T10:00:00Z",
-      "clientId": 1,
+      "clientId": "1",
       "providerId": "71ee",
       "serviceId": 5248
     }
