@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Ajouter CommonModule
-import { RouterModule } from '@angular/router'; // Ajouter RouterModule
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { ServiceService } from '../../services/service.service';
 import { CategoryService } from '../../services/category.service';
 import { ReviewService } from '../../services/review.service';
 import { Service } from '../../models/service.model';
 import { Category } from '../../models/category.model';
 import { Review } from '../../models/review.model';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
+import { HomePageService, HomeSection, Testimonial } from '../../services/home-page.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,24 +18,53 @@ import {HttpClientModule} from "@angular/common/http";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   services: Service[] = [];
   categories: Category[] = [];
   testimonials: Review[] = [];
   loading = true;
   error = '';
+  
+  // Données de la page d'accueil
+  heroSection!: HomeSection;
+  homeCategories: HomeSection[] = [];
+  homeTestimonials: Testimonial[] = [];
+  
+  private subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
     private serviceService: ServiceService,
     private categoryService: CategoryService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private homePageService: HomePageService
   ) {}
 
   ngOnInit(): void {
     this.loadData();
+    
+    // S'abonner aux données du service de la page d'accueil
+    this.subscriptions.push(
+      this.homePageService.getHeroSection().subscribe(heroSection => {
+        this.heroSection = heroSection;
+      }),
+      
+      this.homePageService.getCategories().subscribe(categories => {
+        this.homeCategories = categories;
+      }),
+      
+      this.homePageService.getTestimonials().subscribe(testimonials => {
+        this.homeTestimonials = testimonials;
+      })
+    );
   }
 
-  private loadData(): void {
+  ngOnDestroy(): void {
+    // Se désabonner de toutes les souscriptions
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  loadData(): void {
     this.loading = true;
     this.error = '';
 
@@ -43,10 +74,10 @@ export class HomeComponent implements OnInit {
         this.services = services;
         this.loading = false;
       },
-      error: (error) => {
-        this.error = 'Erreur lors du chargement des services. Veuillez réessayer plus tard.';
+      error: (err) => {
+        this.error = 'Failed to load services. Please try again later.';
         this.loading = false;
-        console.error('Erreur de chargement des services:', error);
+        console.error('Error loading services:', err);
       }
     });
 
@@ -55,27 +86,24 @@ export class HomeComponent implements OnInit {
       next: (categories) => {
         this.categories = categories;
       },
-      error: (error) => {
-        console.error('Erreur de chargement des catégories:', error);
+      error: (err) => {
+        console.error('Error loading categories:', err);
       }
     });
 
-    // Charger les témoignages (reviews avec notes élevées)
+    // Charger les témoignages
     this.reviewService.getAll().subscribe({
       next: (reviews) => {
-        // Filtrer pour avoir des témoignages de qualité (4-5 étoiles)
-        this.testimonials = reviews
-          .filter(review => review.rating >= 4 && review.comment && review.comment.length > 10)
-          .slice(0, 3); // Limiter à 3 témoignages
+        this.testimonials = reviews;
       },
-      error: (error) => {
-        console.error('Erreur de chargement des témoignages:', error);
+      error: (err) => {
+        console.error('Error loading reviews:', err);
       }
     });
   }
 
   // Méthode pour générer le tableau d'étoiles pour l'affichage des notes
   getStarRating(rating: number): boolean[] {
-    return Array(5).fill(true).map((_, i) => i < rating);
+    return Array(5).fill(false).map((_, i) => i < rating);
   }
 }

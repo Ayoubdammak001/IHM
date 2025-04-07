@@ -11,6 +11,8 @@
   z-index: 0;
   margin: 0;
   padding: 0;
+  margin-top: -76px;
+  padding-top: 76px;
 }
 
 .fullwidth-force {
@@ -458,4 +460,44 @@
   background-color: #003366; /* Pas de changement au survol */
   transform: translateY(-3px); /* Effet de mouvement sur le bouton au survol */
   color: white;
+}
+
+// Navbar styles
+.navbar {
+  transition: all 0.3s ease;
+  padding: 1rem 0;
+  
+  &.navbar-light {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    color: #555;
+    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  .btn-primary {
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    }
+  }
 }
