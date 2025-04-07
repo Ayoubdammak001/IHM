@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from '../../guards/auth.guard';
 import { RoleGuard } from '../../guards/role.guard';
 import { Role } from '../../models/enums';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +21,10 @@ export const routes: Routes = [
         loadComponent: () => import('./admin-dashboard/admin-dashboard.component')
           .then(m => m.AdminDashboardComponent),
         data: { title: 'Admin Dashboard' }
+      },
+      {
+        path: 'home',
+        component: AdminHomeComponent
       },
       {
         path: 'users',

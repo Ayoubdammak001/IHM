@@ -1,0 +1,264 @@
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="mb-4">Home Page Administration</h1>
+      </div>
+    </div>
+  
+    <!-- Hero Section -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">Hero Section</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="heroForm" (ngSubmit)="updateHeroSection()">
+          <div class="mb-3">
+            <label for="heroTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="heroTitle" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label for="heroContent" class="form-label">Content</label>
+            <textarea class="form-control" id="heroContent" rows="3" formControlName="content"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!heroForm.valid">Update Hero Section</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Categories Section -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="mb-0">Categories</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="categoriesForm" (ngSubmit)="editingCategory ? updateCategory() : addCategory()">
+          <div class="mb-3">
+            <label for="categorySelect" class="form-label">Select Existing Category</label>
+            <select class="form-select" id="categorySelect" formControlName="categoryId">
+              <option value="">-- Select a category --</option>
+              <option *ngFor="let category of existingCategories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+            <small class="text-muted">Select an existing category or fill in the form below to create a new one</small>
+          </div>
+          
+          <div class="mb-3">
+            <label for="categoryTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="categoryTitle" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label for="categoryContent" class="form-label">Content</label>
+            <textarea class="form-control" id="categoryContent" rows="3" formControlName="content"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="categoryImage" class="form-label">Image</label>
+            <div class="input-group">
+              <input type="file" class="form-control" id="categoryImage" (change)="onImageSelected($event)" accept="image/*">
+              <button class="btn btn-outline-secondary" type="button" (click)="uploadImage()" [disabled]="!selectedImage">
+                <i class="bi bi-upload"></i> Upload
+              </button>
+            </div>
+            <small class="text-muted">Upload an image for the category (Max size: 5MB)</small>
+            <div *ngIf="imagePreview" class="mt-2">
+              <img [src]="imagePreview" class="img-thumbnail" style="max-height: 200px">
+            </div>
+            <input type="hidden" formControlName="image">
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="!categoriesForm.valid">
+              {{ editingCategory ? 'Update Category' : 'Add Category' }}
+            </button>
+            <button type="button" class="btn btn-secondary" *ngIf="editingCategory" (click)="cancelCategoryEdit()">
+              Cancel
+            </button>
+          </div>
+        </form>
+  
+        <div class="mt-4">
+          <h6>Existing Categories</h6>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Content</th>
+                  <th>Image</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let category of categories">
+                  <td>{{ category.title }}</td>
+                  <td>{{ category.content }}</td>
+                  <td>
+                    <img *ngIf="category.image" [src]="category.image" alt="Category image" class="img-thumbnail" style="max-height: 100px;">
+                    <span *ngIf="!category.image" class="text-muted">No image</span>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" (click)="editCategory(category)">
+                        <i class="bi bi-pencil"></i> Edit
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="deleteCategory(category.id)">
+                        <i class="bi bi-trash"></i> Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Testimonials Section -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-0">Testimonials</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="testimonialsForm" (ngSubmit)="editingTestimonial ? updateTestimonial() : addTestimonial()">
+          <div class="mb-3">
+            <label for="reviewSelect" class="form-label">Select Existing Review</label>
+            <select class="form-select" id="reviewSelect" formControlName="reviewId">
+              <option value="">-- Select a review --</option>
+              <option *ngFor="let review of existingReviews" [value]="review.id">
+                {{ review.clientName }} - {{ review.comment | slice:0:30 }}...
+              </option>
+            </select>
+            <small class="text-muted">Select an existing review or fill in the form below to create a new one</small>
+          </div>
+          
+          <div class="mb-3">
+            <label for="clientName" class="form-label">Client Name</label>
+            <input type="text" class="form-control" id="clientName" formControlName="clientName">
+          </div>
+          <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea class="form-control" id="comment" rows="3" formControlName="comment"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <input type="number" class="form-control" id="rating" formControlName="rating" min="1" max="5">
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="!testimonialsForm.valid">
+              {{ editingTestimonial ? 'Update Testimonial' : 'Add Testimonial' }}
+            </button>
+            <button type="button" class="btn btn-secondary" *ngIf="editingTestimonial" (click)="cancelTestimonialEdit()">
+              Cancel
+            </button>
+          </div>
+        </form>
+  
+        <div class="mt-4">
+          <h6>Existing Testimonials</h6>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Comment</th>
+                  <th>Rating</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let testimonial of testimonials">
+                  <td>{{ testimonial.clientName }}</td>
+                  <td>{{ testimonial.comment }}</td>
+                  <td>
+                    <div class="stars">
+                      <i *ngFor="let filled of getStarRating(testimonial.rating)" class="bi"
+                         [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" (click)="editTestimonial(testimonial)">
+                        <i class="bi bi-pencil"></i> Edit
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="deleteTestimonial(testimonial.id)">
+                        <i class="bi bi-trash"></i> Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Category Modal -->
+  <div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="categoriesForm" (ngSubmit)="addCategory()">
+            <div class="mb-3">
+              <label for="categoryTitle" class="form-label">Title</label>
+              <input type="text" class="form-control" id="categoryTitle" formControlName="title">
+            </div>
+            <div class="mb-3">
+              <label for="categoryContent" class="form-label">Content</label>
+              <textarea class="form-control" id="categoryContent" rows="3" formControlName="content"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="categoryImage" class="form-label">Image</label>
+              <div class="input-group">
+                <input type="file" class="form-control" id="categoryImage" (change)="onImageSelected($event)" accept="image/*">
+                <button class="btn btn-outline-secondary" type="button" (click)="uploadImage()" [disabled]="!selectedImage">
+                  <i class="bi bi-upload"></i> Upload
+                </button>
+              </div>
+              <small class="text-muted">Upload an image for the category (Max size: 5MB)</small>
+              <div *ngIf="imagePreview" class="mt-2">
+                <img [src]="imagePreview" class="img-thumbnail" style="max-height: 200px">
+              </div>
+              <input type="hidden" formControlName="image">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!categoriesForm.valid">Add Category</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Testimonial Modal -->
+  <div class="modal fade" id="addTestimonialModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Testimonial</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="testimonialsForm" (ngSubmit)="addTestimonial()">
+            <div class="mb-3">
+              <label for="clientName" class="form-label">Client Name</label>
+              <input type="text" class="form-control" id="clientName" formControlName="clientName">
+            </div>
+            <div class="mb-3">
+              <label for="testimonialComment" class="form-label">Comment</label>
+              <textarea class="form-control" id="testimonialComment" rows="3" formControlName="comment"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input type="number" class="form-control" id="rating" formControlName="rating" min="1" max="5">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!testimonialsForm.valid">Add Testimonial</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> 
+  

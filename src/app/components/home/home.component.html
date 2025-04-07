@@ -1,262 +1,245 @@
-<!-- hero-banner.component.html -->
-<section class="hero-banner-final fullwidth-force">
-  <div class="overlay">
-    <div class="content">
-      <h1>Services à domicile de qualité</h1>
-      <p>
-        Des professionnels qualifiés pour tous vos besoins.<br />
-        Réservation simple, service garanti.
-      </p>
-      <div class="buttons">
-        <a routerLink="/services" class="btn btn-light btn-lg">
-          Découvrir nos services
-        </a>
-        <a routerLink="/register" class="btn btn-dark custom-btn">S'inscrire.</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Nos catégories : 2 cartes côte à côte -->
-<section class="py-5 fade-in">
-  <!-- ✅ Titre centré avec marge haute -->
-  <div class="text-center mt-5 mb-5">
-    <h2 class="custom-text fw-bold">Nos catégories</h2>
-
-    <p class="text-muted">Trouvez le service idéal pour vos besoins</p>
-  </div>
-
-  <a routerLink="/client/categories" class="text-primary fw-bold">
-    Voir tout →
-  </a>
-
-
-
-  <div class="row">
-    <!-- ✅ Carte 1 : Basic Plumbing -->
-    <div class="col-md-6 mb-4">
-      <div class="card h-100 border-0 shadow-sm hover-card">
-        <img
-          src="assets/images/category/plumbing.jpg"
-          alt="Basic Plumbing"
-          class="card-img-top category-img"
-          style="height: 230px; object-fit: cover;"
-        />
-        <div class="card-body">
-          <h5 class="card-title">🔩Plomberie & Dépannage</h5>
-          <p class="card-text">Installation & réparation de sanitaires, éviers, robinets et canalisations</p>
-          <a routerLink="/services" class="btn custom-service-btn w-100">Voir les services</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ✅ Carte 2 : Electrical Repair -->
-    <div class="col-md-6 mb-4">
-      <div class="card h-100 border-0 shadow-sm hover-card">
-        <img
-          src="assets/images/category/electrical-repair.jpg"
-          alt="Electrical Repair"
-          class="card-img-top category-img"
-          style="height: 230px; object-fit: cover;"
-        />
-        <div class="card-body">
-          <h5 class="card-title">👨‍🔧Réparation électrique</h5>
-          <p class="card-text">Installation & Maintenance Électrique</p>
-          <a routerLink="/services" class="btn custom-service-btn w-100">Voir les services</a>
-
-
-
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Comment ça marche -->
-<section class="py-5 fade-in bg-light rounded">
-  <div class="container text-center">
-    <h2 class="mb-4">Comment ça marche ?</h2>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="step-card">
-          <i class="bi bi-search fs-1 text-primary mb-3"></i>
-          <h5>1. Trouvez un service</h5>
-          <p class="text-muted">Recherchez facilement parmi des centaines de services près de chez vous.</p>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="step-card">
-          <i class="bi bi-calendar-check fs-1 text-success mb-3"></i>
-          <h5>2. Réservez en ligne</h5>
-          <p class="text-muted">Choisissez le jour et l’heure qui vous conviennent, directement depuis l’app.</p>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="step-card">
-          <i class="bi bi-hand-thumbs-up fs-1 text-info mb-3"></i>
-          <h5>3. Profitez du service</h5>
-          <p class="text-muted">Le prestataire arrive chez vous, à l’heure, pour un service de qualité.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Services populaires -->
-<section class="mb-5 fade-in">
-  <div class="text-center mb-5">
-    <section id="services-populaires" class="services-grid-section container py-5">
-      <!-- cartes de service -->
-    </section>
-
-    <h2 class="custom-text fw-bold">Nos services populaires</h2>
-
-    <p class="text-muted">Choisissez un service de confiance en quelques clics.</p>
-    <a routerLink="/services" class="btn btn-link">Tous les services →</a>
-  </div>
-
-  <div class="row">
-    <!-- ✅ Carte 1 : Nettoyage -->
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow-sm hover-card">
-        <img
-          src="assets/images/nettoyage.jpg"
-          alt="🧹Entretien & ménage"
-          class="card-img-top"
-          style="height: 230px; object-fit: cover;"
-        />
-        <div class="card-body d-flex flex-column">
-          <div class="d-flex justify-content-between mb-2">
-            <h5 class="card-title mb-0">🧹Entretien & Ménage</h5>
-
-          </div>
-          <p class="card-text flex-grow-1">✨Un intérieur impeccable, sans effort. Profitez d’un service de ménage fiable, discret et efficace..</p>
-          <div class="d-flex gap-2 mt-auto">
-            <a routerLink="/service/1" class="btn custom-service-btn">Réserver</a>
-            <a routerLink="/service/1" class="btn btn-light">Détails</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ✅ Carte 2 : Jardinage -->
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow-sm hover-card">
-        <img
-          src="assets/images/jardinage.jpg"
-          alt="🌿Jardinage"
-          class="card-img-top"
-          style="height: 230px; object-fit: cover;"
-        />
-        <div class="card-body d-flex flex-column">
-          <div class="d-flex justify-content-between mb-2">
-            <h5 class="card-title mb-0">🌿Jardinage</h5>
-
-          </div>
-          <p class="card-text flex-grow-1">🌱Offrez une nouvelle vie à votre jardin. Nos experts transforment vos extérieurs avec soin et passion.</p>
-          <div class="d-flex gap-2 mt-auto">
-            <!-- Bouton Réserver -->
-            <a routerLink="/service/1" class="btn custom-service-btn">Réserver</a>
-
-            <a routerLink="/service/2" class="btn btn-light">Détails</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 border-0 shadow-sm hover-card">
-        <img
-          src="assets/images/assistante.jpg"
-          alt="Électricité"
-          class="card-img-top"
-          style="height: 230px; object-fit: cover;"
-        />
-        <div class="card-body d-flex flex-column">
-          <div class="d-flex justify-content-between mb-2">
-            <h5 class="card-title mb-0">👶Babysitting à domicile</h5>
-
-          </div>
-          <p class="card-text flex-grow-1">Confiance, douceur et attention : vos enfants entre de bonnes mains avec nos assistantes à domicile.</p>
-          <div class="d-flex gap-2 mt-auto">
-            <a routerLink="/service/1" class="btn custom-service-btn">Réserver</a>
-            <a routerLink="/service/3" class="btn btn-light">Détails</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Témoignages -->
-<section class="mb-5 py-5 bg-light rounded fade-in-delay-2">
-  <div class="text-center mb-4">
-    <h2 class="mb-0">Témoignages clients</h2>
-    <p class="text-muted">Vos retours, notre meilleure récompense.</p>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item" [class.active]="testimonials.length === 0">
-            <div class="testimonial-card text-center p-4">
-              <div class="stars mb-3">
-                <i class="bi bi-star-fill text-warning" *ngFor="let i of [1,2,3,4,5]"></i>
-              </div>
-              <p class="testimonial-text mb-4 fs-5 fst-italic">
-                "Un service exceptionnel ! Le prestataire est arrivé à l'heure et a effectué un travail remarquable."
-              </p>
-              <div class="testimonial-author">
-                <h5 class="mb-1">Marie Dupont</h5>
-                <p class="text-muted small">Cliente satisfaite</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-item" *ngFor="let testimonial of testimonials; let i = index" [class.active]="i === 0">
-            <div class="testimonial-card text-center p-4">
-              <div class="stars mb-3">
-                <i *ngFor="let filled of getStarRating(testimonial.rating)" class="bi"
-                   [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
-              </div>
-              <p class="testimonial-text mb-4 fs-5 fst-italic">
-                "{{ testimonial.comment }}"
-              </p>
-              <div class="testimonial-author">
-                <h5 class="mb-1">Client #{{ testimonial.clientId }}</h5>
-                <p class="text-muted small">{{ testimonial.date | date }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-          <span class="visually-hidden">Précédent</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-          <span class="visually-hidden">Suivant</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="mb-5 py-5 hero-banner-custom text-dark text-center rounded fade-in-delay-3">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
   <div class="container">
-    <h2 class="mb-3">Prêt à simplifier votre quotidien ?</h2>
-    <p class="lead mb-4">Rejoignez des milliers de clients satisfaits</p>
-    <div class="d-flex justify-content-center">
-      <a routerLink="/register" class="btn btn-dark btn-lg">S'inscrire maintenant</a>
+    <a class="navbar-brand" href="#">HomeServices</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/services">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary text-white ms-2" routerLink="/login">Log In</a>
+        </li>
+      </ul>
     </div>
   </div>
-</section>
+</nav>
 
+<!-- Add margin-top to account for fixed navbar -->
+<div style="margin-top: 76px;">
+  <!-- hero-banner.component.html -->
+  <section class="hero-banner-final fullwidth-force">
+    <div class="overlay">
+      <div class="content">
+        <h1>{{ heroSection?.title || 'Quality Home Services' }}</h1>
+        <p>
+          {{ heroSection?.content || 'Qualified professionals for all your needs.\nSimple booking, guaranteed service.' }}
+        </p>
+        <div class="buttons">
+          <a routerLink="/services" class="btn btn-light btn-lg">
+            Discover our services
+          </a>
+          <a routerLink="/register" class="btn btn-dark custom-btn">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories section -->
+  <section class="py-5 fade-in">
+    <div class="text-center mt-5 mb-5">
+      <h2 class="custom-text fw-bold">Our Categories</h2>
+      <p class="text-muted">Find the perfect service for your needs</p>
+    </div>
+
+    <a routerLink="/client/categories" class="text-primary fw-bold">
+      View all →
+    </a>
+
+    <div class="row">
+      <!-- Dynamic Categories from HomePageService -->
+      <div class="col-md-6 mb-4" *ngFor="let category of homeCategories">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+          <img
+            [src]="category.image"
+            [alt]="category.title"
+            class="card-img-top category-img"
+            style="height: 230px; object-fit: cover;"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ category.title }}</h5>
+            <p class="card-text">{{ category.content }}</p>
+            <a routerLink="/services" class="btn custom-service-btn w-100">View Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-5 fade-in bg-light rounded">
+    <div class="container text-center">
+      <h2 class="mb-4">How it works?</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="step-card">
+            <i class="bi bi-search fs-1 text-primary mb-3"></i>
+            <h5>1. Find a service</h5>
+            <p class="text-muted">Easily search through hundreds of services near you.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="step-card">
+            <i class="bi bi-calendar-check fs-1 text-success mb-3"></i>
+            <h5>2. Book online</h5>
+            <p class="text-muted">Choose the day and time that suits you, directly from the app.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="step-card">
+            <i class="bi bi-hand-thumbs-up fs-1 text-info mb-3"></i>
+            <h5>3. Enjoy the service</h5>
+            <p class="text-muted">The provider arrives at your home, on time, for quality service.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="mb-5 fade-in">
+    <div class="text-center mb-5">
+      <h2 class="custom-text fw-bold">Popular Services</h2>
+      <p class="text-muted">Choose a trusted service in just a few clicks.</p>
+      <a routerLink="/services" class="btn btn-link">All Services →</a>
+    </div>
+
+    <div class="row">
+      <!-- Card 1: Cleaning -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+          <img
+            src="assets/images/nettoyage.jpg"
+            alt="Cleaning"
+            class="card-img-top"
+            style="height: 230px; object-fit: cover;"
+          />
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="card-title mb-0">🧹Cleaning & Maintenance</h5>
+            </div>
+            <p class="card-text flex-grow-1">✨A spotless interior, effortlessly. Enjoy reliable, discreet and efficient cleaning service.</p>
+            <div class="d-flex gap-2 mt-auto">
+              <a routerLink="/service/1" class="btn custom-service-btn">Book Now</a>
+              <a routerLink="/service/1" class="btn btn-light">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Gardening -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+          <img
+            src="assets/images/jardinage.jpg"
+            alt="Gardening"
+            class="card-img-top"
+            style="height: 230px; object-fit: cover;"
+          />
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="card-title mb-0">🌿Gardening</h5>
+            </div>
+            <p class="card-text flex-grow-1">🌱Give new life to your garden. Our experts transform your outdoor spaces with care and passion.</p>
+            <div class="d-flex gap-2 mt-auto">
+              <a routerLink="/service/1" class="btn custom-service-btn">Book Now</a>
+              <a routerLink="/service/2" class="btn btn-light">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Babysitting -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm hover-card">
+          <img
+            src="assets/images/assistante.jpg"
+            alt="Babysitting"
+            class="card-img-top"
+            style="height: 230px; object-fit: cover;"
+          />
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between mb-2">
+              <h5 class="card-title mb-0">👶Home Babysitting</h5>
+            </div>
+            <p class="card-text flex-grow-1">Trust, gentleness and attention: your children in good hands with our home assistants.</p>
+            <div class="d-flex gap-2 mt-auto">
+              <a routerLink="/service/1" class="btn custom-service-btn">Book Now</a>
+              <a routerLink="/service/3" class="btn btn-light">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="mb-5 py-5 bg-light rounded fade-in-delay-2">
+    <div class="text-center mb-4">
+      <h2 class="mb-0">Customer Testimonials</h2>
+      <p class="text-muted">Your feedback, our best reward.</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Default testimonial if no testimonials are available -->
+            <div class="carousel-item" [class.active]="homeTestimonials.length === 0">
+              <div class="testimonial-card text-center p-4">
+                <div class="stars mb-3">
+                  <i class="bi bi-star-fill text-warning" *ngFor="let i of [1,2,3,4,5]"></i>
+                </div>
+                <p class="testimonial-text mb-4 fs-5 fst-italic">
+                  "Exceptional service! The provider arrived on time and did an outstanding job."
+                </p>
+                <div class="testimonial-author">
+                  <h5 class="mb-1">Marie Dupont</h5>
+                  <p class="text-muted small">Satisfied Customer</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic testimonials from HomePageService -->
+            <div class="carousel-item" *ngFor="let testimonial of homeTestimonials; let i = index" [class.active]="i === 0">
+              <div class="testimonial-card text-center p-4">
+                <div class="stars mb-3">
+                  <i *ngFor="let filled of getStarRating(testimonial.rating)" class="bi"
+                     [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+                </div>
+                <p class="testimonial-text mb-4 fs-5 fst-italic">
+                  "{{ testimonial.comment }}"
+                </p>
+                <div class="testimonial-author">
+                  <h5 class="mb-1">{{ testimonial.clientName }}</h5>
+                  <p class="text-muted small">{{ testimonial.date | date }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

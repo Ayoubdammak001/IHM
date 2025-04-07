@@ -72,6 +72,11 @@ const adminNavItems: INavData[] = [
     iconComponent: { name: 'cil-speedometer' }
   },
   {
+    name: 'Magege Home Page',
+    url: '/admin/home',
+    iconComponent: { name: 'cil-home' }
+  },
+  {
     title: true,
     name: 'Admin'
   },
