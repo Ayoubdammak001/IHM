@@ -1,0 +1,90 @@
+<c-container>
+  <c-row class="justify-content-center">
+    <c-col lg="8">
+      <c-card>
+        <c-card-body>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Client Profile</h2>
+            <button cButton color="primary" (click)="toggleEdit()">
+              {{ isEditing ? 'Cancel' : 'Edit Profile' }}
+            </button>
+          </div>
+
+          <form [formGroup]="clientForm" (ngSubmit)="saveChanges()" cForm>
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input
+                formControlName="username"
+                cFormControl
+                [readonly]="!isEditing"
+                [ngClass]="{ 'is-invalid': clientForm.get('username')?.invalid && clientForm.get('username')?.touched }"
+              />
+              <div *ngIf="clientForm.get('username')?.invalid && clientForm.get('username')?.touched" class="invalid-feedback">
+                Username is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                formControlName="email"
+                cFormControl
+                [readonly]="!isEditing"
+                [ngClass]="{ 'is-invalid': clientForm.get('email')?.invalid && clientForm.get('email')?.touched }"
+              />
+              <div *ngIf="clientForm.get('email')?.errors?.['required'] && clientForm.get('email')?.touched" class="invalid-feedback">
+                Email is required
+              </div>
+              <div *ngIf="clientForm.get('email')?.errors?.['email'] && clientForm.get('email')?.touched" class="invalid-feedback">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone</label>
+              <input
+                formControlName="phone"
+                cFormControl
+                [readonly]="!isEditing"
+                [ngClass]="{ 'is-invalid': clientForm.get('phone')?.invalid && clientForm.get('phone')?.touched }"
+              />
+              <div *ngIf="clientForm.get('phone')?.invalid && clientForm.get('phone')?.touched" class="invalid-feedback">
+                Phone is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <input
+                formControlName="address"
+                cFormControl
+                [readonly]="!isEditing"
+                [ngClass]="{ 'is-invalid': clientForm.get('address')?.invalid && clientForm.get('address')?.touched }"
+              />
+              <div *ngIf="clientForm.get('address')?.invalid && clientForm.get('address')?.touched" class="invalid-feedback">
+                Address is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea
+                formControlName="description"
+                cFormControl
+                [readonly]="!isEditing"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="text-end" *ngIf="isEditing">
+              <button cButton color="primary" type="submit" [disabled]="clientForm.invalid">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</c-container>

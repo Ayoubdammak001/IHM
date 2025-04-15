@@ -1,0 +1,42 @@
+.register-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.register-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/assets/images/finale.png"); /* adapte le chemin si besoin */
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  z-index: 1;
+}
+
+.register-page > * {
+  position: relative;
+  z-index: 2;
+}
+.custom-btn {
+  background-color: #001f3d; /* Bleu foncé comme celui que vous montrez */
+  color: white; /* Texte blanc */
+  border: none; /* Pas de bordure */
+  padding: 10px 20px; /* Ajustez le padding selon votre besoin */
+  font-size: 16px; /* Taille de la police */
+  border-radius: 50px; /* Coins arrondis pour un effet moderne */
+  transition: background-color 0.3s ease; /* Transition fluide lors du survol */
+}
+
+.custom-btn:hover {
+  background-color: #003366; /* Bleu plus clair au survol */
+}
+
+

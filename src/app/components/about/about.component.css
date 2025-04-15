@@ -1,0 +1,88 @@
+.about-section {
+  padding-top: 1rem;      
+  padding-bottom: 1.5rem; 
+  margin-top: -1rem;     
+}
+
+
+
+/* Titre bleu foncé */
+.text-dark-blue {
+  color: #00008B;
+}
+
+/* Animation d'apparition */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cartes générales */
+.card-box {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  padding: 2rem;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.card-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Icônes dans les valeurs */
+.icon-wrapper {
+  font-size: 2.5rem;
+  color: #00008B;
+}
+
+/* Timeline générale */
+.timeline {
+  position: relative;
+  padding: 2rem 2rem 1rem 2.5rem;
+  border-left: 3px solid #00008B;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+.timeline-item {
+  margin-bottom: 2rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 3px solid #00008B;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .card-box {
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+}

@@ -1,0 +1,72 @@
+<div class="login-page d-flex flex-row align-items-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(6px); border-radius: 1rem;">
+          <div class="card-body p-4">
+            <h2 class="card-title text-center mb-4">Login</h2>
+            <p class="text-body-secondary text-center">Sign in to your account</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+                  autocomplete="email"
+                  [ngClass]="{ 'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.errors }"
+                />
+                <div class="invalid-feedback" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors">
+                  <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                  <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  [ngClass]="{ 'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.errors }"
+                />
+                <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+                  Password is required
+                </div>
+              </div>
+
+              <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+                {{ errorMessage }}
+              </div>
+
+              <div class="d-grid">
+                <button
+                  type="submit"
+                  class="btn btn-primary custom-btn w-100"
+                  [disabled]="loginForm.invalid || loading"
+                >
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                  Login
+                </button>
+              </div>
+            </form>
+
+            <div class="text-center mt-3">
+              <a routerLink="/register" class="text-decoration-none">Don't have an account? Register here</a>
+            </div>
+
+            <div class="text-center mt-2">
+              <button class="btn btn-link p-0" type="button">
+                Forgot password?
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

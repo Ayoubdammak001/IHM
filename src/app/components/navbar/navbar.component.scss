@@ -1,0 +1,85 @@
+.navbar {
+  background-color: white;
+  padding: 0.75rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+    
+    &:hover {
+      color: #000;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    a {
+      color: #666;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      padding: 0.3rem 0;
+
+      &:hover {
+        color: #333;
+      }
+
+      &.active {
+        color: #333;
+      }
+
+      &.login-btn {
+        background-color: #002B5B;
+        color: white;
+        padding: 0.4rem 1.2rem;
+        border-radius: 50px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #001B3B;
+        }
+      }
+    }
+  }
+}
+
+// Ajustement de l'espacement du contenu principal
+main {
+  padding-top: 65px; // Réduit pour correspondre à la nouvelle hauteur de navbar
+}
+
+// Ajustements responsive
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 0;
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .nav-links {
+      gap: 1rem;
+    }
+  }
+} 

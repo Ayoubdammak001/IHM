@@ -1,0 +1,51 @@
+.login-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.login-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/assets/images/finale.png"); /* même fond que Register */
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  z-index: 1;
+}
+
+.login-page > * {
+  position: relative;
+  z-index: 2;
+}
+
+.btn.custom-btn {
+  background-color: #0066cc !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  border-radius: 50px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn.custom-btn:hover:not(:disabled) {
+  background-color: #0052a3 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn.custom-btn:disabled {
+  background-color: #99ccff !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  opacity: 0.7 !important;
+}
