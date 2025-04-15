@@ -1,7 +1,7 @@
-<div class="container mt-4">
+<div class="container-fluid mt-4">
   <div class="row">
     <div class="col-12">
-      <h1 class="mb-4">Client Dashboard</h1>
+      <h1 class="mb-4 text-primary">Client Dashboard</h1>
 
       <!-- Loading state -->
       <div *ngIf="loading" class="text-center my-5">
@@ -17,43 +17,121 @@
       </div>
 
       <!-- Dashboard content -->
-      <div class="row" *ngIf="!loading && !error">
+      <div class="row g-4" *ngIf="!loading && !error">
         <!-- Stats summary -->
-        <div class="col-12 mb-4">
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <div class="card bg-primary text-white">
+        <div class="col-12">
+          <div class="row g-4">
+            <div class="col-md-3">
+              <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
-                  <h5 class="card-title">Total Reservations</h5>
-                  <p class="card-text display-5">{{ reservations.length }}</p>
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                      <div class="bg-primary bg-opacity-10 rounded-circle p-3">
+                        <i class="fas fa-calendar-check text-primary fa-2x"></i>
+                      </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h6 class="card-subtitle text-muted mb-1">Total Reservations</h6>
+                      <h3 class="card-title mb-0">{{ reservations.length }}</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4 mb-3">
-              <div class="card bg-success text-white">
+            <div class="col-md-3">
+              <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
-                  <h5 class="card-title">Upcoming Appointments</h5>
-                  <p class="card-text display-5">{{ getAcceptedReservationsCount() }}</p>
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                      <div class="bg-success bg-opacity-10 rounded-circle p-3">
+                        <i class="fas fa-clock text-success fa-2x"></i>
+                      </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h6 class="card-subtitle text-muted mb-1">Upcoming Appointments</h6>
+                      <h3 class="card-title mb-0">{{ getAcceptedReservationsCount() }}</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4 mb-3">
-              <div class="card bg-info text-white">
+            <div class="col-md-3">
+              <div class="card border-0 shadow-sm h-100">
                 <div class="card-body">
-                  <h5 class="card-title">Reviews Given</h5>
-                  <p class="card-text display-5">{{ reviews.length }}</p>
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                      <div class="bg-info bg-opacity-10 rounded-circle p-3">
+                        <i class="fas fa-star text-info fa-2x"></i>
+                      </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h6 class="card-subtitle text-muted mb-1">Reviews Given</h6>
+                      <h3 class="card-title mb-0">{{ reviews.length }}</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                      <div class="bg-warning bg-opacity-10 rounded-circle p-3">
+                        <i class="fas fa-chart-line text-warning fa-2x"></i>
+                      </div>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                      <h6 class="card-subtitle text-muted mb-1">Total Spent</h6>
+                      <h3 class="card-title mb-0">{{ dashboardData.totalSpent | currency }}</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Charts Row -->
+        <div class="col-md-8">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-transparent border-0">
+              <h5 class="card-title mb-0">Monthly Bookings Trend</h5>
+            </div>
+            <div class="card-body">
+              <canvas #monthlyBookingsChart></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-transparent border-0">
+              <h5 class="card-title mb-0">Popular Services</h5>
+            </div>
+            <div class="card-body">
+              <canvas #popularServicesChart></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Satisfaction Chart -->
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-0">
+              <h5 class="card-title mb-0">Service Satisfaction Ratings</h5>
+            </div>
+            <div class="card-body">
+              <canvas #serviceSatisfactionChart></canvas>
+            </div>
+          </div>
+        </div>
+
         <!-- Reservations -->
-        <div class="col-md-6 mb-4">
-          <div class="card h-100">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h2 class="card-title mb-0">My Reservations</h2>
-              <a routerLink="/client/reservations" class="btn btn-sm btn-outline-primary">View All</a>
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Recent Reservations</h5>
+              <a routerLink="/client/reservations" class="btn btn-sm btn-primary">View All</a>
             </div>
             <div class="card-body">
               <div *ngIf="reservations.length === 0" class="text-center py-4">
@@ -61,27 +139,26 @@
                 <a routerLink="/" class="btn btn-primary">Browse Services</a>
               </div>
 
-              <div class="list-group" *ngIf="reservations.length > 0">
-                <div *ngFor="let reservation of reservations.slice(0, 5)" class="list-group-item list-group-item-action">
+              <div class="list-group list-group-flush" *ngIf="reservations.length > 0">
+                <div *ngFor="let reservation of reservations.slice(0, 5)" class="list-group-item px-0">
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <h5 class="mb-1">{{ getServiceName(reservation.serviceId) }}</h5>
-                      <p class="mb-1">Provider: {{ getProviderName(reservation.providerId) }}</p>
-                      <p class="mb-1">
-                        <small class="text-muted">
-                          Date: {{ reservation.reservationDate | date:'medium' }}
-                        </small>
+                      <h6 class="mb-1">{{ getServiceName(reservation.serviceId) }}</h6>
+                      <p class="mb-1 small text-muted">Provider: {{ getProviderName(reservation.providerId) }}</p>
+                      <p class="mb-1 small">
+                        <i class="far fa-calendar-alt me-1"></i>
+                        {{ reservation.reservationDate | date:'medium' }}
                       </p>
-                      <span class="badge" [ngClass]="{
-                        'bg-warning': reservation.status === 'PENDING',
-                        'bg-success': reservation.status === 'ACCEPTED',
-                        'bg-danger': reservation.status === 'REJECTED',
-                        'bg-info': reservation.status === 'COMPLETED',
-                        'bg-secondary': reservation.status === 'CANCELLED'
-                      }">
-                        {{ reservation.status }}
-                      </span>
                     </div>
+                    <span class="badge rounded-pill" [ngClass]="{
+                      'bg-warning': reservation.status === 'PENDING',
+                      'bg-success': reservation.status === 'ACCEPTED',
+                      'bg-danger': reservation.status === 'REJECTED',
+                      'bg-info': reservation.status === 'COMPLETED',
+                      'bg-secondary': reservation.status === 'CANCELLED'
+                    }">
+                      {{ reservation.status }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -90,11 +167,11 @@
         </div>
 
         <!-- Reviews -->
-        <div class="col-md-6 mb-4">
-          <div class="card h-100">
-            <div class="card-header d-flex justify-content-between align-items-center">
-              <h2 class="card-title mb-0">My Reviews</h2>
-              <a routerLink="/client/reviews" class="btn btn-sm btn-outline-primary">View All</a>
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">Recent Reviews</h5>
+              <a routerLink="/client/reviews" class="btn btn-sm btn-primary">View All</a>
             </div>
             <div class="card-body">
               <div *ngIf="reviews.length === 0" class="text-center py-4">
@@ -102,17 +179,20 @@
                 <p class="text-muted small">After using a service, you can leave a review to share your experience</p>
               </div>
 
-              <div class="list-group" *ngIf="reviews.length > 0">
-                <div *ngFor="let review of reviews.slice(0, 5)" class="list-group-item">
+              <div class="list-group list-group-flush" *ngIf="reviews.length > 0">
+                <div *ngFor="let review of reviews.slice(0, 5)" class="list-group-item px-0">
                   <div>
-                    <h5 class="mb-1">{{ getServiceName(review.serviceId) }}</h5>
+                    <h6 class="mb-1">{{ getServiceName(review.serviceId) }}</h6>
                     <div class="text-warning mb-2">
                       <span *ngFor="let filled of getStarRating(review.rating); let i = index">
                         <i class="fas" [ngClass]="filled ? 'fa-star' : 'fa-star-o'">★</i>
                       </span>
                     </div>
-                    <p class="mb-1">{{ review.comment }}</p>
-                    <small class="text-muted">{{ review.date | date }}</small>
+                    <p class="mb-1 small">{{ review.comment }}</p>
+                    <small class="text-muted">
+                      <i class="far fa-clock me-1"></i>
+                      {{ review.date | date }}
+                    </small>
                   </div>
                 </div>
               </div>
@@ -121,15 +201,25 @@
         </div>
 
         <!-- Recommended Services -->
-        <div class="col-12 mb-4">
-          <div class="card">
-            <div class="card-header">
-              <h2 class="card-title mb-0">Recommended Services</h2>
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-0">
+              <h5 class="card-title mb-0">Recommended Services</h5>
             </div>
             <div class="card-body">
-              <p class="text-center text-muted">Personalized recommendations coming soon!</p>
-              <div class="text-center">
-                <a routerLink="/" class="btn btn-primary">Browse All Services</a>
+              <div class="row g-4">
+                <div class="col-md-4" *ngFor="let service of dashboardData.recommendedServices">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                      <h6 class="card-title">{{ service.name }}</h6>
+                      <p class="card-text small text-muted">{{ service.description }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-primary fw-bold">{{ service.price | currency }}</span>
+                        <a [routerLink]="['/services', service.id]" class="btn btn-sm btn-outline-primary">View Details</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
