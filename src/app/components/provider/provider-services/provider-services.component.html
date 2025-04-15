@@ -1,26 +1,21 @@
 <div class="container mt-4">
   <div class="row">
-    <!-- Formulaire d'ajout/modification de service -->
+    <!-- Formulaire d'ajout/modification -->
     <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title mb-0">{{ editingServiceId ? 'Edit' : 'Add' }} Service</h2>
+      <div class="card shadow-sm border border-dark">
+        <div class="card-header text-white text-center" style="background-color: #002B5B;">
+          <h5 class="mb-0">{{ editingServiceId ? 'Edit' : 'Add' }} Service</h5>
         </div>
         <div class="card-body">
           <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
-            <!-- Champ Name -->
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
               <input type="text" class="form-control" id="name" formControlName="name">
               <div class="invalid-feedback" *ngIf="serviceForm.get('name')?.errors?.['required'] && serviceForm.get('name')?.touched">
                 Name is required
               </div>
-              <div class="invalid-feedback" *ngIf="serviceForm.get('name')?.errors?.['minlength'] && serviceForm.get('name')?.touched">
-                Name must be at least 3 characters
-              </div>
             </div>
 
-            <!-- Description -->
             <div class="mb-3">
               <label for="description" class="form-label">Description</label>
               <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
@@ -29,60 +24,39 @@
               </div>
             </div>
 
-            <!-- Price -->
             <div class="mb-3">
               <label for="price" class="form-label">Price</label>
               <input type="number" class="form-control" id="price" formControlName="price">
-              <div class="invalid-feedback" *ngIf="serviceForm.get('price')?.errors?.['required'] && serviceForm.get('price')?.touched">
-                Price is required
-              </div>
-              <div class="invalid-feedback" *ngIf="serviceForm.get('price')?.errors?.['min'] && serviceForm.get('price')?.touched">
-                Price must be greater than 0
-              </div>
             </div>
 
-            <!-- Category -->
             <div class="mb-3">
               <label for="categoryId" class="form-label">Category</label>
               <select class="form-select" id="categoryId" formControlName="categoryId">
                 <option value="">Select a category</option>
-                <option *ngFor="let category of categories" [value]="category.id">
-                  {{ category.name }}
-                </option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
               </select>
-              <div class="invalid-feedback" *ngIf="serviceForm.get('categoryId')?.errors?.['required'] && serviceForm.get('categoryId')?.touched">
-                Category is required
-              </div>
             </div>
 
-            <!-- Duration -->
             <div class="mb-3">
               <label for="duration" class="form-label">Duration (hours)</label>
               <input type="number" class="form-control" id="duration" formControlName="duration">
-              <div class="invalid-feedback" *ngIf="serviceForm.get('duration')?.errors?.['required'] && serviceForm.get('duration')?.touched">
-                Duration is required
-              </div>
-              <div class="invalid-feedback" *ngIf="serviceForm.get('duration')?.errors?.['min'] && serviceForm.get('duration')?.touched">
-                Duration must be at least 1 hour
-              </div>
             </div>
 
-            <!-- Upload Photo -->
             <div class="mb-3">
               <label for="photoFile" class="form-label">Photo</label>
               <input type="file" class="form-control" id="photoFile" accept="image/*" (change)="onFileSelected($event)">
-              <div class="form-text">Upload an image (jpg, png...)</div>
+              <div class="form-text">Upload an image</div>
             </div>
 
-            <!-- Aperçu de l'image -->
-            <div class="mb-3" *ngIf="photoPreview">
-              <label class="form-label">Preview:</label><br>
+            <div class="mb-3 text-center" *ngIf="photoPreview">
               <img [src]="photoPreview" alt="Preview" class="img-thumbnail" width="150">
             </div>
 
-            <!-- Boutons -->
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid || submitting">
+              <button type="submit"
+                      class="btn"
+                      [disabled]="serviceForm.invalid || submitting"
+                      style="background-color:#6c8e6c; color:white;">
                 <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
                 {{ editingServiceId ? 'Update' : 'Add' }} Service
               </button>
@@ -97,26 +71,21 @@
 
     <!-- Liste des services -->
     <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title mb-0">My Services</h2>
+      <div class="card shadow-sm border border-dark">
+        <div class="card-header text-white text-center" style="background-color: #002B5B;">
+          <h5 class="mb-0">My Services</h5>
         </div>
         <div class="card-body">
-          <!-- État de chargement -->
-          <div *ngIf="loading" class="text-center">
-            <div class="spinner-border" role="status">
+          <div *ngIf="loading" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
 
-          <!-- Message d'erreur -->
-          <div *ngIf="error" class="alert alert-danger" role="alert">
-            {{ error }}
-          </div>
+          <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
 
-          <!-- Liste des services -->
           <div *ngIf="!loading && !error">
-            <div *ngIf="services.length === 0" class="text-center py-3">
+            <div *ngIf="services.length === 0" class="text-center py-4">
               <p class="text-muted">No services found</p>
             </div>
 
@@ -124,32 +93,26 @@
               <div *ngFor="let service of paginatedServices" class="list-group-item">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
-                    <h5 class="mb-1">{{ service.name }}</h5>
+                    <h6 class="mb-1">{{ service.name }}</h6>
                     <p class="mb-1">{{ service.description }}</p>
                     <p class="mb-1">
                       <strong>Price:</strong> ${{ service.price }} |
                       <strong>Category:</strong> {{ getCategoryName(service.categoryId) }}
                     </p>
-
-                    <!-- Image affichée depuis imageUrl -->
                     <div *ngIf="service.imageUrl" class="mt-2">
                       <img [src]="service.imageUrl" alt="Service photo" class="img-thumbnail" width="120">
                     </div>
                   </div>
                   <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-primary" (click)="editService(service)">
-                      Edit
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" (click)="deleteService(service.id)">
-                      Delete
-                    </button>
+                    <button class="btn btn-sm btn-outline-primary" (click)="editService(service)">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteService(service.id)">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Material Paginator -->
-            <div class="mat-paginator-container mt-4" *ngIf="services.length > 0">
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4" *ngIf="services.length > 0">
               <mat-paginator
                 [length]="totalItems"
                 [pageSize]="pageSize"

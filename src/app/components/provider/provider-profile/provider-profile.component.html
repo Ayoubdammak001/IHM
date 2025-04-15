@@ -1,65 +1,69 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-8 mx-auto">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="card-title mb-0">Provider Profile</h2>
+    <div class="col-12"> <!-- changement ici pour correspondre au dashboard -->
+      <div class="card shadow-sm border border-dark">
+        <div class="card-header text-white text-center" style="background-color: #002B5B;">
+          <h2 class="mb-0">Provider Profile</h2>
         </div>
         <div class="card-body">
           <!-- État de chargement -->
-          <div *ngIf="loading" class="text-center">
-            <div class="spinner-border" role="status">
+          <div *ngIf="loading" class="d-flex justify-content-center align-items-center" style="height: 150px;">
+            <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
 
           <!-- Message d'erreur -->
-          <div *ngIf="error" class="alert alert-danger" role="alert">
+          <div *ngIf="error" class="alert alert-danger text-center" role="alert">
             {{ error }}
           </div>
 
           <!-- Message de succès -->
-          <div *ngIf="success" class="alert alert-success" role="alert">
+          <div *ngIf="success" class="alert alert-success text-center" role="alert">
             Profile updated successfully!
           </div>
 
           <!-- Formulaire de profil -->
           <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" formControlName="username">
-              <div class="invalid-feedback" *ngIf="profileForm.get('username')?.errors?.['required'] && profileForm.get('username')?.touched">
-                Username is required
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" formControlName="username">
+                <div class="invalid-feedback" *ngIf="profileForm.get('username')?.errors?.['required'] && profileForm.get('username')?.touched">
+                  Username is required
+                </div>
+                <div class="invalid-feedback" *ngIf="profileForm.get('username')?.errors?.['minlength'] && profileForm.get('username')?.touched">
+                  Username must be at least 3 characters
+                </div>
               </div>
-              <div class="invalid-feedback" *ngIf="profileForm.get('username')?.errors?.['minlength'] && profileForm.get('username')?.touched">
-                Username must be at least 3 characters
+
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+                <div class="invalid-feedback" *ngIf="profileForm.get('email')?.errors?.['required'] && profileForm.get('email')?.touched">
+                  Email is required
+                </div>
+                <div class="invalid-feedback" *ngIf="profileForm.get('email')?.errors?.['email'] && profileForm.get('email')?.touched">
+                  Please enter a valid email
+                </div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" formControlName="email">
-              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.errors?.['required'] && profileForm.get('email')?.touched">
-                Email is required
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" formControlName="phone">
+                <div class="invalid-feedback" *ngIf="profileForm.get('phone')?.errors?.['required'] && profileForm.get('phone')?.touched">
+                  Phone is required
+                </div>
               </div>
-              <div class="invalid-feedback" *ngIf="profileForm.get('email')?.errors?.['email'] && profileForm.get('email')?.touched">
-                Please enter a valid email
-              </div>
-            </div>
 
-            <div class="mb-3">
-              <label for="phone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="phone" formControlName="phone">
-              <div class="invalid-feedback" *ngIf="profileForm.get('phone')?.errors?.['required'] && profileForm.get('phone')?.touched">
-                Phone is required
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" formControlName="address">
-              <div class="invalid-feedback" *ngIf="profileForm.get('address')?.errors?.['required'] && profileForm.get('address')?.touched">
-                Address is required
+              <div class="col-md-6 mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" formControlName="address">
+                <div class="invalid-feedback" *ngIf="profileForm.get('address')?.errors?.['required'] && profileForm.get('address')?.touched">
+                  Address is required
+                </div>
               </div>
             </div>
 
@@ -71,13 +75,17 @@
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || submitting">
-              <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
-              Update Profile
-            </button>
+            <div class="text-center">
+              <button type="submit"
+                      class="btn"
+                      style="background-color:#6c8e6c; color:white; padding:10px 20px; border-radius:8px; border:none;">
+                Update Profile
+              </button>
+            </div>
+            
           </form>
         </div>
       </div>
     </div>
   </div>
-</div> 
+</div>

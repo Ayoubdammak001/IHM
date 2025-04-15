@@ -35,12 +35,12 @@
       "email": "ayoub.dammak@gmail.com",
       "password": "Admin**123",
       "role": "PROVIDER",
-      "phone": "",
-      "address": "",
-      "description": "",
+      "phone": "23670708",
+      "address": "ROUTE SOUKRA",
+      "description": "hahahahahaha",
       "status": true,
       "createdAt": "2025-04-05T11:35:02.634Z",
-      "updatedAt": "2025-04-05T11:35:02.634Z"
+      "updatedAt": "2025-04-15T12:00:06.115Z"
     }
   ],
   "services": [
