@@ -1,0 +1,159 @@
+/* ========== SECTION PRINCIPALE ========== */
+.contact-wrapper {
+  background-color: #f9f9fc;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  min-height: calc(100vh - 60px);
+  padding: 3rem 2rem;
+}
+
+/* ========== FORMULAIRE ========== */
+.contact-form {
+  flex: 1;
+  max-width: 600px;
+}
+
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: #00008B;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 139, 0.25);
+}
+
+/* ========== BOUTON ENVOYER ========== */
+.btn-submit {
+  background-color: #00008B;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #000066;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 139, 0.2);
+}
+
+/* ========== CARDS ========== */
+.contact-box {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 2rem;
+}
+
+.contact-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #00008B;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin: -2rem -2rem 2rem -2rem;
+}
+
+/* ========== INFOS DE CONTACT À DROITE ========== */
+.contact-icon {
+  font-size: 1.5rem;
+  color: #00008B;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.contact-icon:hover {
+  color: #000066;
+  transform: scale(1.2);
+}
+
+.contact-item {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contact-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* ========== RÉSEAUX SOCIAUX ========== */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 139, 0.1);
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  color: #00008B;
+}
+
+.social-link:hover {
+  transform: scale(1.1);
+  color: white;
+}
+
+.social-link.facebook:hover {
+  background-color: #3b5998;
+}
+
+.social-link.twitter:hover {
+  background-color: #1da1f2;
+}
+
+.social-link.instagram:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.social-link.linkedin:hover {
+  background-color: #0a66c2;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+  }
+
+  .contact-form,
+  .contact-box {
+    width: 100%;
+  }
+
+  .contact-box {
+    margin-bottom: 2rem;
+  }
+}

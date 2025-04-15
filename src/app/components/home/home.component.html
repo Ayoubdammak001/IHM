@@ -1,5 +1,5 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+ <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="#">HomeServices</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -54,9 +54,10 @@
       <p class="text-muted">Find the perfect service for your needs</p>
     </div>
 
-    <a routerLink="/client/categories" class="text-primary fw-bold">
-      View all →
-    </a>
+    <div class="text-center mb-4">
+      <a routerLink="/client/categories" class="btn btn-link">View all →</a>
+    </div>
+    
 
     <div class="row">
       <!-- Dynamic Categories from HomePageService -->
@@ -119,127 +120,100 @@
     <div class="row">
       <!-- Card 1: Cleaning -->
       <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm hover-card">
-          <img
-            src="assets/images/nettoyage.jpg"
-            alt="Cleaning"
-            class="card-img-top"
-            style="height: 230px; object-fit: cover;"
-          />
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <img src="assets/images/nettoyage.jpg" class="card-img-top rounded-top-4" alt="Cleaning Service">
           <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between mb-2">
-              <h5 class="card-title mb-0">🧹Cleaning & Maintenance</h5>
+            <div class="text-center">
+              <h3 class="h5 mb-3">🧹 Cleaning & Maintenance</h3>
+              <p class="text-muted">✨ A spotless interior, effortlessly. Enjoy reliable, discreet and efficient cleaning service.</p>
             </div>
-            <p class="card-text flex-grow-1">✨A spotless interior, effortlessly. Enjoy reliable, discreet and efficient cleaning service.</p>
-            <div class="d-flex gap-2 mt-auto">
-              <a routerLink="/service/1" class="btn custom-service-btn">Book Now</a>
-              <a routerLink="/service/1" class="btn btn-light">Details</a>
+            <div class="d-flex justify-content-center mt-auto">
+              <a routerLink="/register" class="btn book-now">Book Now</a>
             </div>
           </div>
         </div>
       </div>
-
+    
       <!-- Card 2: Gardening -->
       <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm hover-card">
-          <img
-            src="assets/images/jardinage.jpg"
-            alt="Gardening"
-            class="card-img-top"
-            style="height: 230px; object-fit: cover;"
-          />
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <img src="assets/images/jardinage.jpg" class="card-img-top rounded-top-4" alt="Gardening Service">
           <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between mb-2">
-              <h5 class="card-title mb-0">🌿Gardening</h5>
+            <div class="text-center">
+              <h3 class="h5 mb-3">🌱 Gardening</h3>
+              <p class="text-muted">🌿 Give new life to your garden. Our experts transform your outdoor spaces with care and passion.</p>
             </div>
-            <p class="card-text flex-grow-1">🌱Give new life to your garden. Our experts transform your outdoor spaces with care and passion.</p>
-            <div class="d-flex gap-2 mt-auto">
-              <a routerLink="/service/1" class="btn custom-service-btn">Book Now</a>
-              <a routerLink="/service/2" class="btn btn-light">Details</a>
+            <div class="d-flex justify-content-center mt-auto">
+              <a routerLink="/register" class="btn book-now">Book Now</a>
             </div>
           </div>
         </div>
       </div>
-
+    
       <!-- Card 3: Babysitting -->
       <div class="col-md-4 mb-4">
-        <div class="card h-100 border-0 shadow-sm hover-card">
-          <img
-            src="assets/images/assistante.jpg"
-            alt="Babysitting"
-            class="card-img-top"
-            style="height: 230px; object-fit: cover;"
-          />
+        <div class="card border-0 rounded-4 shadow-sm h-100">
+          <img src="assets/images/assistante.jpg" class="card-img-top rounded-top-4" alt="Babysitting Service">
           <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between mb-2">
-              <h5 class="card-title mb-0">👶Home Babysitting</h5>
+            <div class="text-center">
+              <h3 class="h5 mb-3">👶 Home Babysitting</h3>
+              <p class="text-muted">🤗 Trust, gentleness and attention: your children in good hands with our home assistants.</p>
             </div>
-            <p class="card-text flex-grow-1">Trust, gentleness and attention: your children in good hands with our home assistants.</p>
-            <div class="d-flex gap-2 mt-auto">
-              <a routerLink="/service/1" class="btn custom-service-btn">Book Now</a>
-              <a routerLink="/service/3" class="btn btn-light">Details</a>
+            <div class="d-flex justify-content-center mt-auto">
+              <a routerLink="/register" class="btn book-now">Book Now</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+    
+ </section>
 
-  <!-- Testimonials -->
-  <section class="mb-5 py-5 bg-light rounded fade-in-delay-2">
-    <div class="text-center mb-4">
-      <h2 class="mb-0">Customer Testimonials</h2>
-      <p class="text-muted">Your feedback, our best reward.</p>
-    </div>
+ <!-- Testimonials Section -->
+<!-- Testimonials Section with Card Style -->
+<section class="testimonials-section py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="mb-4">Customer Testimonials</h2>
+    <p class="text-muted mb-5">Your feedback, our best reward.</p>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <!-- Default testimonial if no testimonials are available -->
-            <div class="carousel-item" [class.active]="homeTestimonials.length === 0">
-              <div class="testimonial-card text-center p-4">
-                <div class="stars mb-3">
-                  <i class="bi bi-star-fill text-warning" *ngFor="let i of [1,2,3,4,5]"></i>
-                </div>
-                <p class="testimonial-text mb-4 fs-5 fst-italic">
-                  "Exceptional service! The provider arrived on time and did an outstanding job."
-                </p>
-                <div class="testimonial-author">
-                  <h5 class="mb-1">Marie Dupont</h5>
-                  <p class="text-muted small">Satisfied Customer</p>
-                </div>
-              </div>
-            </div>
+    <div class="row">
+      <!-- Testimonial 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="step-card h-100">
+          <h5 class="fw-semibold">Marie Dupont</h5>
+          <p class="testimonial-text mb-3">
+            "Exceptional service! The provider arrived on time and did an outstanding job."
+          </p>
+          <p class="text-muted mb-0">Apr 15, 2025</p>
+        </div>
+      </div>
 
-            <!-- Dynamic testimonials from HomePageService -->
-            <div class="carousel-item" *ngFor="let testimonial of homeTestimonials; let i = index" [class.active]="i === 0">
-              <div class="testimonial-card text-center p-4">
-                <div class="stars mb-3">
-                  <i *ngFor="let filled of getStarRating(testimonial.rating)" class="bi"
-                     [ngClass]="filled ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
-                </div>
-                <p class="testimonial-text mb-4 fs-5 fst-italic">
-                  "{{ testimonial.comment }}"
-                </p>
-                <div class="testimonial-author">
-                  <h5 class="mb-1">{{ testimonial.clientName }}</h5>
-                  <p class="text-muted small">{{ testimonial.date | date }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Testimonial 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="step-card h-100">
+          <h5 class="fw-semibold">John Smith</h5>
+          <p class="testimonial-text mb-3">
+            "Great experience! Very professional and efficient service."
+          </p>
+          <p class="text-muted mb-0">Apr 10, 2025</p>
+        </div>
+      </div>
 
-          <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+      <!-- Testimonial 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="step-card h-100">
+          <h5 class="fw-semibold">Sophie Martin</h5>
+          <p class="testimonial-text mb-3">
+            "I'm really satisfied with the quality of service. Highly recommended!"
+          </p>
+          <p class="text-muted mb-0">Apr 5, 2025</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+
 </div>
+
+<app-footer></app-footer>

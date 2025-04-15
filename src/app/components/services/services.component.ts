@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; // ✅ Required for routerLink
+import { FooterComponent } from '../shared/footer/footer.component';
 
 import { ServiceService } from '../../services/service.service';
 import { CategoryService } from '../../services/category.service';
@@ -18,7 +19,8 @@ import { Category } from '../../models/category.model';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    RouterModule // ✅ Needed for [routerLink]
+    RouterModule, // ✅ Needed for [routerLink]
+    FooterComponent
   ],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss']

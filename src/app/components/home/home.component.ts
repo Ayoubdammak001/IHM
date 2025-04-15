@@ -10,11 +10,12 @@ import { Review } from '../../models/review.model';
 import { HttpClientModule } from "@angular/common/http";
 import { HomePageService, HomeSection, Testimonial } from '../../services/home-page.service';
 import { Subscription } from 'rxjs';
+import { FooterComponent } from '../shared/footer/footer.component';
 
 @Component({
   selector: 'app-home',
-  standalone: true,  // Composant standalone
-  imports: [CommonModule, RouterModule],  // Ajouter CommonModule et RouterModule ici
+  standalone: true,
+  imports: [CommonModule, RouterModule, FooterComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -24,12 +25,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   testimonials: Review[] = [];
   loading = true;
   error = '';
-  
-  // Données de la page d'accueil
-  heroSection!: HomeSection;
+
+  // ✅ Déclare le type pour éviter les erreurs NG9
   homeCategories: HomeSection[] = [];
+
   homeTestimonials: Testimonial[] = [];
-  
+
+  heroSection = {
+    title: 'Quality Home Services',
+    content: 'Qualified professionals for all your needs.\nSimple booking, guaranteed service.'
+  };
+
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -42,17 +48,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadData();
-    
-    // S'abonner aux données du service de la page d'accueil
+
     this.subscriptions.push(
       this.homePageService.getHeroSection().subscribe(heroSection => {
         this.heroSection = heroSection;
       }),
-      
+
       this.homePageService.getCategories().subscribe(categories => {
-        this.homeCategories = categories;
+        this.homeCategories = categories; // ✅ Angular reconnaît maintenant les propriétés comme image/title/content
       }),
-      
+
       this.homePageService.getTestimonials().subscribe(testimonials => {
         this.homeTestimonials = testimonials;
       })
@@ -60,7 +65,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Se désabonner de toutes les souscriptions
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
@@ -68,7 +72,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.error = '';
 
-    // Charger les services
     this.serviceService.getAll().subscribe({
       next: (services) => {
         this.services = services;
@@ -81,7 +84,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Charger les catégories
     this.categoryService.getAll().subscribe({
       next: (categories) => {
         this.categories = categories;
@@ -91,7 +93,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Charger les témoignages
     this.reviewService.getAll().subscribe({
       next: (reviews) => {
         this.testimonials = reviews;
@@ -102,7 +103,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Méthode pour générer le tableau d'étoiles pour l'affichage des notes
   getStarRating(rating: number): boolean[] {
     return Array(5).fill(false).map((_, i) => i < rating);
   }

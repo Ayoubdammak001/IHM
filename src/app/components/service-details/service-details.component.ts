@@ -77,8 +77,8 @@ export class ServiceDetailsComponent implements OnInit {
       return;
     }
 
-    if (currentUser.role !== Role.CLIENT) {
-      this.error = 'Only clients can make reservations.';
+    if (currentUser.role == Role.ADMIN) {
+      this.error = 'Only clients and providers can make reservations.';
       return;
     }
 

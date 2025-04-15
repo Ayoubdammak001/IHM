@@ -40,4 +40,71 @@
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+// Ajout de marges sur les côtés pour les sections principales
+main, section {
+  margin: 0 40px;
+}
+
+// Ajout d'espacement pour les cartes et sections
+.card, .service-card {
+  margin: 30px 0;
+  padding: 25px;
+}
+
+// Espacement entre les éléments
+.mb-4 {
+  margin-bottom: 2rem !important;
+}
+
+.my-5 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+
+// Espacement pour les conteneurs de services
+.services-container {
+  padding: 40px 0;
+  margin: 0 40px;
+}
+
+// Styles pour le contenu principal
+.main-content {
+  min-height: calc(100vh - 160px);
+  padding-top: calc(76px + 2rem); // Hauteur de la navbar + padding
+  padding-bottom: 2rem;
+}
+
+// Ajustements pour la navbar fixe
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+}
+
+// Ajustements responsive
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: calc(64px + 1rem);
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .navbar {
+    padding: 0.5rem 0;
+  }
+}
