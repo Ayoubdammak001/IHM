@@ -10,6 +10,8 @@ import { ContainerComponent, RowComponent, ColComponent, CardComponent, CardBody
 // Material Paginator
 import { MatPaginatorModule, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
+import {User} from "../../../../models/user.model";
+import {UserService} from "../../../../services/user.service";
 
 // Custom Paginator Intl Provider
 export class CustomPaginatorIntl implements MatPaginatorIntl {
@@ -72,25 +74,55 @@ export class ClientMessagesComponent implements OnInit {
     pageSizeOptions = [5, 10, 25];
     pageIndex = 0;
 
-    constructor(
-        private messageService: MessageService,
-        private authService: AuthService,
-        private fb: FormBuilder
-    ) {
-        // Get current user ID from auth service
-        const currentUser = this.authService.currentUserValue;
-        this.currentClientId = currentUser ? currentUser.id : 1;
+    providers: User[] = [];
+  constructor(
+    private messageService: MessageService,
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {
+    const currentUser = this.authService.currentUserValue;
+    this.currentClientId = currentUser ? currentUser.id : 1;
 
-        this.messageForm = this.fb.group({
-            receiverId: ['', Validators.required],
-            subject: ['', Validators.required],
-            content: ['', Validators.required]
-        });
-    }
+    this.messageForm = this.fb.group({
+      receiverId: ['', Validators.required],
+      subject: ['', Validators.required],
+      content: ['', Validators.required]
+    });
+  }
 
-    ngOnInit() {
-        this.loadMessages();
-    }
+  ngOnInit() {
+    this.loadMessages();
+    this.loadProviders();
+    this.loadUsers();
+  }
+
+  usersMap: { [id: number]: User } = {};
+
+  loadUsers() {
+    this.userService.getAll().subscribe({
+      next: (users) => {
+        this.usersMap = users.reduce((acc, user) => {
+          acc[user.id] = user;
+          return acc;
+        }, {} as { [id: number]: User });
+      },
+      error: (err) => {
+        console.error('Failed to load users:', err);
+      }
+    });
+  }
+
+  loadProviders() {
+    this.userService.getProviders().subscribe({
+      next: (providers) => {
+        this.providers = providers;
+      },
+      error: (err) => {
+        console.error('Failed to load providers:', err);
+      }
+    });
+  }
 
     loadMessages() {
         this.loading = true;
@@ -205,4 +237,9 @@ export class ClientMessagesComponent implements OnInit {
         const endIndex = startIndex + this.pageSize;
         this.paginatedMessages = this.messages.slice(startIndex, endIndex);
     }
+
+  getUserName(id: number): string {
+    return this.usersMap[id]?.username ?? `User #${id}`;
+  }
+
 }

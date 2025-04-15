@@ -17,6 +17,8 @@ import {
 // Material Paginator
 import { MatPaginatorModule, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
+import {ServiceService} from "../../../../services/service.service";
+import {Service} from "../../../../models/service.model";
 
 // Custom Paginator Intl Provider
 export class CustomPaginatorIntl implements MatPaginatorIntl {
@@ -41,7 +43,7 @@ export class CustomPaginatorIntl implements MatPaginatorIntl {
   selector: 'app-client-reviews',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     RouterModule,
     CardBodyComponent,
     CardComponent,
@@ -71,10 +73,14 @@ export class ClientReviewsComponent implements OnInit {
   pageSizeOptions = [5, 10, 25];
   pageIndex = 0;
 
+  servicesMap: { [key: number]: Service } = {};
+
   constructor(
     private reviewService: ReviewService,
-    private authService: AuthService
+    private authService: AuthService,
+    private serviceService: ServiceService
   ) {}
+
 
   ngOnInit(): void {
     this.loadReviews(this.currentClientId);
@@ -86,12 +92,29 @@ export class ClientReviewsComponent implements OnInit {
         this.reviews = reviews;
         this.updatePagination();
         this.loading = false;
+
+        const serviceIds = Array.from(
+          new Set(reviews.map(r => Number(r.serviceId)))
+        );
+
+        this.serviceService.getManyByIds(serviceIds).subscribe(services => {
+          console.log('Services fetched:', services); // 👈 ajoute ceci
+
+          this.servicesMap = services.reduce((acc, service) => {
+            acc[service.id] = service;
+            return acc;
+          }, {} as { [key: number]: Service });
+        });
+
       },
       error: () => {
         this.error = 'Error loading reviews. Please try again later.';
         this.loading = false;
       }
     });
+  }
+  getServiceName(serviceId: number): string {
+    return this.servicesMap[serviceId]?.name ?? `Service #${serviceId}`;
   }
 
   getRatingStars(rating: number): string {

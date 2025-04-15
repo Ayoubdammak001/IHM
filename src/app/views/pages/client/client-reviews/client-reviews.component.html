@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let review of paginatedReviews">
-                                <td>{{ review.serviceId }}</td>
+                              <td>{{ getServiceName(review.serviceId) }}</td>
                                 <td>
                                     <span class="text-warning">{{ getRatingStars(review.rating) }}</span>
                                 </td>

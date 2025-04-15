@@ -82,7 +82,7 @@ export class CustomPaginatorIntl implements MatPaginatorIntl {
     ModalTitleDirective,
     FormControlDirective,
     FormSelectDirective,
-    
+
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
@@ -126,7 +126,7 @@ export class ClientReservationsComponent implements OnInit {
   ) {
     this.reviewForm = this.fb.group({
       rating: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
-      comment: ['', [Validators.required, Validators.minLength(10)]]
+      comment: ['', [Validators.required, Validators.minLength(0)]]
     });
   }
 

@@ -51,7 +51,7 @@ export class MessageService {
   }
 
   getMessagesByClientId(clientId: number): Observable<Message[]> {
-    return of(messages.filter(message => 
+    return of(messages.filter(message =>
       message.senderId === clientId || message.receiverId === clientId
     )).pipe(
       map(dataMessages => dataMessages.map(msg => this.convertToModelMessage(msg)))
@@ -59,7 +59,7 @@ export class MessageService {
   }
 
   getUnreadMessageCount(clientId: number): Observable<number> {
-    return of(messages.filter(message => 
+    return of(messages.filter(message =>
       message.receiverId === clientId && !message.isRead
     ).length);
   }
@@ -74,7 +74,7 @@ export class MessageService {
       date: new Date().toISOString().split('T')[0],
       isRead: false
     };
-    
+
     messages.push(dataMessage);
     return of(this.convertToModelMessage(dataMessage));
   }
@@ -96,4 +96,4 @@ export class MessageService {
     }
     return of(false);
   }
-} 
+}

@@ -102,7 +102,7 @@
 </c-container>
 
 <!-- Review Modal -->
-<c-modal [visible]="reviewModal" (visibleChange)="closeReviewModal()">
+<c-modal [(visible)]="reviewModal">
   <c-modal-header>
     <h5 cModalTitle>Leave a Review</h5>
   </c-modal-header>
@@ -126,10 +126,10 @@
       </div>
       <div class="mb-3">
         <label cLabel for="comment">Comment</label>
-        <textarea 
-          cFormControl 
-          id="comment" 
-          formControlName="comment" 
+        <textarea
+          cFormControl
+          id="comment"
+          formControlName="comment"
           rows="4"
           [ngClass]="{'is-invalid': reviewForm.get('comment')?.invalid && reviewForm.get('comment')?.touched}"
         ></textarea>

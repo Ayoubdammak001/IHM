@@ -35,12 +35,12 @@
       "email": "ayoub.dammak@gmail.com",
       "password": "Admin**123",
       "role": "PROVIDER",
-      "phone": "23670708",
-      "address": "ROUTE SOUKRA",
-      "description": "hahahahahaha",
+      "phone": "",
+      "address": "",
+      "description": "",
       "status": true,
       "createdAt": "2025-04-05T11:35:02.634Z",
-      "updatedAt": "2025-04-15T12:00:06.115Z"
+      "updatedAt": "2025-04-05T11:35:02.634Z"
     }
   ],
   "services": [
@@ -181,6 +181,15 @@
       "clientId": "1",
       "providerId": "71ee",
       "serviceId": "5248"
+    },
+    {
+      "id": "7282",
+      "clientId": 1,
+      "providerId": "71ee",
+      "serviceId": "5248",
+      "rating": "3",
+      "comment": "nice sevices",
+      "date": "2025-04-15T17:10:26.357Z"
     }
   ],
   "reservations": [

@@ -24,12 +24,26 @@
                             <c-col md="6">
                                 <div class="mb-3">
                                     <label class="form-label">Recipient ID</label>
-                                    <input
-                                        formControlName="receiverId"
-                                        cFormControl
-                                        [ngClass]="{'is-invalid': messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched}"
-                                    />
+                                  <div class="form-floating">
+                                    <select
+                                      class="form-select"
+                                      formControlName="receiverId"
+                                      [ngClass]="{'is-invalid': messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched}"
+                                    >
+                                      <option value="" disabled selected>Select a provider</option>
+                                      <option *ngFor="let provider of providers" [value]="provider.id">
+                                        {{ provider.username }}
+                                      </option>
+                                    </select>
+                                    <label>Recipient</label>
                                     <div *ngIf="messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched" class="invalid-feedback">
+                                      Recipient is required.
+                                    </div>
+                                  </div>
+
+
+
+                                  <div *ngIf="messageForm.get('receiverId')?.invalid && messageForm.get('receiverId')?.touched" class="invalid-feedback">
                                         Recipient ID is required
                                     </div>
                                 </div>
@@ -90,7 +104,7 @@
                     <table cTable hover *ngIf="!loading || messages.length > 0">
                         <thead>
                             <tr>
-                                <th>From/To</th>
+                                <th>From</th>
                                 <th>Content</th>
                                 <th>Date</th>
                                 <th>Status</th>
@@ -100,12 +114,13 @@
                         <tbody>
                             <tr *ngFor="let message of paginatedMessages" [class.fw-bold]="!message.read && message.recipientId === currentClientId">
                                 <td>
-                                    <ng-container *ngIf="message.senderId === currentClientId">
-                                        To: {{ message.recipientId }}
-                                    </ng-container>
-                                    <ng-container *ngIf="message.recipientId === currentClientId">
-                                        From: {{ message.senderId }}
-                                    </ng-container>
+                                  <ng-container *ngIf="message.senderId === currentClientId">
+                                    To: {{ getUserName(message.recipientId) }}
+                                  </ng-container>
+                                  <ng-container *ngIf="message.recipientId === currentClientId">
+                                    From: {{ getUserName(message.senderId) }}
+                                  </ng-container>
+
                                 </td>
                                 <td>{{ message.content }}</td>
                                 <td>{{ message.date | date:'medium' }}</td>
