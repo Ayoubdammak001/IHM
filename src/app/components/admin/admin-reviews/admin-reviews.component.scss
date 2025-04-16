@@ -1,0 +1,178 @@
+/* Définition des couleurs du thème */
+$dark-blue: #1d3c6a;  /* Bleu foncé */
+$light-blue: #4a77d4; /* Bleu clair */
+$success-color: #28a745;
+$danger-color: #dc3545;
+$info-color: #17a2b8;
+$background-color: #f8f9fa;
+$text-color: #343a40;  /* Gris foncé pour le texte */
+$white: #ffffff;
+$border-radius: 8px;
+$input-focus-color: $light-blue;
+
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: $background-color;
+}
+
+/* Card and Container Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $white;
+}
+
+.card-header {
+  background-color: $dark-blue;
+  color: $white;
+  padding: 15px 20px;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Button Styles */
+.btn-outline-danger {
+  border: 1px solid $danger-color;
+  background-color: $white;
+  color: $danger-color;
+  padding: 5px 15px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  &:hover {
+    background-color: $danger-color;
+    color: $white;
+  }
+}
+
+/* Pagination Styles */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-controls .ngx-pagination {
+  display: inline-block;
+  padding: 5px;
+  list-style: none;
+  border-radius: 5px;
+}
+
+.pagination-controls .ngx-pagination li {
+  display: inline;
+  margin: 0 5px;
+}
+
+.pagination-controls .ngx-pagination .ngx-prev,
+.pagination-controls .ngx-pagination .ngx-next {
+  font-size: 1.2rem;
+  color: $dark-blue;
+}
+
+.pagination-controls .ngx-pagination .ngx-page {
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  color: $dark-blue; /* Texte des autres pages */
+  background-color: transparent; /* Fond transparent */
+  &:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+/* Modifier la couleur de fond de la page active */
+.pagination-controls .ngx-pagination .ngx-page.active {
+  background-color: $dark-blue;  /* Fond bleu foncé pour la page active */
+  color: $white;  /* Texte blanc pour la page active */
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 8px 15px;
+}
+
+/* Survol de la page active */
+.pagination-controls .ngx-pagination .ngx-page.active:hover {
+  background-color: darken($dark-blue, 10%); /* Légère couleur plus foncée au survol */
+}
+
+/* Styles pour la liste des avis */
+.list-group-item {
+  border: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  &:hover {
+    background-color: #f8f9fa;
+  }
+
+  .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .star {
+    color: #ff9900; /* Étoiles dorées pour la notation */
+  }
+
+  .text-muted {
+    font-size: 0.875rem;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+/* Spinner Styles */
+.spinner-border {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+  border-top-color: $dark-blue;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error and No Data Styles */
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* No Reviews Found */
+.py-3 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
