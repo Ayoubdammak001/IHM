@@ -1,33 +1,113 @@
-:host::ng-deep {
-  .ng-scrollbar {
-    --scrollbar-padding: 1px;
-    --scrollbar-size: 5px;
-    --scrollbar-thumb-color: var(--cui-gray-500, #aab3c5);
-    --scrollbar-thumb-hover-color: var(--cui-gray-400, #cfd4de);
-    --scrollbar-hover-size: calc(var(--scrollbar-size) * 1.5);
-    --scrollbar-border-radius: 5px;
-  }
+/* === Palette de couleurs === */
+$theme-blue: #1d3c6a; // Couleur bleue principale (interface et sidebar)
+$theme-blue-light: lighten($theme-blue, 6%);
+$theme-blue-dark: darken($theme-blue, 10%);
+$theme-hover: lighten($theme-blue, 10%);
+$white: #ffffff;
+$border-radius: 8px;
 
-  .ng-scroll-content {
+/* === SIDEBAR STYLE === */
+.sidebar {
+  background: linear-gradient(180deg, $theme-blue 0%, $theme-blue-dark 100%);
+  color: $white;
+  width: 250px;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+
+  /* Sidebar header (logo area) */
+  .sidebar-header,
+  .c-sidebar-header {
+    background: $theme-blue;
+    color: $white;
+    font-weight: bold;
+    border-bottom: 1px solid lighten($theme-blue, 10%);
+    padding: 1rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 -1px 2px rgba(255, 255, 255, 0.1);
   }
 
-  //.sidebar-nav {
-  //  scrollbar-color: var(--cui-gray-500, #444) transparent;
-  //}
+  .sidebar-brand-full,
+  .sidebar-brand-narrow {
+    fill: $white;
+  }
+
+  /* Navigation items */
+  .c-sidebar-nav {
+    padding: 0.5rem 0;
+
+    .c-sidebar-nav-item {
+      .c-sidebar-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1.25rem;
+        font-weight: 500;
+        color: $white;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: $theme-hover;
+          box-shadow: inset 2px 0 0 0 $white;
+        }
+
+        &.c-active {
+          background-color: $white;
+          color: $theme-blue;
+          font-weight: bold;
+          box-shadow: inset 5px 0 0 $theme-blue;
+        }
+
+        svg {
+          color: inherit;
+        }
+      }
+
+      .c-sidebar-nav-dropdown-items {
+        background-color: lighten($theme-blue, 5%);
+        .c-sidebar-nav-link {
+          padding-left: 2rem;
+        }
+      }
+    }
+  }
 }
 
-// ng-scrollbar css variables
-//.cui-scrollbar {
-//  --scrollbar-border-radius: 7px;
-//  --scrollbar-padding: 1px;
-//  --scrollbar-viewport-margin: 0;
-//  --scrollbar-track-color: transparent;
-//  --scrollbar-wrapper-color: transparent;
-//  --scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
-//  --scrollbar-thumb-hover-color: var(--scrollbar-thumb-color);
-//  --scrollbar-size: 5px;
-//  --scrollbar-hover-size: var(--scrollbar-size);
-//  --scrollbar-thumb-transition: height ease-out 150ms, width ease-out 150ms;
-//  --scrollbar-track-transition: height ease-out 150ms, width ease-out 150ms;
-//}
+/* === INTERFACE CARDS === */
+.card-header {
+  background-color: $theme-blue;
+  color: $white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}
+
+/* === BOUTONS === */
+.btn-primary {
+  background-color: $theme-blue;
+  border-color: $theme-blue;
+  color: $white;
+
+  &:hover {
+    background-color: $theme-blue-dark;
+    border-color: $theme-blue-dark;
+  }
+}
+
+.btn-outline-primary {
+  border: 1px solid $theme-blue;
+  color: $theme-blue;
+  background-color: $white;
+
+  &:hover {
+    background-color: $theme-blue;
+    color: $white;
+  }
+}
+
+/* === BADGES === */
+.badge-primary {
+  background-color: $theme-blue;
+  color: $white;
+}

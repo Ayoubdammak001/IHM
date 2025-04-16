@@ -20,7 +20,7 @@
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input type="text" id="username" formControlName="username" class="form-control" 
+          <input type="text" id="username" formControlName="username" class="form-control"
             [ngClass]="{'is-invalid': userForm.get('username')?.invalid && userForm.get('username')?.touched}">
           <div class="invalid-feedback" *ngIf="userForm.get('username')?.errors?.['required']">
             Username is required
@@ -85,4 +85,4 @@
       </form>
     </div>
   </div>
-</div> 
+</div>

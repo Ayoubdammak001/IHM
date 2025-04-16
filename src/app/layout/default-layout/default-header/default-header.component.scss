@@ -1,0 +1,109 @@
+// Appliquer à tout moment, quel que soit le mode
+c-container.border-bottom {
+  background-color: var(--cui-body-bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[cHeaderToggler] {
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--cui-tertiary-bg);
+  }
+}
+
+c-header-nav a[cNavLink] {
+  color: var(--cui-body-color);
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+
+  &:hover,
+  &.active {
+    color: var(--cui-primary);
+    background-color: rgba(0, 123, 255, 0.08);
+    border-radius: 6px;
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: scale(1.1);
+  }
+}
+
+c-avatar {
+  border: 2px solid var(--cui-primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.3);
+    cursor: pointer;
+  }
+}
+
+ul[cDropdownMenu] {
+  background-color: var(--cui-body-bg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0;
+
+  li a[cDropdownItem] {
+    color: var(--cui-body-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background-color: var(--cui-secondary-bg);
+      color: var(--cui-primary);
+
+      svg {
+        color: var(--cui-primary);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  h6[cDropdownHeader] {
+    color: var(--cui-secondary-color);
+    padding: 0.5rem 1rem;
+  }
+
+  hr[cDropdownDivider] {
+    margin: 0.5rem 0;
+    border-color: var(--cui-border-color-translucent);
+  }
+}
+
+c-dropdown[variant="nav-item"] {
+  button[cDropdownToggle] {
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--cui-secondary-bg);
+    }
+  }
+
+  div[cDropdownMenu] button[cDropdownItem] {
+    color: var(--cui-body-color);
+
+    &:hover {
+      background-color: var(--cui-secondary-bg);
+      color: var(--cui-primary);
+    }
+
+    &.active {
+      background-color: var(--cui-primary-bg-subtle);
+      color: var(--cui-primary);
+      font-weight: 600;
+    }
+  }
+}
+
+.vr {
+  background-color: var(--cui-border-color-translucent);
+}

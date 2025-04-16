@@ -26,21 +26,21 @@
         <div class="table-responsive" *ngIf="users.length > 0">
           <table class="table table-striped table-hover">
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>
+            <tr *ngFor="let user of users | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
                   <span class="badge" [ngClass]="{
                     'bg-primary': user.role === 'ADMIN',
                     'bg-success': user.role === 'PROVIDER',
@@ -48,28 +48,31 @@
                   }">
                     {{ user.role }}
                   </span>
-                </td>
-                <td>
+              </td>
+              <td>
                   <span class="badge" [ngClass]="{
                     'bg-success': user.status,
                     'bg-danger': !user.status
                   }">
                     {{ user.status ? 'Active' : 'Inactive' }}
                   </span>
-                </td>
-                <td>
-                  <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-primary" [routerLink]="['/admin/users', user.id, 'edit']">
-                      Edit
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary" [routerLink]="['/admin/users', user.id, 'edit']">
+                    Edit
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
             </tbody>
           </table>
+
+          <!-- Pagination Controls -->
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
     </div>

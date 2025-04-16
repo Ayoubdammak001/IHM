@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/category.model';
@@ -9,7 +10,7 @@ import { Category } from '../../../models/category.model';
 @Component({
   selector: 'app-admin-categories',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule], // Correct imports for standalone
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NgxPaginationModule], // Correct imports for standalone
   templateUrl: './admin-categories.component.html',
   styleUrls: ['./admin-categories.component.scss']
 })
@@ -20,6 +21,7 @@ export class AdminCategoriesComponent implements OnInit {
   submitting = false;
   error = '';
   editingCategoryId: number | null = null;
+  p: number = 1;  // Page actuelle
 
   constructor(
     private categoryService: CategoryService,
@@ -61,7 +63,7 @@ export class AdminCategoriesComponent implements OnInit {
     if (this.editingCategoryId) {
       this.categoryService.update(this.editingCategoryId, categoryData).subscribe({
         next: (updatedCategory) => {
-          this.categories = this.categories.map(cat => 
+          this.categories = this.categories.map(cat =>
             cat.id === this.editingCategoryId ? updatedCategory : cat
           );
           this.resetForm();

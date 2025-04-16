@@ -1,22 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Role } from '../../models/enums';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import {AppRoutingModule} from "../../app-routing.module";
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  styleUrls: ['./navbar.component.scss'],
+  imports: [CommonModule, RouterModule,BrowserModule,AppRoutingModule,NgModule]
 })
+
 export class NavbarComponent implements OnInit {
   currentUser: any;
   isNavbarCollapsed = true;
 
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,5 +51,6 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/login']);
   }
-} 
+}

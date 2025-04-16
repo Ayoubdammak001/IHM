@@ -29,7 +29,13 @@ const clientNavItems: INavData[] = [
   {
     name: 'Messages',
     url: '/client/messages',
-    iconComponent: { name: 'cil-chat-bubble' }
+    iconComponent: { name: 'cil-speech' }
+
+  },
+  {
+    name: 'Log out',
+    url: '/home', // ou simplement '#' si tu veux gérer le clic manuellement
+    iconComponent: { name: 'cil-account-logout' }
   }
 ];
 
@@ -62,23 +68,28 @@ const providerNavItems: INavData[] = [
     name: 'Reviews',
     url: '/provider/reviews',
     iconComponent: { name: 'cil-star' }
+  },
+  {
+    name: 'Log out',
+    url: '/home', // ou simplement '#' si tu veux gérer le clic manuellement
+    iconComponent: { name: 'cil-account-logout' }
   }
 ];
 
 const adminNavItems: INavData[] = [
+  {
+    title: true,
+    name: 'Admin'
+  },
   {
     name: 'Dashboard',
     url: '/admin/dashboard',
     iconComponent: { name: 'cil-speedometer' }
   },
   {
-    name: 'Magege Home Page',
+    name: 'Manage Home Page',
     url: '/admin/home',
     iconComponent: { name: 'cil-home' }
-  },
-  {
-    title: true,
-    name: 'Admin'
   },
   {
     name: 'Users',
@@ -88,13 +99,19 @@ const adminNavItems: INavData[] = [
   {
     name: 'Categories',
     url: '/admin/categories',
-    iconComponent: { name: 'cil-folder' }
+    iconComponent: { name: 'cil-list' }
   },
   {
     name: 'Reviews',
     url: '/admin/reviews',
     iconComponent: { name: 'cil-star' }
+  },
+  {
+    name: 'Log out',
+    url: '/home', // ou simplement '#' si tu veux gérer le clic manuellement
+    iconComponent: { name: 'cil-account-logout' }
   }
+
 ];
 
 // Function to get navigation items based on user role

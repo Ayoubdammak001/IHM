@@ -4,11 +4,12 @@ import { Review } from '../../../models/review.model';
 import { Service } from '../../../models/service.model';
 import { ReviewService } from '../../../services/review.service';
 import { ServiceService } from '../../../services/service.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-admin-reviews',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgxPaginationModule], // Import de ngx-pagination
   templateUrl: './admin-reviews.component.html',
   styleUrls: ['./admin-reviews.component.scss']
 })
@@ -17,6 +18,7 @@ export class AdminReviewsComponent implements OnInit {
   servicesMap: { [key: number]: Service } = {};
   loading = false;
   error = '';
+  p: number = 1;  // Page actuelle
 
   constructor(
     private reviewService: ReviewService,

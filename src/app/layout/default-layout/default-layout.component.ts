@@ -60,7 +60,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateNavigation();
-    
+
     // Subscribe to auth changes to update navigation when user logs in/out
     this.authService.currentUser.subscribe(user => {
       this.updateNavigation();
@@ -72,4 +72,5 @@ export class DefaultLayoutComponent implements OnInit {
     const userRole = currentUser?.role;
     this.navItems = getNavItems(userRole);
   }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
@@ -8,7 +9,7 @@ import { User } from '../../../models/user.model';
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgxPaginationModule],
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
@@ -16,6 +17,7 @@ export class AdminUsersComponent implements OnInit {
   users: User[] = [];
   loading = false;
   error = '';
+  p: number = 1;  // Page actuelle
 
   constructor(private userService: UserService) {}
 

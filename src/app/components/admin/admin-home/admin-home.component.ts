@@ -12,13 +12,14 @@ import { ReviewService } from '../../../services/review.service';
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss'],
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule]
 })
 export class AdminHomeComponent implements OnInit, OnDestroy {
   heroForm: FormGroup;
   categoriesForm: FormGroup;
   testimonialsForm: FormGroup;
-  
+
   heroSection!: HomeSection;
   categories: HomeSection[] = [];
   testimonials: Testimonial[] = [];
@@ -77,11 +78,11 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
         this.heroSection = heroSection;
         this.heroForm.patchValue(heroSection);
       }),
-      
+
       this.homePageService.getCategories().subscribe(categories => {
         this.categories = categories;
       }),
-      
+
       this.homePageService.getTestimonials().subscribe(testimonials => {
         this.testimonials = testimonials;
       })
@@ -122,11 +123,11 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
   addCategory(): void {
     if (this.categoriesForm.valid) {
       const categoryId = this.categoriesForm.value.categoryId;
-      
+
       if (categoryId) {
         // Trouver la catégorie existante
         const existingCategory = this.existingCategories.find(c => c.id === categoryId);
-        
+
         if (existingCategory) {
           // Créer une nouvelle entrée de catégorie pour la page d'accueil
           const newCategory: HomeSection = {
@@ -136,7 +137,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
             image: existingCategory.image || this.categoriesForm.value.image,
             order: this.categories.length + 1
           };
-          
+
           this.homePageService.addCategory(newCategory);
           this.categoriesForm.reset();
         }
@@ -149,7 +150,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
           image: this.categoriesForm.value.image,
           order: this.categories.length + 1
         };
-        
+
         this.homePageService.addCategory(newCategory);
         this.categoriesForm.reset();
       }
@@ -187,11 +188,11 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
   addTestimonial(): void {
     if (this.testimonialsForm.valid) {
       const reviewId = this.testimonialsForm.value.reviewId;
-      
+
       if (reviewId) {
         // Trouver le témoignage existant
         const existingReview = this.existingReviews.find(r => r.id === reviewId);
-        
+
         if (existingReview) {
           // Créer une nouvelle entrée de témoignage pour la page d'accueil
           const newTestimonial: Testimonial = {
@@ -201,7 +202,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
             rating: existingReview.rating || this.testimonialsForm.value.rating,
             date: new Date()
           };
-          
+
           this.homePageService.addTestimonial(newTestimonial);
           this.testimonialsForm.reset();
         }
@@ -214,7 +215,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
           rating: this.testimonialsForm.value.rating,
           date: new Date()
         };
-        
+
         this.homePageService.addTestimonial(newTestimonial);
         this.testimonialsForm.reset();
       }
@@ -279,7 +280,7 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
       reader.onload = () => {
         const base64Image = reader.result as string;
-        
+
         // Mettre à jour le formulaire avec l'URL de l'image
         this.categoriesForm.patchValue({
           image: base64Image
@@ -301,4 +302,4 @@ export class AdminHomeComponent implements OnInit, OnDestroy {
       alert('Erreur lors de l\'upload de l\'image');
     }
   }
-} 
+}

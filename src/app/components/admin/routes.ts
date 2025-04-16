@@ -55,7 +55,7 @@ export const routes: Routes = [
         loadComponent: () => import('./admin-reviews/admin-reviews.component')
           .then(m => m.AdminReviewsComponent),
         data: { title: 'Manage Reviews' }
-      }
+      },
     ]
   }
 ];
