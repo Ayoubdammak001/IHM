@@ -1,8 +1,8 @@
 /* === Palette de couleurs === */
 $theme-blue: #1d3c6a; // Couleur bleue principale (interface et sidebar)
 $theme-blue-light: lighten($theme-blue, 6%);
-$theme-blue-dark: darken($theme-blue, 10%);
-$theme-hover: lighten($theme-blue, 10%);
+$theme-blue-dark: darken($theme-blue, 30%);
+$theme-hover: lighten($theme-blue, 30%);
 $white: #ffffff;
 $border-radius: 8px;
 

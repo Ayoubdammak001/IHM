@@ -1,29 +1,29 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-12"> <!-- changement ici pour correspondre au dashboard -->
-      <div class="card shadow-sm border border-dark">
-        <div class="card-header text-white text-center" style="background-color: #002B5B;">
-          <h2 class="mb-0">Provider Profile</h2>
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header text-white">
+          <h5 class="mb-0">Provider Profile</h5>
         </div>
         <div class="card-body">
-          <!-- État de chargement -->
-          <div *ngIf="loading" class="d-flex justify-content-center align-items-center" style="height: 150px;">
+          <!-- Loading -->
+          <div *ngIf="loading" class="d-flex justify-content-center align-items-center">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
 
-          <!-- Message d'erreur -->
+          <!-- Error -->
           <div *ngIf="error" class="alert alert-danger text-center" role="alert">
             {{ error }}
           </div>
 
-          <!-- Message de succès -->
+          <!-- Success -->
           <div *ngIf="success" class="alert alert-success text-center" role="alert">
             Profile updated successfully!
           </div>
 
-          <!-- Formulaire de profil -->
+          <!-- Form -->
           <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -76,13 +76,11 @@
             </div>
 
             <div class="text-center">
-              <button type="submit"
-                      class="btn"
-                      style="background-color:#6c8e6c; color:white; padding:10px 20px; border-radius:8px; border:none;">
+              <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || submitting">
+                <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
                 Update Profile
               </button>
             </div>
-            
           </form>
         </div>
       </div>

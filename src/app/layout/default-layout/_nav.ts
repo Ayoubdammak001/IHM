@@ -41,13 +41,13 @@ const clientNavItems: INavData[] = [
 
 const providerNavItems: INavData[] = [
   {
+    title: true,
+    name: 'Provider'
+  },
+  {
     name: 'Dashboard',
     url: '/provider/dashboard',
     iconComponent: { name: 'cil-speedometer' }
-  },
-  {
-    title: true,
-    name: 'Provider'
   },
   {
     name: 'Provider Profile',
@@ -62,7 +62,7 @@ const providerNavItems: INavData[] = [
   {
     name: 'My Services',
     url: '/provider/services',
-    iconComponent: { name: 'cil-briefcase' }
+    iconComponent: { name: 'cil-basket' } // ou un autre valide : cil-user, cil-list, etc.
   },
   {
     name: 'Reviews',

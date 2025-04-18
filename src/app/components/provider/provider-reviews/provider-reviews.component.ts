@@ -29,7 +29,7 @@ export class ProviderReviewsComponent implements OnInit {
     this.loading = true;
     this.error = '';
     const currentUser = this.authService.currentUserValue;
-    
+
     if (currentUser) {
       this.reviewService.getByProviderId(currentUser.id).subscribe({
         next: (reviews) => {

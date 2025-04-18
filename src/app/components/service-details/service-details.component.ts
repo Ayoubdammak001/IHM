@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,8 @@ import { ReservationStatus, Role } from '../../models/enums';
   standalone: true,
   templateUrl: './service-details.component.html',
   styleUrls: ['./service-details.component.scss'],
-  imports: [CommonModule, FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule],
+  encapsulation: ViewEncapsulation.None // pour appliquer le style SCSS globalement
 })
 export class ServiceDetailsComponent implements OnInit {
   service: Service | null = null;
@@ -69,6 +70,8 @@ export class ServiceDetailsComponent implements OnInit {
   }
 
   reserveNow(): void {
+    this.error = ''; // reset any previous error
+
     const currentUser = this.authService.currentUserValue;
     const currentUrl = this.router.url;
 
@@ -77,7 +80,7 @@ export class ServiceDetailsComponent implements OnInit {
       return;
     }
 
-    if (currentUser.role == Role.ADMIN) {
+    if (currentUser.role === Role.ADMIN) {
       this.error = 'Only clients and providers can make reservations.';
       return;
     }

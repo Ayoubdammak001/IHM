@@ -1,0 +1,133 @@
+// ==========================
+// 🎨 VARIABLES GLOBALES
+// ==========================
+
+$custom-green: #165113;
+$dark-blue: #1d3c6a;
+$light-blue: #4a77d4;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$info-color: #17a2b8;
+$background-color: #f8f9fa;
+$text-color: #343a40;
+$white: #ffffff;
+$border-radius: 8px;
+$input-focus-color: $light-blue;
+
+// ==========================
+// 💬 SERVICE REVIEWS STYLES
+// ==========================
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 1.5rem;
+}
+
+.card {
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: $white;
+
+  .card-header {
+    background-color: $dark-blue;
+    color: $white;
+    padding: 15px 20px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    text-align: left;
+
+    h5 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+  }
+
+  .card-body {
+    padding: 20px;
+
+    .spinner-border {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .alert {
+      border-radius: 5px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+
+      &.alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+      }
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .py-4 {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .py-3 {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .text-muted {
+      color: #6c757d;
+    }
+
+    .list-group {
+      .list-group-item {
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+        padding: 1rem;
+
+        .d-flex {
+          justify-content: space-between;
+          align-items: start;
+
+          .mb-2 {
+            margin-bottom: 0.5rem;
+          }
+
+          .me-2 {
+            margin-right: 0.5rem;
+          }
+
+          .star {
+            font-size: 1.1rem;
+            line-height: 1;
+            margin-right: 0.15rem;
+
+            &.active {
+              color: #f5c518;
+            }
+
+            &.inactive {
+              color: #e4e5e9;
+            }
+          }
+
+          p {
+            margin-bottom: 0.3rem;
+          }
+        }
+      }
+    }
+
+    .mt-4 {
+      margin-top: 2rem;
+    }
+
+    .d-flex {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

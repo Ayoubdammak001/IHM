@@ -1,42 +1,73 @@
 .register-page {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  
-  .register-page::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+  min-height: 100vh;
+  padding: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  c-container {
     width: 100%;
-    background-image: url("/assets/images/finale.png"); /* adapte le chemin si besoin */
-    background-size: cover;
-    background-position: center;
-    filter: blur(12px);
-    z-index: 1;
   }
-  
-  .register-page > * {
-    position: relative;
-    z-index: 2;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
   }
+
+  p.text-body-secondary {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+  }
+
+  c-card {
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  c-card-body {
+    padding: 2rem;
+  }
+
+  c-input-group {
+    background: #f5f5f5;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    input {
+      border: none;
+      background: transparent;
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+    span[cInputGroupText] {
+      background-color: transparent;
+      border: none;
+    }
+  }
+
   .custom-btn {
-    background-color: #001f3d; /* Bleu foncé comme celui que vous montrez */
-    color: white; /* Texte blanc */
-    border: none; /* Pas de bordure */
-    padding: 10px 20px; /* Ajustez le padding selon votre besoin */
-    font-size: 16px; /* Taille de la police */
-    border-radius: 50px; /* Coins arrondis pour un effet moderne */
-    transition: background-color 0.3s ease; /* Transition fluide lors du survol */
-}
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
 
-.custom-btn:hover {
-    background-color: #003366; /* Bleu plus clair au survol */
-}
+    &:hover {
+      background-color: #0b5ed7;
+    }
 
-  
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+  }
+}

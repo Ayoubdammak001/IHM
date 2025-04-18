@@ -1,4 +1,5 @@
-<div class="container py-4">
+<div class="container py-4 service-details-page">
+
   <!-- Spinner de chargement -->
   <div *ngIf="loading" class="text-center my-5">
     <div class="spinner-border text-primary" role="status">
@@ -11,23 +12,62 @@
 
   <!-- Détail du service -->
   <div *ngIf="service && !loading">
-    
+
     <!-- Image principale -->
-    <div class="position-relative rounded-4 overflow-hidden mb-4 shadow-sm">
-      <img [src]="service.imageUrl || 'assets/images/default-service.jpg'"
-           class="w-100"
-           style="height: 280px; object-fit: cover;"
-           alt="{{ service.name }}">
-      <div class="position-absolute bottom-0 start-0 w-100 p-3"
-           style="background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);">
-        <h2 class="text-white fw-bold m-0">{{ service.name }}</h2>
+    <div class="mb-4">
+      <div class="service-hero shadow-sm rounded-4 overflow-hidden">
+        <img
+          [src]="service.imageUrl || 'assets/images/default-service.jpg'"
+          class="w-100"
+          alt="{{ service.name }}"
+        />
+        <div class="overlay">
+          <h2 class="text-white fw-bold m-0">{{ service.name }}</h2>
+        </div>
       </div>
     </div>
 
-    <div class="row g-4">
-      <!-- Colonne gauche -->
-      <div class="col-lg-8">
-        <!-- Informations -->
+    <div class="row g-4 align-items-start">
+
+      <!-- Réservation (sur mobile en haut) -->
+      <div class="col-md-12 order-1 order-lg-2 col-lg-6 fade-in">
+        <div class="card border-0 shadow-sm rounded-4 sticky-top">
+          <div class="card-body">
+            <h5 class="fw-bold mb-3">Make a Reservation</h5>
+
+            <div class="mb-3">
+              <label for="reservationDate" class="form-label">Select Date and Time</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light">
+                  <i class="fas fa-calendar-alt text-muted"></i>
+                </span>
+                <input
+                  type="datetime-local"
+                  class="form-control form-control-sm"
+                  id="reservationDate"
+                  [(ngModel)]="reservationDate"
+                  name="reservationDate"
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              class="btn btn-primary w-100 rounded-pill"
+              (click)="reserveNow()"
+            >
+              Reserve Now
+            </button>
+
+            <div *ngIf="error" class="alert alert-danger mt-3 small">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infos + Avis -->
+      <div class="col-md-12 order-2 order-lg-1 col-lg-6 fade-in">
         <div class="card border-0 shadow-sm rounded-4 mb-4 p-3">
           <p class="text-muted mb-2">{{ service.description }}</p>
           <div class="d-flex flex-wrap gap-3 align-items-center">
@@ -48,7 +88,7 @@
           </div>
         </div>
 
-        <!-- Avis -->
+        <!-- Reviews -->
         <div class="card border-0 shadow-sm rounded-4">
           <div class="card-body">
             <h5 class="fw-bold mb-3">Reviews</h5>
@@ -62,7 +102,8 @@
                   <div class="mb-1">
                     <ng-container *ngFor="let star of [1,2,3,4,5]">
                       <i class="fas"
-                         [ngClass]="star <= review.rating ? 'fa-star text-warning' : 'fa-star text-secondary opacity-25'"></i>
+                         [ngClass]="star <= review.rating ? 'fa-star text-warning' : 'fa-star text-secondary opacity-25'">
+                      </i>
                     </ng-container>
                   </div>
                   <p class="mb-1">{{ review.comment }}</p>
@@ -74,45 +115,6 @@
         </div>
       </div>
 
-      <!-- Colonne droite : Réservation -->
-      <div class="col-lg-4">
-        <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 80px;">
-          <div class="card-body">
-            <h5 class="fw-bold mb-3">Make a Reservation</h5>
-
-            <!-- Sélection de la date -->
-            <div class="mb-3">
-              <label for="reservationDate" class="form-label">Select Date and Time</label>
-              <div class="input-group">
-                <span class="input-group-text bg-light">
-                  <i class="fas fa-calendar-alt text-muted"></i>
-                </span>
-                <input
-                  type="datetime-local"
-                  class="form-control form-control-sm"
-                  id="reservationDate"
-                  [(ngModel)]="reservationDate"
-                  name="reservationDate"
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- Bouton réserver -->
-            <button
-              class="btn btn-primary w-100 rounded-pill"
-              (click)="reserveNow()"
-            >
-              Reserve Now
-            </button>
-
-            <!-- Message erreur -->
-            <div *ngIf="error" class="alert alert-danger mt-3 small">
-              {{ error }}
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

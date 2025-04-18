@@ -2,11 +2,12 @@
   <c-container>
     <c-row class="justify-content-center">
       <c-col lg="7" md="9" xl="6">
-        <c-card class="mx-4 shadow-lg" style="background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(6px); border-radius: 1rem;">
+        <c-card class="register-card shadow-lg">
           <c-card-body class="p-4">
             <form cForm>
-              <h1>Register</h1>
-              <p class="text-body-secondary">Create your account</p>
+              <div class="text-center mb-4">
+                <h1 class="title">Create Account</h1>
+              </div>
 
               <c-input-group class="mb-3">
                 <span cInputGroupText>
@@ -16,7 +17,7 @@
               </c-input-group>
 
               <c-input-group class="mb-3">
-                <span cInputGroupText>&#64;</span>
+                <span cInputGroupText><svg cIcon name="cilEnvelopeClosed"></svg></span>
                 <input autoComplete="email" cFormControl placeholder="Email" />
               </c-input-group>
 
@@ -31,13 +32,11 @@
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                <input autoComplete="new-password" cFormControl placeholder="Repeat Password" type="password" />
               </c-input-group>
 
               <div class="d-grid">
-                <button cButton class="btn custom-btn">Create Account</button>
-
-
+                <button type="submit" cButton class="btn custom-btn">Create Account</button>
               </div>
             </form>
           </c-card-body>

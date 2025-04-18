@@ -216,3 +216,14 @@ body {
 .text-muted {
   color: #6c757d;
 }
+
+.btn-add-user {
+  font-size: 1rem;     // texte plus petit
+  padding: 4px 9px;      // moins de padding
+  border: 1px solid $white;
+  border-radius: 4px;;
+}
+
+.btn-add-user:hover {
+  border-color: lighten($white, 10%);
+}
