@@ -25,6 +25,12 @@ export class ReviewService {
       map(reviews => reviews.map(review => this.convertDate(review)))
     );
   }
+  getManyServicesByIds(serviceIds: number[]): Observable<any[]> {
+    const query = serviceIds.map(id => `id=${id}`).join('&');
+    return this.http.get<any[]>(`http://localhost:3000/services?${query}`);
+  }
+
+
 
   getById(id: number): Observable<Review> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
@@ -75,4 +81,4 @@ export class ReviewService {
       map(() => true)
     );
   }
-} 
+}

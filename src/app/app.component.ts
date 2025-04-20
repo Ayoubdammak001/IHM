@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   readonly #colorModeService = inject(ColorModeService);
   readonly #iconSetService = inject(IconSetService);
 
-  title = 'Standalone CoreUI App';
+  title = 'Home Service';
 
   constructor() {
     this.#titleService.setTitle(this.title);

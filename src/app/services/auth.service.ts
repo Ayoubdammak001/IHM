@@ -67,4 +67,13 @@ export class AuthService {
   hasRole(role: Role): boolean {
     return this.currentUserValue?.role === role;
   }
+
+  getManyUsersByIds(ids: number[]): Observable<User[]> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(data => {
+        return data.users.filter((user: User) => ids.includes(user.id));
+      })
+    );
+  }
+
 }

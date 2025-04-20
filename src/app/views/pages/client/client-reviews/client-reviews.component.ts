@@ -65,7 +65,7 @@ export class ClientReviewsComponent implements OnInit {
   paginatedReviews: Review[] = [];
   loading = true;
   error = '';
-  currentClientId = 1;
+  currentClientId!: number;
 
   // Pagination properties
   totalItems = 0;
@@ -83,9 +83,17 @@ export class ClientReviewsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadReviews(this.currentClientId);
+    this.setUserId();
   }
-
+  setUserId(): void {
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser?.id) {
+      this.currentClientId = currentUser.id;
+      this.loadReviews(this.currentClientId); // ✅ Appel uniquement après userId valide
+    } else {
+      console.warn('No user is currently connected.');
+    }
+  }
   private loadReviews(clientId: number): void {
     this.reviewService.getByClientId(clientId).subscribe({
       next: (reviews: Review[]) => {

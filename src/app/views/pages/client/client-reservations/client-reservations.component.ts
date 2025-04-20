@@ -35,6 +35,7 @@ import {
 // Material Paginator
 import { MatPaginatorModule, PageEvent, MatPaginatorIntl} from "@angular/material/paginator";
 import { Subject } from 'rxjs';
+import {AuthService} from "../../../../services/auth.service";
 
 // Custom Paginator Intl Provider
 export class CustomPaginatorIntl implements MatPaginatorIntl {
@@ -92,7 +93,6 @@ export class ClientReservationsComponent implements OnInit {
   reservations: Reservation[] = [];
   filteredReservations: Reservation[] = [];
   paginatedReservations: Reservation[] = [];
-  currentClientId = 1;
   servicesMap: { [key: number]: Service } = {};
   providersMap: { [key: number]: User } = {};
   loading = false;
@@ -113,6 +113,7 @@ export class ClientReservationsComponent implements OnInit {
 
   // Filtering
   statusFilter: string = '';
+  userId!: number;
 
   protected readonly ReservationStatus = ReservationStatus;
 
@@ -120,6 +121,7 @@ export class ClientReservationsComponent implements OnInit {
     private reservationService: ReservationService,
     private serviceService: ServiceService,
     private userService: UserService,
+    private authService: AuthService,
     private reviewService: ReviewService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef
@@ -130,44 +132,75 @@ export class ClientReservationsComponent implements OnInit {
     });
   }
 
+
+
   ngOnInit(): void {
-    this.loadReservations();
+    this.setUserId(); // ✅ Cela va maintenant gérer aussi le chargement
   }
+
+  setUserId(): void {
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser?.id) {
+      this.userId = currentUser.id;
+      this.loadReservations(); // ✅ Appel uniquement après userId valide
+    } else {
+      console.warn('No user is currently connected.');
+    }
+  }
+
+
+
 
   loadReservations(): void {
     this.loading = true;
-    this.reservationService.getByClientId(this.currentClientId)
-      .subscribe((reservations: Reservation[]) => {
+    this.reservationService.getByClientId(this.userId).subscribe({
+      next: (reservations: Reservation[]) => {
         this.reservations = reservations;
         this.applyFilters();
 
-        // Get unique service IDs
         const serviceIds = Array.from(new Set(reservations.map(r => r.serviceId)));
-
-        // Get unique provider IDs
         const providerIds = Array.from(new Set(reservations.map(r => r.providerId)));
 
-        // Fetch services and providers
         if (serviceIds.length > 0) {
-          this.serviceService.getManyByIds(serviceIds).subscribe(services => {
-            this.servicesMap = services.reduce((acc, service) => {
-              acc[service.id] = service;
-              return acc;
-            }, {} as { [key: number]: Service });
-            this.loading = false;
+          this.serviceService.getManyByIds(serviceIds).subscribe({
+            next: (services) => {
+              this.servicesMap = services.reduce((acc, service) => {
+                acc[service.id] = service;
+                return acc;
+              }, {} as { [key: number]: Service });
+              this.loading = false; // ✅ on désactive le loader ici aussi
+            },
+            error: () => {
+              this.loading = false;
+            }
           });
         }
 
         if (providerIds.length > 0) {
-          this.userService.getProviders().subscribe(providers => {
-            this.providersMap = providers.reduce((acc, provider) => {
-              acc[provider.id] = provider;
-              return acc;
-            }, {} as { [key: number]: User });
-            this.loading = false;
+          this.userService.getProviders().subscribe({
+            next: (providers) => {
+              this.providersMap = providers.reduce((acc, provider) => {
+                acc[provider.id] = provider;
+                return acc;
+              }, {} as { [key: number]: User });
+              this.loading = false; // ✅
+            },
+            error: () => {
+              this.loading = false;
+            }
           });
         }
-      });
+
+        // ✅ Important : si aucun provider/service à charger, on arrête le loading ici aussi
+        if (serviceIds.length === 0 && providerIds.length === 0) {
+          this.loading = false;
+        }
+      },
+      error: () => {
+        this.error = 'Error loading reservations.';
+        this.loading = false; // ✅ en cas d'erreur, on arrête le loader
+      }
+    });
   }
 
   cancelReservation(id: number): void {
@@ -200,7 +233,7 @@ export class ClientReservationsComponent implements OnInit {
 
     this.submittingReview = true;
     const reviewData = {
-      clientId: this.currentClientId,
+      clientId: this.userId,
       providerId: this.selectedReservation.providerId,
       serviceId: this.selectedReservation.serviceId,
       rating: this.reviewForm.value.rating,

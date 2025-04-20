@@ -11,13 +11,13 @@
       "password": "password123",
       "role": "CLIENT",
       "gender": "MALE",
-      "phone": "dsdsds",
+      "phone": "22075303",
       "description": "",
       "status": true,
       "updatedAt": "2025-04-03T13:11:50.107Z"
     },
     {
-      "id": "feb9",
+      "id": "2",
       "username": "ayoub",
       "email": "ayoub.dammak@it.ens.tn",
       "password": "Admin**123",
@@ -30,13 +30,13 @@
       "updatedAt": "2025-04-03T17:02:46.830Z"
     },
     {
-      "id": "71ee",
+      "id": "3",
       "username": "Ayoub",
       "email": "ayoub.dammak@gmail.com",
       "password": "Admin**123",
       "role": "PROVIDER",
-      "phone": "",
-      "address": "",
+      "phone": "22075303",
+      "address": "Sfax",
       "description": "",
       "status": true,
       "createdAt": "2025-04-05T11:35:02.634Z",
@@ -51,7 +51,7 @@
       "price": 180,
       "duration": 120,
       "categoryId": "f334",
-      "providerId": "71ee",
+      "providerId": "3",
       "imageUrl": "assets/images/jardinage1.jpeg"
     },
     {
@@ -61,7 +61,7 @@
       "price": 220,
       "duration": 90,
       "categoryId": "e112",
-      "providerId": "71ee",
+      "providerId": "3",
       "imageUrl": "assets/images/gazboiler.JPG"
     },
     {
@@ -71,7 +71,7 @@
       "price": 75,
       "duration": 60,
       "categoryId": "bcd1",
-      "providerId": "71ee",
+      "providerId": "3",
       "imageUrl": "assets/images/nettoyage1.jpeg"
     },
     {
@@ -81,7 +81,7 @@
       "price": 200,
       "duration": 150,
       "categoryId": "a776",
-      "providerId": "71ee",
+      "providerId": "3",
       "imageUrl": "assets/images/painting.JPG"
     },
     {
@@ -91,7 +91,7 @@
       "price": 90,
       "duration": 60,
       "categoryId": "e112",
-      "providerId": "71ee",
+      "providerId": "3",
       "imageUrl": "assets/images/conditionner.JPG"
     },
     {
@@ -101,7 +101,7 @@
       "price": 50,
       "duration": 120,
       "categoryId": "c501",
-      "providerId": "71ee",
+      "providerId": "3",
       "imageUrl": "assets/images/assistante.jpg"
     }
   ],
@@ -179,33 +179,42 @@
       "comment": "Excellent service!",
       "date": "2024-03-15T10:00:00Z",
       "clientId": "1",
-      "providerId": "71ee",
-      "serviceId": "5248"
+      "providerId": "3",
+      "serviceId": "1006"
     },
     {
       "id": "7282",
       "clientId": 1,
-      "providerId": "71ee",
-      "serviceId": "5248",
+      "providerId": "3",
+      "serviceId": "1006",
       "rating": "3",
       "comment": "nice sevices",
       "date": "2025-04-15T17:10:26.357Z"
+    },
+    {
+      "id": "a4c0",
+      "clientId": 1,
+      "providerId": "3",
+      "serviceId": "1006",
+      "rating": 5,
+      "comment": "nice",
+      "date": "2025-04-18T19:30:22.063Z"
     }
   ],
   "reservations": [
     {
       "id": "1",
       "clientId": "1",
-      "providerId": "71ee",
-      "serviceId": "5248",
+      "providerId": "3",
+      "serviceId": "1006",
       "reservationDate": "2024-03-20T14:00:00Z",
       "status": "COMPLETED"
     },
     {
       "id": "30f0",
       "clientId": "1",
-      "providerId": "71ee",
-      "serviceId": "5248",
+      "providerId": "3",
+      "serviceId": "1006",
       "serviceName": "Basic Plumbing",
       "date": "2025-04-04T17:59:00.000Z",
       "time": "10:00",
@@ -216,8 +225,8 @@
     {
       "id": "0a0f",
       "clientId": "1",
-      "providerId": "71ee",
-      "serviceId": "5248",
+      "providerId": "3",
+      "serviceId": "1006",
       "serviceName": "Basic Plumbing",
       "date": "2025-04-19T11:27:00.000Z",
       "time": "10:00",
@@ -228,67 +237,67 @@
     {
       "id": "87e4",
       "clientId": "1",
-      "providerId": "71ee",
-      "serviceId": "5956",
+      "providerId": "3",
+      "serviceId": "1002",
       "serviceName": "azeaz",
       "date": "2025-04-10T11:57:00.000Z",
       "time": "10:00",
-      "status": "PENDING",
+      "status": "REJECTED",
       "notes": "",
       "reservationDate": "2025-04-10T11:57:00.000Z"
     },
     {
       "id": "fb06",
       "clientId": "1",
-      "providerId": "71ee",
+      "providerId": "3",
       "serviceId": "1002",
       "serviceName": "Gas Boiler Installation",
       "date": "2025-04-18T10:28:00.000Z",
       "time": "10:00",
-      "status": "PENDING",
+      "status": "COMPLETED",
       "notes": "",
       "reservationDate": "2025-04-18T10:28:00.000Z"
     },
     {
       "id": "d2fd",
       "clientId": "1",
-      "providerId": "71ee",
+      "providerId": "3",
       "serviceId": "1007",
       "serviceName": "Lawn Installation",
       "date": "2025-04-24T10:29:00.000Z",
       "time": "10:00",
-      "status": "PENDING",
+      "status": "COMPLETED",
       "notes": "",
       "reservationDate": "2025-04-24T10:29:00.000Z"
     },
     {
       "id": "73d7",
       "clientId": "1",
-      "providerId": "71ee",
+      "providerId": "3",
       "serviceId": "1005",
       "serviceName": "Air Conditioner Maintenance",
       "date": "2025-04-18T10:31:00.000Z",
       "time": "10:00",
-      "status": "PENDING",
+      "status": "ACCEPTED",
       "notes": "",
       "reservationDate": "2025-04-18T10:31:00.000Z"
     },
     {
       "id": "1324",
       "clientId": "1",
-      "providerId": "71ee",
+      "providerId": "3",
       "serviceId": "1002",
       "serviceName": "Gas Boiler Installation",
       "date": "2025-04-10T10:49:00.000Z",
       "time": "10:00",
-      "status": "PENDING",
+      "status": "CANCELLED",
       "notes": "",
       "reservationDate": "2025-04-10T10:49:00.000Z"
     },
     {
       "id": "e6d6",
       "clientId": "1",
-      "providerId": "71ee",
+      "providerId": "3",
       "serviceId": "1002",
       "serviceName": "Gas Boiler Installation",
       "date": "2025-05-01T10:50:00.000Z",
@@ -300,7 +309,7 @@
     {
       "id": "9020",
       "clientId": "1",
-      "providerId": "71ee",
+      "providerId": "3",
       "serviceId": "1004",
       "serviceName": "Wall Painting",
       "date": "2025-04-26T11:25:00.000Z",
@@ -308,6 +317,18 @@
       "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-26T11:25:00.000Z"
+    },
+    {
+      "id": "88a5",
+      "clientId": "1",
+      "providerId": "3",
+      "serviceId": "1002",
+      "serviceName": "Gas Boiler Installation",
+      "date": "2025-04-25T22:45:00.000Z",
+      "time": "10:00",
+      "status": "PENDING",
+      "notes": "",
+      "reservationDate": "2025-04-25T22:45:00.000Z"
     }
   ]
 }

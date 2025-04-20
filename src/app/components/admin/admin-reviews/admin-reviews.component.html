@@ -37,8 +37,9 @@
                   </div>
                   <p class="mb-1">{{ review.comment }}</p>
                   <small class="text-muted">
-                    By User #{{ review.clientId }} on {{ review.date | date:'medium' }}
+                    By {{ getUserName(review.clientId) }} on {{ review.date | date:'medium' }}
                   </small>
+
                 </div>
                 <button class="btn btn-sm btn-outline-danger" (click)="deleteReview(review.id)">
                   Delete

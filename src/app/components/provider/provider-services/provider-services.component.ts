@@ -64,8 +64,8 @@ export class ProviderServicesComponent implements OnInit {
 
   // Pagination properties
   totalItems = 0;
-  pageSize = 5;
-  pageSizeOptions = [ 5, 10,50];
+  pageSize = 2;
+  pageSizeOptions = [ 2,5, 10,50];
   pageIndex = 0;
 
   constructor(

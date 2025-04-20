@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 
 import {
   AvatarComponent,
@@ -23,6 +23,7 @@ import {
 } from '@coreui/angular';
 
 import { IconDirective } from '@coreui/icons-angular';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-default-header',
@@ -35,6 +36,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
+  userRole: string | undefined;
 
   readonly colorModes = [
     { name: 'light', text: 'Light', icon: 'cilSun' },
@@ -47,8 +49,16 @@ export class DefaultHeaderComponent extends HeaderComponent {
     return this.colorModes.find(mode => mode.name === currentMode)?.icon ?? 'cilSun';
   });
 
-  constructor() {
+  constructor(private authService: AuthService,
+              private router: Router) {
     super();
+    this.userRole = this.authService.currentUserValue?.role;
+
+
+  }
+
+  goToPage(page: string): void {
+    this.router.navigate(['/provider', page]);
   }
 
   sidebarId = input('sidebar1');
@@ -127,5 +137,30 @@ export class DefaultHeaderComponent extends HeaderComponent {
     { id: 3, title: 'Add new layouts', value: 75, color: 'info' },
     { id: 4, title: 'Angular Version', value: 100, color: 'success' }
   ];
+
+  getProfileLink(): string {
+    const role = this.authService.currentUserValue?.role;
+    if (role === 'ADMIN') return '/admin/profile';
+    if (role === 'PROVIDER') return '/provider/profile';
+    if (role === 'CLIENT') return '/client/profile';
+    return '/profile'; // fallback
+  }
+
+  getServicesLink(): string {
+    const role = this.authService.currentUserValue?.role;
+    if (role === 'ADMIN') return '/admin/profile';
+    if (role === 'PROVIDER') return '/provider/profile';
+    if (role === 'CLIENT') return '/client/profile';
+    return '/profile'; // fallback
+  }
+
+  getReviewsLink(): string {
+    const role = this.authService.currentUserValue?.role;
+    if (role === 'ADMIN') return '/admin/reviews';
+    if (role === 'PROVIDER') return '/provider/reviews';
+    if (role === 'CLIENT') return '/client/reviews';
+    return '/reviews'; // fallback
+  }
+
 
 }

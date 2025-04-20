@@ -13,6 +13,13 @@ export const routes: Routes = [
     loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
   },
   {
+    path: 'about',
+    loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent)
+  },{
+    path: 'contact',
+    loadComponent: () => import('./components/client/contact/contact.component').then(m => m.ContactComponent)
+  },
+  {
     path: 'services',
     loadComponent: () => import('./components/services/services.component').then(m => m.ServicesComponent)
   },
@@ -41,7 +48,16 @@ export const routes: Routes = [
       },
       {
         path: 'client',
-        loadChildren: () => import('./components/services/routes').then(m => m.routes)
+        loadChildren: () => import('./components/usersServices/routes').then(m => m.routes)
+      },
+      {
+        path: 'provider',
+        loadChildren: () => import('./views/pages/client/client-routing.module').then(m => m.ClientRoutingModule)
+      },
+
+      {
+        path: 'provider',
+        loadChildren: () => import('./components/usersServices/routes').then(m => m.routes)
       },
       {
         path: 'base',
@@ -77,6 +93,10 @@ export const routes: Routes = [
       },
 
       // Provider routes
+      {
+        path: 'provider',
+        loadChildren: () => import('./components/provider/routes').then(m => m.routes)
+      },
       {
         path: 'provider',
         loadChildren: () => import('./components/provider/routes').then(m => m.routes)

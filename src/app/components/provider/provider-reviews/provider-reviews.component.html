@@ -1,8 +1,8 @@
 <div class="container mt-4">
-  <div class="row">
+  <div class="row" style="margin-bottom: 15px">
     <div class="col-12">
-      <div class="card shadow-sm">
-        <div class="card-header text-white">
+      <div class="card shadow-sm ">
+        <div class="card-header text-white text-center" style="background-color: #002B5B;">
           <h5 class="mb-0">Service Reviews</h5>
         </div>
         <div class="card-body">
@@ -34,19 +34,22 @@
                           <span class="star" [ngClass]="starClass">★</span>
                         </ng-container>
                       </div>
-                      <small class="text-muted">Service ID: {{ review.serviceId }}</small>
+                      <small class="text-muted">
+                        Service: <strong>{{ getServiceName(review.serviceId) }}</strong>
+                      </small>
                     </div>
                     <p class="mb-1">{{ review.comment }}</p>
                     <small class="text-muted">
-                      By Client #{{ review.clientId }} on {{ review.date | date:'medium' }}
+                      By Client <strong>{{ getUserName(review.clientId) }}</strong> on {{ review.date | date:'medium' }}
                     </small>
                   </div>
                 </div>
+
               </div>
             </div>
 
-            <!-- Pagination (optionnel) -->
-            <!--
+            <!-- Pagination (optionnel si tu en as besoin) -->
+
             <div class="d-flex justify-content-center mt-4">
               <mat-paginator
                 [length]="totalItems"
@@ -56,7 +59,7 @@
                 (page)="handlePageEvent($event)">
               </mat-paginator>
             </div>
-            -->
+
           </div>
         </div>
       </div>

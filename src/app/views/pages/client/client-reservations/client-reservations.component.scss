@@ -1,0 +1,48 @@
+.btn-filter {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa; // ✅ gris clair pour l'état inactif
+  color: #343a40;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #e2e6ea;
+    border-color: #ced4da;
+  }
+
+  // 👉 Style actif générique (All)
+  &.active {
+    background-color: #1d3c6a;
+    color: #fff;
+    border-color: #1d3c6a;
+  }
+
+  &.pending.active {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+  }
+
+  &.accepted.active {
+    background-color: #198754;
+    border-color: #198754;
+    color: #fff;
+  }
+
+  &.completed.active {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+  }
+
+  &.cancelled.active {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+  }
+
+
+}

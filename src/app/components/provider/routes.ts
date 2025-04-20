@@ -27,7 +27,7 @@ export const routes: Routes = [
         data: { title: 'Provider Profile' }
       },
       {
-        path: 'services',
+        path: 'my-services',
         loadComponent: () => import('./provider-services/provider-services.component')
           .then(m => m.ProviderServicesComponent),
         data: { title: 'Provider Services' }

@@ -3,13 +3,13 @@ import { INavData } from '@coreui/angular';
 // Navigation items for each role
 const clientNavItems: INavData[] = [
   {
-    name: 'Dashboard',
-    url: '/client/dashboard',
-    iconComponent: { name: 'cil-speedometer' }
-  },
-  {
     title: true,
     name: 'Client'
+  },
+  {
+    name: 'Book now',
+    url: '/provider/services',
+    iconComponent: { name: 'cilCash' }
   },
   {
     name: 'My Profile',
@@ -61,7 +61,7 @@ const providerNavItems: INavData[] = [
   },
   {
     name: 'My Services',
-    url: '/provider/services',
+    url: '/provider/my-services',
     iconComponent: { name: 'cil-basket' } // ou un autre valide : cil-user, cil-list, etc.
   },
   {
@@ -69,11 +69,39 @@ const providerNavItems: INavData[] = [
     url: '/provider/reviews',
     iconComponent: { name: 'cil-star' }
   },
+
+
+  {
+    title: true,
+    name: 'Client'
+  },
+  {
+    name: 'Book now',
+    url: '/provider/services',
+    iconComponent: { name: 'cilCash' }
+  },
+  {
+    name: 'My Reservations',
+    url: '/provider/reservations',
+    iconComponent: { name: 'cil-calendar' }
+  },
+  {
+    name: 'My Reviews',
+    url: '/provider/reviews',
+    iconComponent: { name: 'cil-star' }
+  },
+  {
+    name: 'Messages',
+    url: '/provider/messages',
+    iconComponent: { name: 'cil-speech' }
+
+  },
+
   {
     name: 'Log out',
     url: '/home', // ou simplement '#' si tu veux gérer le clic manuellement
     iconComponent: { name: 'cil-account-logout' }
-  }
+  },
 ];
 
 const adminNavItems: INavData[] = [

@@ -1,107 +1,76 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12 text-center">
-    </div>
+<div class="container-fluid mt-4">
+  <h1 class="mb-4">Provider Dashboard</h1>
 
-    <div *ngIf="loading" class="d-flex justify-content-center align-items-center">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-
-    <div *ngIf="error" class="alert alert-danger text-center" role="alert">
-      {{ error }}
-    </div>
-
-    <div class="row">
-      <!-- My Services -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <div class="card-header text-white">
-            <h5 class="mb-0">My Services</h5>
-          </div>
-          <div class="card-body">
-            <div *ngIf="services.length === 0" class="text-center py-3">
-              <p class="text-muted">No services yet</p>
-              <a routerLink="/provider/services/new" class="btn btn-sm btn-outline-primary">Add Service</a>
-            </div>
-            <div *ngFor="let service of services" class="border-bottom pb-3 mb-3">
-              <h6 class="mb-1">{{ service.name }}</h6>
-              <p class="mb-1 text-muted">{{ service.description }}</p>
-              <p class="mb-1"><strong>Price:</strong> ${{ service.price }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="badge bg-secondary">{{ service.category?.name }}</span>
-                <a [routerLink]="['/provider/services', service.id, 'edit']" class="btn btn-sm text-success border">
-                  Edit
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Reservations -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <div class="card-header text-white">
-            <h5 class="mb-0">Reservations</h5>
-          </div>
-          <div class="card-body">
-            <div *ngIf="reservations.length === 0" class="text-center py-3">
-              <p class="text-muted">No reservations yet</p>
-            </div>
-            <div *ngFor="let reservation of reservations" class="border-bottom pb-3 mb-3">
-              <div>
-                <h6 class="mb-1">Service #{{ reservation.serviceId }}</h6>
-                <small class="text-muted">Date: {{ reservation.reservationDate | date:'medium' }}</small><br />
-                <span class="badge" [ngClass]="{
-                  'bg-warning': reservation.status === ReservationStatus.PENDING,
-                  'bg-success': reservation.status === ReservationStatus.ACCEPTED,
-                  'bg-danger': reservation.status === ReservationStatus.REJECTED,
-                  'bg-info': reservation.status === ReservationStatus.COMPLETED,
-                  'bg-secondary': reservation.status === ReservationStatus.CANCELLED
-                }">
-                  {{ reservation.status }}
-                </span>
-              </div>
-              <div class="mt-2 d-flex gap-2" *ngIf="reservation.status === ReservationStatus.PENDING">
-                <button class="btn btn-sm btn-success" (click)="updateReservationStatus(reservation.id, ReservationStatus.ACCEPTED)">Accept</button>
-                <button class="btn btn-sm btn-danger" (click)="updateReservationStatus(reservation.id, ReservationStatus.REJECTED)">Reject</button>
-              </div>
-              <button *ngIf="reservation.status === ReservationStatus.ACCEPTED"
-                      class="btn btn-sm btn-outline-info mt-2"
-                      (click)="updateReservationStatus(reservation.id, ReservationStatus.COMPLETED)">
-                Mark as Completed
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Reviews -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <div class="card-header text-white">
-            <h5 class="mb-0">Reviews</h5>
-          </div>
-          <div class="card-body">
-            <div *ngIf="reviews.length === 0" class="text-center py-3">
-              <p class="text-muted">No reviews yet</p>
-            </div>
-            <div *ngFor="let review of reviews" class="border-bottom pb-3 mb-3">
-              <div class="stars mb-1">
-                <ng-container *ngFor="let star of [1,2,3,4,5]">
-                  <i class="fas" [ngClass]="star <= review.rating ? 'fa-star text-warning' : 'fa-star-o'"></i>
-                </ng-container>
-              </div>
-              <p class="mb-1">{{ review.comment }}</p>
-              <small class="text-muted">{{ review.date | date }}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
+  <!-- Loading & Error -->
+  <div *ngIf="loading" class="text-center mb-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
+  <!-- Stat Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3" *ngFor="let stat of [
+      { title: 'Services', value: totalServices, class: 'bg-primary' },
+      { title: 'Reservations', value: totalReservations, class: 'bg-warning text-dark' },
+      { title: 'Completed', value: totalCompleted, class: 'bg-success' },
+      { title: 'Reviews', value: totalReviews, class: 'bg-info text-dark' }
+    ]">
+      <div class="card text-white stat-card" [ngClass]="stat.class">
+        <div class="card-body text-center">
+          <h6>{{ stat.title }}</h6>
+          <div class="fs-4">{{ stat.value }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Reservation Status Distribution</div>
+        <div class="card-body">
+          <canvas
+            baseChart
+            [data]="reservationChart"
+            [type]="'doughnut'"
+            [plugins]="[ChartDataLabels]">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- Reservation Stats (Bar Chart) -->
+
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Reservations per Day</h5>
+          <div style="width: 200px;">
+            <select class="form-select form-select-sm" [(ngModel)]="selectedRange" (change)="applyDateFilter()">
+              <option value="7">Last 7 Days</option>
+              <option value="30">Last 30 Days</option>
+              <option value="all">All Time</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas
+            baseChart
+            [data]="reservationStatsChart"
+            [type]="'bar'">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Optional: Add service/reservation/review lists here -->
+</div>
