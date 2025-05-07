@@ -1,6 +1,6 @@
 .hero-banner-final {
   background: url('/assets/images/finale.png') center center / cover no-repeat !important;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -13,7 +13,10 @@
   padding: 0;
   margin-top: -76px;
   padding-top: 76px;
+  overflow-x: hidden;
+
 }
+
 
 .fullwidth-force {
   width: 100vw;
@@ -270,7 +273,7 @@
 
 .card {
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: translateY(-5px);
   }
@@ -288,6 +291,12 @@
     font-size: 1.25rem;
     margin-bottom: 1rem;
   }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+
 
   p {
     font-size: 0.95rem;
@@ -617,7 +626,7 @@ h5 {
   border-radius: 50px;
   border: none;
   font-weight: 500;
-  
+
   &:hover {
     background-color: #001B3B;
     color: white;

@@ -13,8 +13,8 @@
       "gender": "MALE",
       "phone": "22075303",
       "description": "",
-      "status": true,
-      "updatedAt": "2025-04-03T13:11:50.107Z"
+      "status": false,
+      "updatedAt": "2025-04-21T11:39:13.537Z"
     },
     {
       "id": "2",
@@ -329,6 +329,30 @@
       "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-25T22:45:00.000Z"
+    },
+    {
+      "id": "38ff",
+      "clientId": "1",
+      "providerId": "3",
+      "serviceId": "1007",
+      "serviceName": "Lawn Installation",
+      "date": "2025-04-23T14:28:00.000Z",
+      "time": "10:00",
+      "status": "PENDING",
+      "notes": "",
+      "reservationDate": "2025-04-23T14:28:00.000Z"
+    },
+    {
+      "id": "b843",
+      "clientId": "1",
+      "providerId": "3",
+      "serviceId": "1007",
+      "serviceName": "Lawn Installation",
+      "date": "2025-04-23T14:35:00.000Z",
+      "time": "10:00",
+      "status": "COMPLETED",
+      "notes": "",
+      "reservationDate": "2025-04-23T14:35:00.000Z"
     }
   ]
 }
