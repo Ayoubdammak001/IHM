@@ -11,13 +11,13 @@
       "password": "password123",
       "role": "CLIENT",
       "gender": "MALE",
-      "phone": "22075303",
+      "phone": "dsdsds",
       "description": "",
-      "status": false,
-      "updatedAt": "2025-04-21T11:39:13.537Z"
+      "status": true,
+      "updatedAt": "2025-04-03T13:11:50.107Z"
     },
     {
-      "id": "2",
+      "id": "feb9",
       "username": "ayoub",
       "email": "ayoub.dammak@it.ens.tn",
       "password": "Admin**123",
@@ -35,8 +35,8 @@
       "email": "ayoub.dammak@gmail.com",
       "password": "Admin**123",
       "role": "PROVIDER",
-      "phone": "22075303",
-      "address": "Sfax",
+      "phone": "",
+      "address": "",
       "description": "",
       "status": true,
       "createdAt": "2025-04-05T11:35:02.634Z",
@@ -180,25 +180,7 @@
       "date": "2024-03-15T10:00:00Z",
       "clientId": "1",
       "providerId": "3",
-      "serviceId": "1006"
-    },
-    {
-      "id": "7282",
-      "clientId": 1,
-      "providerId": "3",
-      "serviceId": "1006",
-      "rating": "3",
-      "comment": "nice sevices",
-      "date": "2025-04-15T17:10:26.357Z"
-    },
-    {
-      "id": "a4c0",
-      "clientId": 1,
-      "providerId": "3",
-      "serviceId": "1006",
-      "rating": 5,
-      "comment": "nice",
-      "date": "2025-04-18T19:30:22.063Z"
+      "serviceId": "5248"
     }
   ],
   "reservations": [
@@ -206,7 +188,7 @@
       "id": "1",
       "clientId": "1",
       "providerId": "3",
-      "serviceId": "1006",
+      "serviceId": "5248",
       "reservationDate": "2024-03-20T14:00:00Z",
       "status": "COMPLETED"
     },
@@ -214,7 +196,7 @@
       "id": "30f0",
       "clientId": "1",
       "providerId": "3",
-      "serviceId": "1006",
+      "serviceId": "5248",
       "serviceName": "Basic Plumbing",
       "date": "2025-04-04T17:59:00.000Z",
       "time": "10:00",
@@ -226,7 +208,7 @@
       "id": "0a0f",
       "clientId": "1",
       "providerId": "3",
-      "serviceId": "1006",
+      "serviceId": "5248",
       "serviceName": "Basic Plumbing",
       "date": "2025-04-19T11:27:00.000Z",
       "time": "10:00",
@@ -238,11 +220,11 @@
       "id": "87e4",
       "clientId": "1",
       "providerId": "3",
-      "serviceId": "1002",
+      "serviceId": "5956",
       "serviceName": "azeaz",
       "date": "2025-04-10T11:57:00.000Z",
       "time": "10:00",
-      "status": "REJECTED",
+      "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-10T11:57:00.000Z"
     },
@@ -254,7 +236,7 @@
       "serviceName": "Gas Boiler Installation",
       "date": "2025-04-18T10:28:00.000Z",
       "time": "10:00",
-      "status": "COMPLETED",
+      "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-18T10:28:00.000Z"
     },
@@ -266,7 +248,7 @@
       "serviceName": "Lawn Installation",
       "date": "2025-04-24T10:29:00.000Z",
       "time": "10:00",
-      "status": "COMPLETED",
+      "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-24T10:29:00.000Z"
     },
@@ -278,7 +260,7 @@
       "serviceName": "Air Conditioner Maintenance",
       "date": "2025-04-18T10:31:00.000Z",
       "time": "10:00",
-      "status": "ACCEPTED",
+      "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-18T10:31:00.000Z"
     },
@@ -290,7 +272,7 @@
       "serviceName": "Gas Boiler Installation",
       "date": "2025-04-10T10:49:00.000Z",
       "time": "10:00",
-      "status": "CANCELLED",
+      "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-10T10:49:00.000Z"
     },
@@ -317,42 +299,6 @@
       "status": "PENDING",
       "notes": "",
       "reservationDate": "2025-04-26T11:25:00.000Z"
-    },
-    {
-      "id": "88a5",
-      "clientId": "1",
-      "providerId": "3",
-      "serviceId": "1002",
-      "serviceName": "Gas Boiler Installation",
-      "date": "2025-04-25T22:45:00.000Z",
-      "time": "10:00",
-      "status": "PENDING",
-      "notes": "",
-      "reservationDate": "2025-04-25T22:45:00.000Z"
-    },
-    {
-      "id": "38ff",
-      "clientId": "1",
-      "providerId": "3",
-      "serviceId": "1007",
-      "serviceName": "Lawn Installation",
-      "date": "2025-04-23T14:28:00.000Z",
-      "time": "10:00",
-      "status": "PENDING",
-      "notes": "",
-      "reservationDate": "2025-04-23T14:28:00.000Z"
-    },
-    {
-      "id": "b843",
-      "clientId": "1",
-      "providerId": "3",
-      "serviceId": "1007",
-      "serviceName": "Lawn Installation",
-      "date": "2025-04-23T14:35:00.000Z",
-      "time": "10:00",
-      "status": "COMPLETED",
-      "notes": "",
-      "reservationDate": "2025-04-23T14:35:00.000Z"
     }
   ]
 }
